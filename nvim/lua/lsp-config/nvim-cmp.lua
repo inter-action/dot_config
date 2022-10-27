@@ -4,6 +4,7 @@ local lspkind = require('lspkind')
 
 -- nvim-cmp setup
 local cmp = require 'cmp'
+
 cmp.setup {
 	snippet = {
 		expand = function(args)
@@ -40,6 +41,7 @@ cmp.setup {
 	sources = {
 		{ name = 'nvim_lsp' },
 		{ name = 'luasnip' },
+		{ name = 'buffer' },
 	},
 	formatting = {
 		format = lspkind.cmp_format({
@@ -53,4 +55,14 @@ cmp.setup {
 			end
 		})
 	}
+
 }
+
+-- Use buffer source for `/` and `?` (if you enabled `native_menu`, this won't work anymore).
+cmp.setup.cmdline({ '/', '?' }, {
+	mapping = cmp.mapping.preset.cmdline(),
+	sources = {
+		{ name = 'buffer' }
+	}
+})
+

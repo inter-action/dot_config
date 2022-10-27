@@ -186,7 +186,7 @@ set autoindent
 set smartindent
 
 " Replace tabs with spaces
-" set expandtab
+set expandtab
 
 " When you hit tab at start of line, indent added according to shiftwidth value
 set smarttab
@@ -201,13 +201,6 @@ set smarttab
 " but in most cases tabstop and softtabstop better be the same
 " set softtabstop=4
 
-
-" when setting tabstop=4 there're some wired shit going on when open a new
-" line that tabsize doesnt seems right at all
-set shiftwidth=4
-set softtabstop=4
-set tabstop=4
-set noexpandtab
 
 " Round indent to multiple of 'shiftwidth'.
 " Indentation always be multiple of shiftwidth
@@ -246,8 +239,8 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " Very magic by default
-nnoremap ? ?\v
-nnoremap / /\v
+" nnoremap ? ?\v
+" nnoremap / /\v
 cnoremap %s/ %sm/
 
 "--------------------------------------------------
