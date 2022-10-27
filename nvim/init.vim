@@ -181,31 +181,32 @@ set cursorline
 
 " Copy indent from previous line
 set autoindent
+set smartindent
 
 " Enable smart indent. It add additional indents whe necessary
-set smartindent
+" set smartindent
 
 " Replace tabs with spaces
 set expandtab
 
 " When you hit tab at start of line, indent added according to shiftwidth value
-set smarttab
+" set smarttab
 
 
 " Number of spaces to use for each step of indent
-" set shiftwidth=4
+set shiftwidth=4
 
 " Number of spaces that a Tab in the file counts for
-" set tabstop=4
+set tabstop=4
 
 " but in most cases tabstop and softtabstop better be the same
-" set softtabstop=4
+set softtabstop=4
 
 
 " Round indent to multiple of 'shiftwidth'.
 " Indentation always be multiple of shiftwidth
 " Applies to  < and > command
-set shiftround
+" set shiftround
 
 "--------------------------------------------------
 " Search options
@@ -459,11 +460,6 @@ au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
 
 " au BufRead,BufNewFile *.json set ft=json
 " autocmd BufNewFile,BufRead *.ts set filetype=typescript
-
-
-" Disable vertical line at max string length in NERDTree
-autocmd FileType * setlocal colorcolumn=+1
-autocmd FileType nerdtree setlocal colorcolumn=""
 
 
 " auto save on focus lost
