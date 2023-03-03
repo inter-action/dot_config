@@ -1,5 +1,5 @@
 -- luasnip setup
-local luasnip = require 'luasnip'
+local luasnip = require('luasnip')
 local lspkind = require('lspkind')
 
 -- nvim-cmp setup
@@ -66,3 +66,15 @@ cmp.setup.cmdline({ '/', '?' }, {
 	}
 })
 
+-- need this dependence to enable path autocomplete
+-- Plug 'hrsh7th/cmp-path'
+
+--  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
+--  cmp.setup.cmdline(':', {
+--     mapping = cmp.mapping.preset.cmdline(),
+--     sources = cmp.config.sources({
+--       { name = 'path' }
+--     }, {
+--       { name = 'cmdline' }
+--     })
+--   })

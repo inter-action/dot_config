@@ -12,10 +12,11 @@ require('colorscheme-config/nightfox')
 require('nvim-tree-config')
 require('lsp-config/language-server')
 require('lsp-config/nvim-cmp')
+require('lsp-config/lsp-saga')
 require('lualine-config')
 require('treesitter-config')
--- require('barbar')
-
+require('telescope-config')
+require('global-options')
 EOF
 
 
@@ -322,9 +323,9 @@ nnoremap <C-Right> gt
 
 "-------------------------------------------------- 
 " personal options
-set pyxversion=3
 
-" Open new tab
+
+set pyxversion=3
 
 " quit & write
 nnoremap <silent><leader>q :q<CR>
@@ -336,21 +337,9 @@ vnoremap <silent><leader>y "+y<CR>
 nnoremap j gj
 nnoremap k gk
 
-" completion popup behaviour
-" https://unix.stackexchange.com/questions/162528/select-an-item-in-vim-autocomplete-list-without-inserting-line-break
-inoremap <expr> <CR> pumvisible() ? "\<C-y>" : "\<CR>"
-" inoremap <expr> <Esc> pumvisible() ? "\<C-e>" : "\<Esc>"
-inoremap <expr> <C-j> pumvisible() ? "\<C-n>" : "\<Down>"
-inoremap <expr> <C-k> pumvisible() ? "\<C-p>" : "\<Up>"
-
-
-" others
-nnoremap <s-tab> <c-w>w
-
-" new stuff
-nnoremap <silent> <space>nt :tabnew<CR>
 " new vertical
 nnoremap <silent> <space>nv :vertical new<CR>
+" hide vim, show terminal
 nnoremap <silent> <space>z <c-z>
 
 " working with buffers
@@ -464,9 +453,6 @@ au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
 
 " auto save on focus lost
 au FocusLost * silent! wa
-
-" Use auocmd to force lightline update.
-autocmd User CocStatusChange,CocDiagnosticChange call lightline#update()
 
 autocmd BufReadPost,FileReadPost * normal zR
 
