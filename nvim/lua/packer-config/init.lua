@@ -60,6 +60,8 @@ return require('packer').startup(function(use)
 	-- tabs
 	use 'romgrk/barbar.nvim'
 
+	use 'vimwiki/vimwiki'
+
     -- Simple plugins can be specified as strings
     --
 end)
