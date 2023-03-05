@@ -7,7 +7,6 @@ return require('packer').startup(function(use)
     use 'editorconfig/editorconfig-vim'
     use 'jremmen/vim-ripgrep'
 
-    use 'jiangmiao/auto-pairs'
     use 'MattesGroeger/vim-bookmarks'
 
 	-- treesitter
@@ -59,6 +58,9 @@ return require('packer').startup(function(use)
 	use 'rcarriga/nvim-notify'
 	-- tabs
 	use 'romgrk/barbar.nvim'
+	-- git
+	use 'lewis6991/gitsigns.nvim'
+
 
 	use 'vimwiki/vimwiki'
 
