@@ -16,7 +16,11 @@ return require('packer').startup(function(use)
 	}
 
 	-- LSP
-	use 'neovim/nvim-lspconfig' -- Configurations for Nvim LSP
+	use 'neovim/nvim-lspconfig'
+	use {
+		'williamboman/mason.nvim',
+		'williamboman/mason-lspconfig.nvim',
+	}
 	use 'hrsh7th/nvim-cmp' -- Autocompletion plugin
 	use 'hrsh7th/cmp-buffer' -- 
 	use 'hrsh7th/cmp-nvim-lsp' -- LSP source for nvim-cmp
@@ -32,6 +36,7 @@ return require('packer').startup(function(use)
 			{"nvim-treesitter/nvim-treesitter"}
 		}
 	})
+
 
     -- motion
     use 'easymotion/vim-easymotion'

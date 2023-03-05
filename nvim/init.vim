@@ -13,6 +13,8 @@ require('nvim-tree-config')
 require('lsp-config/language-server')
 require('lsp-config/nvim-cmp')
 require('lsp-config/lsp-saga')
+-- mason is not working correctly on my mac, maybe it's a nodejs version issue
+-- require('lsp-config/mason')
 require('lualine-config')
 require('treesitter-config')
 require('telescope-config')
