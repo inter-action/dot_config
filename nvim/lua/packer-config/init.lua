@@ -24,7 +24,15 @@ return require('packer').startup(function(use)
 	use 'saadparwaiz1/cmp_luasnip' -- Snippets source for nvim-cmp
 	use 'L3MON4D3/LuaSnip' -- Snippets plugin
 	use 'onsails/lspkind.nvim' -- add Symbol kind to completion
-	use 'glepnir/lspsaga.nvim' -- lsp ui
+	use({
+		"glepnir/lspsaga.nvim",
+		branch = "main",
+		requires = {
+			{"nvim-tree/nvim-web-devicons"},
+			--Please make sure you install markdown and markdown_inline parser
+			{"nvim-treesitter/nvim-treesitter"}
+		}
+	})
 
     -- motion
     use 'easymotion/vim-easymotion'
