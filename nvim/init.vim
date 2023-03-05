@@ -16,7 +16,7 @@ require('lsp-config/lsp-saga')
 require('lualine-config')
 require('treesitter-config')
 require('telescope-config')
-require('global-options')
+require('git-config/gitsigns')
 EOF
 
 
