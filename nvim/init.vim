@@ -29,6 +29,11 @@ EOF
 
 
 "-------------------------
+" closetag.vim
+let g:closetag_filetypes = 'html,xhtml,phtml,handlebars'
+
+
+"-------------------------
 " vim-highlightedyank
 let g:highlightedyank_highlight_duration = 250
 

@@ -43,13 +43,31 @@ return require('packer').startup(function(use)
     use 'machakann/vim-highlightedyank'
     use 'tpope/vim-surround'
 
-
 	-- telescope
 	-- :checkhealth telescope
 	use {
 		'nvim-telescope/telescope.nvim', tag = '0.1.0',
 		-- or                            , branch = '0.1.x',
 		requires = { {'nvim-lua/plenary.nvim'} }
+	}
+
+	-- auto pair
+	use {
+		"windwp/nvim-autopairs",
+		config = function() require("nvim-autopairs").setup {} end
+	}
+
+	use 'alvan/vim-closetag'
+
+	-- change case
+	use {
+		"johmsalas/text-case.nvim",
+		config = function()
+			require('textcase').setup {}
+			require('telescope').load_extension('textcase')
+			vim.api.nvim_set_keymap('n', 'ga.', '<cmd>TextCaseOpenTelescope<CR>', { desc = "Telescope" })
+			vim.api.nvim_set_keymap('v', 'ga.', "<cmd>TextCaseOpenTelescope<CR>", { desc = "Telescope" })
+		end
 	}
 
     -- ui enhancement
