@@ -18,6 +18,7 @@ require('lualine-config')
 require('treesitter-config')
 require('telescope-config')
 require('git-config/gitsigns')
+require('zenmode-config')
 EOF
 
 
@@ -471,7 +472,4 @@ au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
 
 " auto save on focus lost
 au FocusLost * silent! wa
-
-autocmd BufReadPost,FileReadPost * normal zR
-
 

@@ -83,7 +83,8 @@ return require('packer').startup(function(use)
 	use 'romgrk/barbar.nvim'
 	-- git
 	use 'lewis6991/gitsigns.nvim'
-
+	-- zen mode
+	use "folke/zen-mode.nvim"
 
 	use 'vimwiki/vimwiki'
 
