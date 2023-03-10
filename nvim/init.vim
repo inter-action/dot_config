@@ -358,8 +358,6 @@ nnoremap k gk
 
 " new vertical
 nnoremap <silent> <space>nv :vertical new<CR>
-" hide vim, show terminal
-nnoremap <silent> <space>z <c-z>
 
 " working with buffers
 map gn :bn<cr>
