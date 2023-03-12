@@ -347,7 +347,6 @@ set pyxversion=3
 
 " quit & write
 nnoremap <silent><leader>q :q<CR>
-nnoremap <silent><leader><leader>q :qa!<CR>
 nnoremap <silent><leader>w :w<CR>
 
 " yank to system clipboard
