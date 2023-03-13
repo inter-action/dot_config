@@ -23,21 +23,25 @@ telescope.setup {
 }
 
 -- keymaps
-vim.keymap.set("n", ";f",
-    function()
-        builtin.find_files(
-            {
-                no_ignore = false,
-                hidden = true
-            }
-        )
-    end
-)
-vim.keymap.set( "n", ";b",
-    function()
-        builtin.buffers()
-    end
-)
+-- map iterm with send vim chars, map `<Cmd-p>` to `\<M-p>`
+function find_files()
+    builtin.find_files(
+        {
+            -- no_ignore = false,
+            -- hidden = true
+        }
+    )
+end
+vim.keymap.set("n", "<M-p>", find_files)
+-- vim.keymap.set("n", ";f", find_files)
+
+function buffers()
+    builtin.buffers()
+end
+
+vim.keymap.set( "n", "<M-b>", buffers)
+-- vim.keymap.set( "n", ";b", buffers)
+
 vim.keymap.set( "n", ";r",
     function()
         builtin.live_grep()
