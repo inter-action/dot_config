@@ -33,14 +33,14 @@ function find_files()
     )
 end
 vim.keymap.set("n", "<M-p>", find_files)
--- vim.keymap.set("n", ";f", find_files)
+vim.keymap.set("n", ";f", find_files)
 
 function buffers()
     builtin.buffers()
 end
 
 vim.keymap.set( "n", "<M-b>", buffers)
--- vim.keymap.set( "n", ";b", buffers)
+vim.keymap.set( "n", ";b", buffers)
 
 vim.keymap.set( "n", ";r",
     function()

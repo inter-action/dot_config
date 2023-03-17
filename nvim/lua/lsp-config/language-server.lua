@@ -1,9 +1,3 @@
-
-local lsp_flags = {
-  -- This is the default in Nvim 0.7+
-  debounce_text_changes = 150,
-}
-
 -- Add additional capabilities supported by nvim-cmp
 local capabilities = require('cmp_nvim_lsp').default_capabilities()
 local lspconfig = require('lspconfig')
@@ -22,11 +16,23 @@ local lspconfig = require('lspconfig')
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- keep sync with mason
+
+local rt = require("rust-tools")
+rt.setup({
+    server = {
+        on_attach = function(_, bufnr)
+            -- Hover actions
+            -- todo: try to remove this line
+            vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions, { buffer = bufnr })
+        end,
+        capabilities = capabilities,
+    }
+})
+
 local servers = { 'tsserver', 'cssls' }
 for _, lsp in ipairs(servers) do
   lspconfig[lsp].setup {
     -- on_attach = on_attach,
     capabilities = capabilities,
-    flags = lsp_flags,
   }
 end
