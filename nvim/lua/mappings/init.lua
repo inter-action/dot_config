@@ -25,6 +25,13 @@ vim.keymap.set("n", "<space>z",
     end, 
     opts)
 
+vim.keymap.set("n", "<space>q", 
+    function()
+        vim.api.nvim_command("w")
+        -- delete buffer
+        vim.api.nvim_command("bd")
+    end, 
+    opts)
 
 vim.keymap.set("n", "<leader><leader>q", 
     function()

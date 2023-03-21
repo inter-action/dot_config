@@ -12,6 +12,7 @@ require('colorscheme-config/nightfox')
 require('nvim-tree-config')
 require('lsp-config')
 require('lualine-config')
+-- require('bufferline-config')
 require('treesitter-config')
 require('telescope-config')
 require('git-config/gitsigns')
@@ -343,7 +344,6 @@ nnoremap <C-Right> gt
 set pyxversion=3
 
 " quit & write
-nnoremap <silent><leader>q :q<CR>
 nnoremap <silent><leader>w :w<CR>
 
 " yank to system clipboard
@@ -355,18 +355,12 @@ nnoremap k gk
 " new vertical
 nnoremap <silent> <space>nv :vertical new<CR>
 
-" working with buffers
-map gn :bn<cr>
-map gp :bp<cr>
-map gx :bd<cr>
-
 " terminal mode
 tnoremap <Esc> <C-\><C-n>
 
 " hide sign column
 " https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
 highlight clear SignColumn
-
 
 
 "-------------------------------------------------- 
@@ -459,10 +453,6 @@ au FileType less set ft=less.css
 
 " no syntax highlight for 1 million lines
 au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
-
-" au BufRead,BufNewFile *.json set ft=json
-" autocmd BufNewFile,BufRead *.ts set filetype=typescript
-
 
 " auto save on focus lost
 au FocusLost * silent! wa

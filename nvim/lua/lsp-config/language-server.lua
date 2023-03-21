@@ -36,3 +36,9 @@ for _, lsp in ipairs(servers) do
     capabilities = capabilities,
   }
 end
+
+-- this requires html LSP to be installed, use Mason to install
+lspconfig.html.setup {
+    filetypes = {"html", "handlebars"},
+    capabilities = capabilities
+}

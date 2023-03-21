@@ -94,7 +94,8 @@ return require('packer').startup(function(use)
 	-- notify
 	use 'rcarriga/nvim-notify'
 	-- tabs
-	use 'romgrk/barbar.nvim'
+    use {'akinsho/bufferline.nvim', tag = "v3.*", requires = 'nvim-tree/nvim-web-devicons'}
+
 	-- git
 	use 'lewis6991/gitsigns.nvim'
 	-- zen mode
