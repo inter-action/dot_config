@@ -277,7 +277,7 @@ set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
 " Keymap to toggle folds with space
-nnoremap <silent> <Space> @=(foldlevel('.')?'za':"\<Space>")<CR>
+nnoremap <silent> <Space> @=(foldlevel('.')?'zA':"\<Space>")<CR>
 vnoremap <Space> zf
 
 
