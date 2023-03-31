@@ -22,20 +22,27 @@ vim.keymap.set("n", "<space>z",
     function()
         vim.api.nvim_command("wa")
         vim.api.nvim_command("stop")
-    end, 
-    opts)
+    end, opts)
 
-vim.keymap.set("n", "<space>q", 
+vim.keymap.set("n", "<leader>q", 
     function()
-        vim.api.nvim_command("w")
-        -- delete buffer
-        vim.api.nvim_command("bd")
-    end, 
-    opts)
+        local modifiable = vim.api.nvim_buf_get_option(0, 'modifiable')
+        if modifiable then
+            vim.api.nvim_command("w")
+        end
+        vim.api.nvim_command("q")
+    end, opts)
 
 vim.keymap.set("n", "<leader><leader>q", 
     function()
         vim.api.nvim_command("wa")
         vim.api.nvim_command("qa!")
-    end, 
-    opts)
+    end, opts)
+
+vim.keymap.set("n", ";rr", 
+    function()
+        local search = vim.fn.input("Keywords > ")
+        vim.api.nvim_feedkeys(":Rg -F '" .. search .. "' ", "n", false)
+    end, opts)
+
+
