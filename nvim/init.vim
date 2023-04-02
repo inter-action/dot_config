@@ -1,4 +1,4 @@
-" debug map `:verbose imap <tab>`
+" debug map `:verbose map <tab>`
 
 
 
