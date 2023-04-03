@@ -109,6 +109,9 @@ if &modifiable
     set fileformat=unix
 endif
 
+" increase command history size to 10000
+set shada=!,'100,<50,s10,h,:10000
+
 " Enable Tcl interface. Not sure what is exactly mean.
 " hset infercase
 
@@ -352,46 +355,14 @@ vnoremap <silent><leader>y "+y<CR>
 nnoremap j gj
 nnoremap k gk
 
-" new vertical
-nnoremap <silent> <space>nv :vertical new<CR>
-
 " terminal mode
+" use <C-d> to close it
 tnoremap <Esc> <C-\><C-n>
 
 " hide sign column
 " https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
 highlight clear SignColumn
 
-
-"-------------------------------------------------- 
-" diff git, copied from https://brookhong.github.io/2016/09/03/view-diff-file-side-by-side-in-vim.html
-"
-function! Vimdiff()
-    let lines = getline(0, '$')
-    let la = []
-    let lb = []
-    for line in lines
-        if line[0] == '-'
-            call add(la, line[1:])
-        elseif line[0] == '+'
-            call add(lb, line[1:])
-        else
-            call add(la, line)
-            call add(lb, line)
-        endif
-    endfor
-    tabnew
-    set bt=nofile
-    vertical new
-    set bt=nofile
-    call append(0, la)
-    diffthis
-    exe "normal \<C-W>l"
-    call append(0, lb)
-    diffthis
-endfunction
-autocmd FileType diff       nnoremap <silent> <leader>vd :call Vimdiff()<CR>
-autocmd FileType git       nnoremap <silent> <leader>vd :call Vimdiff()<CR>
 
 "-------------------------------------------------- 
 " Options config copied from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
@@ -405,19 +376,6 @@ if executable('rg')
 	set grepprg=rg\ --no-heading\ --vimgrep
 	set grepformat=%f:%l:%c:%m
 endif
-
-
-
-
-
-"--------------------------------------------------
-" Quickfix window size
-" https://vim.fandom.com/wiki/Automatically_fitting_a_quickfix_window_height
-au FileType qf call AdjustWindowHeight(5, 23)
-function! AdjustWindowHeight(minheight, maxheight)
-  exe max([min([line("$"), a:maxheight]), a:minheight]) . "wincmd _"
-endfunction
-
 
 "--------------------------------------------------
 " Autocmd
