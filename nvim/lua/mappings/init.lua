@@ -45,4 +45,26 @@ vim.keymap.set("n", ";rr",
         vim.api.nvim_feedkeys(":Rg -F '" .. search .. "' ", "n", false)
     end, opts)
 
+-- quickfix window
+vim.keymap.set("n", "<F4>", 
+    function()
+        local wininfos = vim.fn.getwininfo()
+        local hasQuickFix = false
+
+        for i = 1, #wininfos do 
+            local v = wininfos[i]
+
+            if v.quickfix == 1 then
+                hasQuickFix = true
+                break
+            end
+        end
+
+        if hasQuickFix then
+            vim.api.nvim_command("cclose")
+        else
+            vim.api.nvim_command("copen 20")
+        end
+    end, opts)
+
 
