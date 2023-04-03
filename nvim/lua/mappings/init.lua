@@ -45,6 +45,14 @@ vim.keymap.set("n", ";rr",
         vim.api.nvim_feedkeys(":Rg -F '" .. search .. "' ", "n", false)
     end, opts)
 
+-- fold
+-- map iterm with <cmd-[> to zc and map <cmd-]> to zo
+vim.keymap.set("n", "zf", 
+    function()
+        local foldlevel = vim.fn.input("foldlevel > ")
+        vim.api.nvim_command("set foldlevel=" .. foldlevel)
+    end, opts)
+
 -- quickfix window
 vim.keymap.set("n", "<F4>", 
     function()
