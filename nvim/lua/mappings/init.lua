@@ -20,7 +20,7 @@ map("n", "<leader>nn", "<cmd>NvimTreeToggle<cr>", opts)
 --- quit & write
 vim.keymap.set("n", "<space>z", 
     function()
-        vim.api.nvim_command("wa")
+        vim.api.nvim_command("silent wa")
         vim.api.nvim_command("stop")
     end, opts)
 
@@ -74,5 +74,4 @@ vim.keymap.set("n", "<F4>",
             vim.api.nvim_command("copen 20")
         end
     end, opts)
-
 

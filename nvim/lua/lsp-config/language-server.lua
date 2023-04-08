@@ -29,12 +29,14 @@ rt.setup({
     }
 })
 
-local servers = { 'tsserver', 'cssls' }
+local servers = { 'tsserver', 'cssls', 'clangd' }
 for _, lsp in ipairs(servers) do
-  lspconfig[lsp].setup {
-    -- on_attach = on_attach,
-    capabilities = capabilities,
-  }
+    if lspconfig[lsp] then
+        lspconfig[lsp].setup {
+            -- on_attach = on_attach,
+            capabilities = capabilities,
+        }
+    end
 end
 
 -- this requires html LSP to be installed, use Mason to install
