@@ -5,14 +5,10 @@ require("nvim-tree").setup({
     view = {
         width = 45,
     },
-    renderer = {
-        icons = {
-            show = {
-                git = true,
-                folder = true,
-                file = true,
-                folder_arrow = true,
-            }
-        }
+    update_focused_file = {
+        enable = true,
+    },
+    hijack_directories = {
+        enable = false,
     }
 })

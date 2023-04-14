@@ -16,7 +16,9 @@ telescope.setup {
                 ["q"] = actions.close
             },
             ["i"] = {
-                ["<C-u>"] = function() vim.cmd('normal dd') end,
+                -- ["<C-u>"] = function() vim.cmd('normal dd') end,
+                ["<C-j>"] = actions.move_selection_next,
+                ["<C-k>"] = actions.move_selection_previous,
             },
         }
     }
@@ -47,6 +49,11 @@ vim.keymap.set( "n", ";r",
         builtin.live_grep()
     end
 )
+vim.keymap.set( "n", ";s",
+    function()
+        builtin.ls_document_symbols()
+    end
+)
 vim.keymap.set( "n", ";c",
     function()
         builtin.commands()
@@ -57,9 +64,9 @@ vim.keymap.set( "n", ";ch",
         builtin.command_history()
     end
 )
-vim.keymap.set( "n", ";ht",
+vim.keymap.set( "n", ";",
     function()
-        builtin.help_tags()
+        builtin.marks()
     end
 )
 vim.keymap.set( "n", ";a",

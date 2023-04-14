@@ -2,3 +2,5 @@ require("bufferline").setup {
     options = {
     }
 }
+
+

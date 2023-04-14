@@ -75,3 +75,13 @@ vim.keymap.set("n", "<F4>",
         end
     end, opts)
 
+-- buffer line
+vim.keymap.set("n", "<F2>", 
+    function()
+        vim.api.nvim_command("BufferLinePick")
+    end, opts)
+
+vim.keymap.set("n", "<F3>", 
+    function()
+        vim.api.nvim_command("BufferLinePickClose")
+    end, opts)
