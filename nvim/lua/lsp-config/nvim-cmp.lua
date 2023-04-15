@@ -61,27 +61,16 @@ cmp.setup.cmdline({ '/', '?' }, {
 	}
 })
 
--- https://github.com/hrsh7th/nvim-cmp/issues/874
-cmp.setup.cmdline(':', {
-  sources = cmp.config.sources({
-    { name = 'path' }
-  }, {
-    { name = 'cmdline' }
-  })
-})
-
--- need this dependence to enable path autocomplete
--- Plug 'hrsh7th/cmp-path'
 
 --  -- Use cmdline & path source for ':' (if you enabled `native_menu`, this won't work anymore).
---  cmp.setup.cmdline(':', {
---     mapping = cmp.mapping.preset.cmdline(),
---     sources = cmp.config.sources({
---       { name = 'path' }
---     }, {
---       { name = 'cmdline' }
---     })
---   })
+cmp.setup.cmdline(':', {
+    mapping = cmp.mapping.preset.cmdline(),
+    sources = cmp.config.sources({
+        { name = 'path' }
+    }, {
+        { name = 'cmdline' }
+    })
+})
 
 
 --Set completeopt to have a better completion experience
