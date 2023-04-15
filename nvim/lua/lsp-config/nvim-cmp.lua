@@ -17,11 +17,9 @@ cmp.setup({
     ['<CR>'] = cmp.mapping.confirm({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
-    })
-
-    -- Add tab support, enable this would make vim command autocomplete fail
-    -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    -- ['<Tab>'] = cmp.mapping.select_next_item(),
+    }),
+    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    ['<Tab>'] = cmp.mapping.select_next_item(),
 
     -- prefer ESC
     -- ['<C-c>'] = cmp.mapping.close(),
@@ -61,6 +59,15 @@ cmp.setup.cmdline({ '/', '?' }, {
 	sources = {
 		{ name = 'buffer' }
 	}
+})
+
+-- https://github.com/hrsh7th/nvim-cmp/issues/874
+cmp.setup.cmdline(':', {
+  sources = cmp.config.sources({
+    { name = 'path' }
+  }, {
+    { name = 'cmdline' }
+  })
 })
 
 -- need this dependence to enable path autocomplete

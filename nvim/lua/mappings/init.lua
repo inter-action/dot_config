@@ -41,8 +41,9 @@ vim.keymap.set("n", "<leader><leader>q",
 
 vim.keymap.set("n", ";rr", 
     function()
-        local search = vim.fn.input("Keywords > ")
-        vim.api.nvim_feedkeys(":Rg -F '" .. search .. "' ", "n", false)
+        local cword = vim.fn.expand('<cword>')
+        local search = vim.fn.input("Keywords > ", cword)
+        vim.api.nvim_feedkeys(":Rg -F '" .. search .. "' -w", "n", false)
     end, opts)
 
 -- fold
