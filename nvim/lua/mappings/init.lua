@@ -26,11 +26,28 @@ vim.keymap.set("n", "<space>z",
 
 vim.keymap.set("n", "<leader>q", 
     function()
-        local modifiable = vim.api.nvim_buf_get_option(0, 'modifiable')
-        if modifiable then
-            vim.api.nvim_command("w")
+        local modifiable = vim.bo.modifiable
+        -- local modified = vim.bo.modified
+        local is_noname_buffer = vim.fn.expand('%:p') == '' -- same as, vim.api.nvim_buf_get_name(0)
+
+        if not modifiable then
+            return vim.api.nvim_command("q")
         end
-        vim.api.nvim_command("q")
+
+        if not is_noname_buffer then
+            return vim.api.nvim_command("w")
+        end
+
+        return vim.ui.select({ 'y', 'n' }, {
+            prompt = 'no name buffer, force close? :',
+        }, function(choice)
+            if choice == 'y' then
+                vim.api.nvim_command("q!")
+            else
+                return
+            end
+        end)
+
     end, opts)
 
 vim.keymap.set("n", "<leader><leader>q", 
