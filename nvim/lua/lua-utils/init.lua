@@ -1,9 +1,5 @@
 local exports = {}
 
-function exports.test()
-    print("worked")
-end
-
 function exports.merge_tables(a, b)
     local temp = {}
     merge_table(temp, a)

@@ -24,7 +24,11 @@ vim.keymap.set("n", "<space>z",
         vim.api.nvim_command("stop")
     end, opts)
 
-vim.keymap.set("n", "<leader>q", 
+vim.keymap.set("n", ";w", function()
+    vim.api.nvim_command("wa")
+end, opts)
+
+vim.keymap.set("n", ";q", 
     function()
         local modifiable = vim.bo.modifiable
         -- local modified = vim.bo.modified
