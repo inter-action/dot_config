@@ -1,6 +1,8 @@
 local lspkind = require('lspkind')
 local cmp = require'cmp'
 
+vim.g.vsnip_snippet_dir = "~/.config/vsnip"
+
 cmp.setup({
   -- Enable LSP snippets
   snippet = {
@@ -18,8 +20,12 @@ cmp.setup({
       behavior = cmp.ConfirmBehavior.Replace,
       select = true,
     }),
-    ['<S-Tab>'] = cmp.mapping.select_prev_item(),
-    ['<Tab>'] = cmp.mapping.select_next_item(),
+    ['<Tab>'] = cmp.mapping.confirm({
+      behavior = cmp.ConfirmBehavior.Insert,
+      select = true,
+    }),
+    -- ['<S-Tab>'] = cmp.mapping.select_prev_item(),
+    -- ['<Tab>'] = cmp.mapping.select_next_item(),
 
     -- prefer ESC
     -- ['<C-c>'] = cmp.mapping.close(),

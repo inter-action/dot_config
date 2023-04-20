@@ -25,7 +25,7 @@ vim.keymap.set("n", "<space>z",
     end, opts)
 
 vim.keymap.set("n", ";w", function()
-    vim.api.nvim_command("wa")
+    vim.api.nvim_command("silent wa")
 end, opts)
 
 vim.keymap.set("n", ";q", 

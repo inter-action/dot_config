@@ -341,9 +341,6 @@ nnoremap <C-Right> gt
 
 set pyxversion=3
 
-" quit & write
-nnoremap <silent><leader>w :w<CR>
-
 " yank to system clipboard
 vnoremap <silent><leader>y "+y<CR>
 
