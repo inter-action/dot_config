@@ -8,7 +8,7 @@ function map(mode, lhs, rhs, opts)
 end
 
 
-local opts = { silent=false, silent=true}
+local opts = { silent=false, silent=true }
 
 -- nvim tree
 map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
@@ -25,7 +25,7 @@ vim.keymap.set("n", "<space>z",
     end, opts)
 
 vim.keymap.set("n", ";w", function()
-    vim.api.nvim_command("silent wa")
+    vim.api.nvim_command("wa")
 end, opts)
 
 vim.keymap.set("n", ";q", 
@@ -39,7 +39,8 @@ vim.keymap.set("n", ";q",
         end
 
         if not is_noname_buffer then
-            return vim.api.nvim_command("w")
+            vim.api.nvim_command("x")
+            return 
         end
 
         return vim.ui.select({ 'y', 'n' }, {
