@@ -17,5 +17,23 @@ function merge_table(first_table, second_table)
 end
 
 
+
+-- Functional wrapper for mapping custom keybindings
+function exports.map_command(mode, lhs, rhs, opts)
+    local options = { noremap = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
+end
+
+function exports.map_func(mode, lhs, rhs, opts)
+    local options = { noremap = true }
+    if opts then
+        options = vim.tbl_extend("force", options, opts)
+    end
+    vim.keymap.set(mode, lhs, rhs, options)
+end
+
 -- export exports
 return exports

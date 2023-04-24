@@ -4,10 +4,13 @@ if (not status) then
 end
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
+local utils = require("../lua-utils")
 
 local function telescope_buffer_dir()
     return vim.fn.expand("%:p:h")
 end
+
+local map = utils.map_func
 
 telescope.setup {
     defaults = {
@@ -34,48 +37,58 @@ function find_files()
         }
     )
 end
-vim.keymap.set("n", "<M-p>", find_files)
--- vim.keymap.set("n", ";f", find_files)
+map("n", "<M-p>", find_files)
+-- map("n", ";f", find_files)
 
 function buffers()
     builtin.buffers()
 end
 
-vim.keymap.set( "n", "<M-b>", buffers)
--- vim.keymap.set( "n", ";b", buffers)
+map("n", "<M-b>", buffers)
+-- map("n", ";b", buffers)
 
-vim.keymap.set( "n", ";r",
+map("n", ";r",
     function()
         builtin.live_grep()
     end
 )
-vim.keymap.set( "n", ";s",
+map("n", ";s",
     function()
         builtin.lsp_document_symbols()
     end
 )
-vim.keymap.set( "n", ";c",
+map("n", ";c",
     function()
         builtin.commands()
     end
 )
-vim.keymap.set( "n", ";ch",
+map("n", ";ch",
     function()
         builtin.command_history()
     end
 )
-vim.keymap.set( "n", ";m",
+map("n", ";m",
     function()
         builtin.marks()
     end
 )
-vim.keymap.set( "n", ";a",
+map("n", ";a",
     function()
         builtin.builtin()
     end
 )
-vim.keymap.set('n', ';;', 
+map('n', ';;', 
     function()
         builtin.resume()
     end
 )
+
+map('n', ';;', 
+    function()
+        builtin.resume()
+    end
+)
+
+telescope.load_extension('textcase')
+utils.map_command('n', ';cc', '<cmd>TextCaseOpenTelescope<CR>', { desc = "Telescope" })
+utils.map_command('v', ';cc', "<cmd>TextCaseOpenTelescope<CR>", { desc = "Telescope" })

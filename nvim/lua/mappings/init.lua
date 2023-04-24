@@ -1,34 +1,25 @@
--- Functional wrapper for mapping custom keybindings
-function map(mode, lhs, rhs, opts)
-    local options = { noremap = true }
-    if opts then
-        options = vim.tbl_extend("force", options, opts)
-    end
-    vim.api.nvim_set_keymap(mode, lhs, rhs, options)
-end
+local utils = require("../lua-utils")
 
-
-local opts = { silent=false, silent=true }
+local opts = { silent=false }
 
 -- nvim tree
-map("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-map("n", "<leader>nf", "<cmd>NvimTreeFindFile<cr>", opts)
-map("n", "<leader>nn", "<cmd>NvimTreeToggle<cr>", opts)
-
+utils.map_command("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
+utils.map_command("n", "<leader>nf", ":NvimTreeFindFile<cr>", opts)
+utils.map_command("n", "<leader>nn", ":<cmd>NvimTreeToggle<cr>", opts)
 
 
 --- quit & write
-vim.keymap.set("n", "<space>z", 
+utils.map_func("n", "<space>z", 
     function()
         vim.api.nvim_command("silent wa")
         vim.api.nvim_command("stop")
     end, opts)
 
-vim.keymap.set("n", ";w", function()
+utils.map_func("n", ";w", function()
     vim.api.nvim_command("wa")
 end, opts)
 
-vim.keymap.set("n", ";q", 
+utils.map_func("n", ";q", 
     function()
         local modifiable = vim.bo.modifiable
         -- local modified = vim.bo.modified
@@ -55,13 +46,13 @@ vim.keymap.set("n", ";q",
 
     end, opts)
 
-vim.keymap.set("n", "<leader><leader>q", 
+utils.map_func("n", "<leader><leader>q", 
     function()
         vim.api.nvim_command("wa")
         vim.api.nvim_command("qa!")
     end, opts)
 
-vim.keymap.set("n", ";rr", 
+utils.map_func("n", ";rr", 
     function()
         local cword = vim.fn.expand('<cword>')
         local search = vim.fn.input("Keywords > ", cword)
@@ -70,14 +61,14 @@ vim.keymap.set("n", ";rr",
 
 -- fold
 -- map iterm with <cmd-[> to zc and map <cmd-]> to zo
-vim.keymap.set("n", "zf", 
+utils.map_func("n", "zf", 
     function()
         local foldlevel = vim.fn.input("foldlevel > ")
         vim.api.nvim_command("set foldlevel=" .. foldlevel)
     end, opts)
 
 -- quickfix window
-vim.keymap.set("n", "<F4>", 
+utils.map_func("n", "<F4>", 
     function()
         local wininfos = vim.fn.getwininfo()
         local hasQuickFix = false
@@ -99,12 +90,12 @@ vim.keymap.set("n", "<F4>",
     end, opts)
 
 -- buffer line
-vim.keymap.set("n", "<F2>", 
+utils.map_func("n", "<F2>", 
     function()
         vim.api.nvim_command("BufferLinePick")
     end, opts)
 
-vim.keymap.set("n", "<F3>", 
+utils.map_func("n", "<F3>", 
     function()
         vim.api.nvim_command("BufferLinePickClose")
     end, opts)
