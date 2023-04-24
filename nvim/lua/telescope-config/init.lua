@@ -51,7 +51,7 @@ vim.keymap.set( "n", ";r",
 )
 vim.keymap.set( "n", ";s",
     function()
-        builtin.ls_document_symbols()
+        builtin.lsp_document_symbols()
     end
 )
 vim.keymap.set( "n", ";c",
