@@ -4,8 +4,8 @@ local opts = { silent=false }
 
 -- nvim tree
 utils.map_command("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
-utils.map_command("n", "<leader>nf", ":NvimTreeFindFile<cr>", opts)
-utils.map_command("n", "<leader>nn", ":<cmd>NvimTreeToggle<cr>", opts)
+utils.map_command("n", "<leader>nf", ":NvimTreeFindFile<CR>", opts)
+utils.map_command("n", "<leader>nn", ":NvimTreeToggle<CR>", opts)
 
 
 --- quit & write

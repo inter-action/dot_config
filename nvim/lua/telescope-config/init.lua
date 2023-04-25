@@ -88,7 +88,3 @@ map('n', ';;',
         builtin.resume()
     end
 )
-
-telescope.load_extension('textcase')
-utils.map_command('n', ';cc', '<cmd>TextCaseOpenTelescope<CR>', { desc = "Telescope" })
-utils.map_command('v', ';cc', "<cmd>TextCaseOpenTelescope<CR>", { desc = "Telescope" })

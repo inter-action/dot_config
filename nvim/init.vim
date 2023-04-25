@@ -15,6 +15,7 @@ require('lualine-config')
 require('bufferline-config')
 require('treesitter-config')
 require('telescope-config')
+require('textcase-config')
 require('git-config/gitsigns')
 require('zenmode-config')
 EOF

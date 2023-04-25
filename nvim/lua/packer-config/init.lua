@@ -75,12 +75,8 @@ return require('packer').startup(function(use)
 	use 'alvan/vim-closetag'
 
 	-- change case
-	use {
-		"johmsalas/text-case.nvim",
-		config = function()
-			require('textcase').setup {}
-		end
-	}
+    use "johmsalas/text-case.nvim"
+
 
     -- ui enhancement
     use "EdenEast/nightfox.nvim"

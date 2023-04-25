@@ -37,6 +37,9 @@ print(vim.inspect(vim.v.argv))
 
 ## TIPS & 101s
 * http://vimcasts.org/categories/
+* morden neovim 
+    * https://alpha2phi.medium.com/learn-neovim-the-practical-way-8818fcf4830f#8c31
+    * https://github.com/alpha2phi/modern-neovim
 
 
 
