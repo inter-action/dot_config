@@ -1,6 +1,8 @@
 local utils = require("../lua-utils")
 
 local opts = { silent=false }
+local slicent_opts = { silent=true }
+
 
 -- nvim tree
 utils.map_command("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
@@ -11,9 +13,9 @@ utils.map_command("n", "<leader>nn", ":NvimTreeToggle<CR>", opts)
 --- quit & write
 utils.map_func("n", "<space>z", 
     function()
-        vim.api.nvim_command("silent wa")
+        vim.api.nvim_command("wa!")
         vim.api.nvim_command("stop")
-    end, opts)
+    end, slicent_opts)
 
 utils.map_func("n", ";w", function()
     vim.api.nvim_command("wa")

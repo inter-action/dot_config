@@ -41,6 +41,8 @@ print(vim.inspect(vim.v.argv))
     * https://alpha2phi.medium.com/learn-neovim-the-practical-way-8818fcf4830f#8c31
     * https://github.com/alpha2phi/modern-neovim
 
+* config examples
+    * https://github.com/LunarVim/Neovim-from-scratch
 
 
 ## lua

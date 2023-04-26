@@ -332,13 +332,8 @@ set diffopt+=indent-heuristic
 map H ^
 map L $
 
-" Moving between splits
-nnoremap <C-Left> gT
-nnoremap <C-Right> gt
-
 "-------------------------------------------------- 
 " personal options
-
 
 set pyxversion=3
 
@@ -356,6 +351,11 @@ tnoremap <Esc> <C-\><C-n>
 " https://stackoverflow.com/questions/15277241/changing-vim-gutter-color
 highlight clear SignColumn
 
+" prevent paste in visual mode from replacing unnamed buffer
+xnoremap p P
+
+" force language
+language en_US
 
 "-------------------------------------------------- 
 " Options config copied from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
