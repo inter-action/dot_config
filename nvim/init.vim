@@ -330,7 +330,7 @@ set diffopt+=indent-heuristic
 map H ^
 map L $
 
-" Moving between splits
+" switch tabs
 nnoremap <M-h> gT
 nnoremap <M-l> gt
 

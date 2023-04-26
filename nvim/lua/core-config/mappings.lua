@@ -13,7 +13,7 @@ utils.map_command("n", "<leader>nn", ":NvimTreeToggle<CR>", opts)
 --- quit & write
 utils.map_func("n", "<space>z", 
     function()
-        vim.api.nvim_command("wa!")
+        local ok, _ = pcall(vim.api.nvim_command, "wa")
         vim.api.nvim_command("stop")
     end, slicent_opts)
 
