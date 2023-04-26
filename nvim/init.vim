@@ -373,20 +373,43 @@ endif
 "--------------------------------------------------
 " Autocmd
 
-" Jump to last edit position on opening file
-if has("autocmd")
-  " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
-  au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
-endif
+augroup _general_settings
+    autocmd!
 
+    " Jump to last edit position on opening file
+    " https://stackoverflow.com/questions/31449496/vim-ignore-specifc-file-in-autocommand
+    autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
-" Set filetypes aliases
-au FileType scss set ft=scss.css
-au FileType less set ft=less.css
+    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
+    " autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200}) 
 
-" no syntax highlight for 1 million lines
-au BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
+    " see :h fo-table
+    " stop auto add comment header when hit o in normal mode
+    autocmd BufWinEnter * :set formatoptions-=o
+    autocmd FileType qf set nobuflisted
 
-" auto save on focus lost
-au FocusLost * silent! wa
+    " no syntax highlight for 1 million lines
+    autocmd BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
+
+    " auto save on focus lost
+    autocmd FocusLost * silent! wa
+augroup end
+
+augroup _git
+    autocmd!
+    autocmd FileType gitcommit setlocal wrap
+    autocmd FileType gitcommit setlocal spell
+augroup end
+
+augroup _markdown
+    autocmd!
+    autocmd FileType markdown setlocal wrap
+    autocmd FileType markdown setlocal spell
+augroup end
+
+augroup _filetypes
+    " Set filetypes aliases
+    autocmd FileType scss set ft=scss.css
+    autocmd FileType less set ft=less.css
+augroup end
 
