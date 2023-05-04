@@ -403,11 +403,11 @@ augroup _git
     autocmd FileType gitcommit setlocal spell
 augroup end
 
-augroup _markdown
-    autocmd!
-    autocmd FileType markdown setlocal wrap
-    autocmd FileType markdown setlocal spell
-augroup end
+" augroup _markdown
+"     autocmd!
+"     autocmd FileType markdown setlocal wrap
+"     autocmd FileType markdown setlocal spell
+" augroup end
 
 augroup _filetypes
     " Set filetypes aliases
