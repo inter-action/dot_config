@@ -68,6 +68,8 @@ nmap <Leader>l <Plug>BookmarkShowAll
 
 set t_Co=256
 
+" force language
+language en_US
 
 " Enable per-directory .vimrc files and disable unsafe commands in them
 "set exrc secure
@@ -328,13 +330,16 @@ set diffopt+=indent-heuristic
 " window navigation
 
 " split
-nnoremap <C-w>- <C-w>s
-nnoremap <C-w>\ <C-w>v
+" nnoremap <C-w>- <C-w>s
+" nnoremap <C-w>\ <C-w>v
+nnoremap s- <C-w>s
+nnoremap s\ <C-w>v
 
 " close
-nnoremap sx <C-w>c
+nnoremap sc <C-w>c
 
 " switch window
+nnoremap ss <C-w>w
 nnoremap sh <C-w>h
 nnoremap sl <C-w>l
 nnoremap sj <C-w>j
@@ -354,6 +359,7 @@ map L $
 " switch tabs
 nnoremap <M-h> gT
 nnoremap <M-l> gt
+
 
 "-------------------------------------------------- 
 " personal options
@@ -377,8 +383,10 @@ highlight clear SignColumn
 " prevent paste in visual mode from replacing unnamed buffer
 xnoremap p P
 
-" force language
-language en_US
+" add / subtract one folding level
+nnoremap z= zr
+nnoremap z- zm
+
 
 "-------------------------------------------------- 
 " Options config copied from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
