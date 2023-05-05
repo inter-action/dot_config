@@ -325,6 +325,27 @@ set diffopt+=algorithm:patience
 set diffopt+=indent-heuristic
 
 "--------------------------------------------------
+" window navigation
+
+" split
+nnoremap <C-w>- <C-w>s
+nnoremap <C-w>\ <C-w>v
+
+" close
+nnoremap sx <C-w>c
+
+" switch window
+nnoremap sh <C-w>h
+nnoremap sl <C-w>l
+nnoremap sj <C-w>j
+nnoremap sk <C-w>k
+
+nnoremap <C-w><Left> <C-w>5<
+nnoremap <C-w><Right> <C-w>5>
+nnoremap <C-w><Up> <C-w>5+
+nnoremap <C-w><Down> <C-w>5-
+
+"--------------------------------------------------
 " Navigate Options
 
 map H ^
