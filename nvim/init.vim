@@ -387,6 +387,7 @@ xnoremap p P
 nnoremap z= zr
 nnoremap z- zm
 
+nnoremap <F10> :wa<Bar>exe "mksession! " .. v:this_session<CR>
 
 "-------------------------------------------------- 
 " Options config copied from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
