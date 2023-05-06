@@ -388,6 +388,10 @@ xnoremap p P
 nnoremap z= zr
 nnoremap z- zm
 
+" insert mode
+inoremap <M-h> <Left>
+inoremap <M-l> <Right>
+
 nnoremap <F10> :wa<Bar>exe "mksession! " .. v:this_session<CR>
 
 "-------------------------------------------------- 
