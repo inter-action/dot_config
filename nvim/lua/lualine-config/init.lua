@@ -16,7 +16,7 @@ require('lualine').setup({
                 'mode',
                 fmt = hydra_status, 
                 icon = '🐍',
-                color={bg='#105934'}
+                --color={bg='white'}
             }, 
             {
                 'mode',

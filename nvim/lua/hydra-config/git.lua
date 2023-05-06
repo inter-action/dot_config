@@ -10,7 +10,7 @@ end)
 local hint = [[
  _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
  _K_: prev hunk   _u_: undo last stage   _p_: preview hunk   _B_: blame show full 
- _D_: diff view   _S_: stage buffer      ^ ^                 _/_: show base file
+ _D_: diff view   _S_: stage buffer      _r_: reset hunk     _/_: show base file
  ^
  ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
@@ -67,6 +67,7 @@ Hydra({
       { 'd', gitsigns.toggle_deleted, { nowait = true, desc = 'toggle deleted' } },
       { 'D', gitsigns.diffthis, { nowait = true, desc = 'diff this' } },
       { 'b', gitsigns.blame_line, { desc = 'blame' } },
+      { 'r', gitsigns.reset_hunk, { desc = 'reset hunk' } },
       { 'B', function() gitsigns.blame_line{ full = true } end, { desc = 'blame show full' } },
       { '/', gitsigns.show, { exit = true, desc = 'show base file' } }, -- show the base of the file
       { '<Enter>', '<Cmd>Neogit<CR>', { exit = true, desc = 'Neogit' } },
