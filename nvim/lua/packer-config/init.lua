@@ -97,6 +97,9 @@ return require('packer').startup(function(use)
 
 	use 'vimwiki/vimwiki'
 
+    -- hydra
+    use 'anuvyklack/hydra.nvim' 
+
     -- Simple plugins can be specified as strings
     --
 end)

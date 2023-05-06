@@ -16,6 +16,7 @@ require('telescope-config')
 require('textcase-config')
 require('git-config/gitsigns')
 require('zenmode-config')
+require('hydra-config')
 EOF
 
 
