@@ -92,11 +92,6 @@ utils.map_func("n", "<F4>",
     end, opts)
 
 -- buffer line
-utils.map_func("n", "<F2>", 
-    function()
-        vim.api.nvim_command("BufferLinePick")
-    end, opts)
-
 utils.map_func("n", "<F3>", 
     function()
         vim.api.nvim_command("BufferLinePickClose")

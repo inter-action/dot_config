@@ -12,8 +12,7 @@ local keymap = vim.keymap.set
 keymap("n", "gh", "<cmd>Lspsaga lsp_finder<CR>")
 -- Go to definition
 keymap("n","gd", "<cmd>Lspsaga goto_definition<CR>")
-
-
+-- hover_doc
 keymap("n", "K", "<cmd>Lspsaga hover_doc<CR>")
 
 -- Code action
@@ -46,4 +45,4 @@ keymap("n", "<space>ci", "<cmd>Lspsaga incoming_calls<CR>")
 keymap("n", "<space>co", "<cmd>Lspsaga outgoing_calls<CR>")
 
 -- Floating terminal
-keymap({"n", "t"}, "<A-d>", "<cmd>Lspsaga term_toggle<CR>")
+keymap({"n", "t"}, "<F2>", "<cmd>Lspsaga term_toggle<CR>")

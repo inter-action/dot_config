@@ -47,6 +47,8 @@ end
 map("n", "<M-b>", buffers)
 -- map("n", ";b", buffers)
 
+
+-- use ;<Esc> to repeat find instead!
 map("n", ";r",
     function()
         builtin.live_grep()
