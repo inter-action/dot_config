@@ -67,6 +67,7 @@ utils.map_func("n", "zf",
     function()
         local foldlevel = vim.fn.input("foldlevel > ")
         vim.api.nvim_command("set foldlevel=" .. foldlevel)
+        vim.api.nvim_command("normal zx")
     end, opts)
 
 -- quickfix window

@@ -265,6 +265,10 @@ nnoremap <silent> g* g*zz
 " nnoremap ? ?\v
 " nnoremap / /\v
 cnoremap %s/ %sm/
+" cnoremap \>s/ \>smagic/
+" nnoremap :g/ :g/\v
+" nnoremap :g// :g//
+
 
 "--------------------------------------------------
 " Wildmenu
