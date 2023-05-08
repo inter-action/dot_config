@@ -1,0 +1,29 @@
+*personal-mannual.txt*	Nvim
+
+		     Personal Manual - by Interaction
+
+	all kinds of personal notes about neovim be sure call `:helptags <this_doc_dir>` to
+        generate help tags
+
+
+|01.1|	navigation tips
+
+
+==============================================================================
+*01.1*	navigation tips				*navigation-tips*
+
+all my mostly used navigation tips for daily work.
+
+        <C-^>           " switch last buffer
+        `.              " last edit
+        [c              " pre git change
+        ]c              " next git change
+        g;/g,           " previous/next jump
+        [e/]e           " pre/next lsp error
+
+        " require do map on iterms 
+        <Cmd-S-]>       " next buffer
+        <Cmd-S-[>       " pre buffer
+
+
+
