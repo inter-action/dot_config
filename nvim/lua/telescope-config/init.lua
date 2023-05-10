@@ -2,6 +2,7 @@ local status, telescope = pcall(require, "telescope")
 if (not status) then
     return
 end
+local themes = require('telescope.themes')
 local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local utils = require("../lua-utils")
@@ -30,12 +31,18 @@ telescope.setup {
 -- keymaps
 -- map iterm with send vim chars, map `<Cmd-p>` to `\<M-p>`
 function find_files()
-    builtin.find_files(
-        {
-            -- no_ignore = false,
-            -- hidden = true
-        }
-    )
+    builtin.find_files(themes.get_dropdown({
+        previewer = false,
+        layout_config = {
+            width = function(_, max_columns, _)
+                return math.min(max_columns, 120)
+            end,
+
+            height = function(_, _, max_lines)
+                return math.min(max_lines, 30)
+            end,
+        },
+    }))
 end
 map("n", "<M-p>", find_files)
 -- map("n", ";f", find_files)

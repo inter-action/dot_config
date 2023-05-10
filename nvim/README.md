@@ -1,3 +1,6 @@
+## TODO
+
+* clean online plugin config, put them into packer.lua
 
 
 ## Iterm setup
