@@ -7,6 +7,8 @@
 
 
 |01.1|	navigation tips
+|01.2|	edit tips
+|01.3|	git tips
 
 
 ==============================================================================
@@ -24,6 +26,31 @@ all my mostly used navigation tips for daily work.
         " require do map on iterms 
         <Cmd-S-]>       " next buffer
         <Cmd-S-[>       " pre buffer
+
+
+
+==============================================================================
+*01.2*	edit tips				*edit-tips*
+
+format code to table format
+    
+    :!column -t -s =    " create a table. use column edit mode to add = back
+
+
+
+==============================================================================
+*01.3*	git tips				*git-tips*
+
+
+some of my most used git command (using zsh git plugin)
+
+    $ ga -u                             // add tracked files
+    $ ga -i -p                          // interactive add
+    $ git grep <pattern>
+
+    $ git log --author=<email> -p
+    $ git log --name-only
+    $ git log -p -- "*.java"            // search java changes
 
 
 

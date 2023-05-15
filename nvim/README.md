@@ -1,6 +1,12 @@
 ## TODO
 
-* clean online plugin config, put them into packer.lua
+* clean one-line plugin config, put them into packer.lua
+
+## Setup
+
+* install Packer
+* `:PackInstall`
+* `:Mason` - to install your fav LSP server
 
 
 ## Iterm setup
@@ -52,6 +58,7 @@ print(vim.inspect(vim.v.argv))
 * config examples
     * https://github.com/LunarVim/Neovim-from-scratch
 
+* !!Neovim Power Tips: Volume 2 - https://www.youtube.com/watch?v=yMs97o_TdBU
 
 ## lua
 
