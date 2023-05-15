@@ -34,13 +34,11 @@ function find_files()
     builtin.find_files(themes.get_dropdown({
         previewer = false,
         layout_config = {
-            width = function(_, max_columns, _)
-                return math.min(max_columns, 120)
-            end,
-
-            height = function(_, _, max_lines)
-                return math.min(max_lines, 30)
-            end,
+            -- width = function(_, max_columns, _)
+            --     return math.min(max_columns, 120)
+            -- end,
+            width = 0.8,
+            height = 0.6,
         },
     }))
 end

@@ -1,21 +1,17 @@
 local exports = {}
 
-function exports.merge_tables(a, b)
-    local temp = {}
-    merge_table(temp, a)
-    merge_table(temp, b)
-    return temp
-end
+
 
 function exports.get_buffer_relative_filename()
     return string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd() .. '/', '')
 end
 
--- private function
-function merge_table(first_table, second_table)
-    for k,v in pairs(second_table) do first_table[k] = v end
-end
 
+function exports.merge2(a, b)
+    -- return vim.tbl_extend("force", unpack(arg))
+    --                                       ^ arg is not working inside neovim
+    return vim.tbl_extend("force", a, b)
+end
 
 
 -- Functional wrapper for mapping custom keybindings

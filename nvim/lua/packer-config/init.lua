@@ -100,6 +100,13 @@ return require('packer').startup(function(use)
     -- hydra
     use 'anuvyklack/hydra.nvim' 
 
+    use {
+        "folke/which-key.nvim",
+        config = function()
+            vim.o.timeout = true
+            vim.o.timeoutlen = 300
+        end
+    }
     -- Simple plugins can be specified as strings
     --
 end)

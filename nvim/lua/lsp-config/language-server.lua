@@ -29,7 +29,8 @@ rt.setup({
     }
 })
 
-local servers = { 'tsserver', 'cssls', 'clangd' }
+-- install LSP server use :Mason or :LspInstall <gopls> 
+local servers = { 'tsserver', 'cssls', 'clangd', 'gopls' }
 for _, lsp in ipairs(servers) do
     if lspconfig[lsp] then
         lspconfig[lsp].setup {

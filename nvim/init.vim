@@ -388,10 +388,6 @@ highlight clear SignColumn
 " prevent paste in visual mode from replacing unnamed buffer
 xnoremap p P
 
-" add / subtract one folding level
-nnoremap z= zr
-nnoremap z- zm
-
 " insert mode
 inoremap <M-h> <Left>
 inoremap <M-l> <Right>
