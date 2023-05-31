@@ -3,7 +3,8 @@ local exports = {}
 
 
 function exports.get_buffer_relative_filename()
-    return string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd() .. '/', '')
+    -- return string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd() .. '/', '')
+    return vim.fn.expand('%')
 end
 
 

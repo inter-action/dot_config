@@ -3,7 +3,7 @@ local opt = vim.opt
 
 vim.notify = require("notify")
 
-vim.cmd("colorscheme nightfox")
+vim.cmd("colorscheme dawnfox")
 
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "qf",
@@ -14,4 +14,3 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.api.nvim_win_set_height(0, lines)
     end
 })
-

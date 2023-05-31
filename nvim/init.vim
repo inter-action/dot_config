@@ -262,12 +262,12 @@ nnoremap <silent> # #zz
 nnoremap <silent> g* g*zz
 
 " Very magic by default
-" nnoremap ? ?\v
-" nnoremap / /\v
+nnoremap ? ?\v
+nnoremap / /\v
 cnoremap %s/ %sm/
+nnoremap :g/ :g/\v
+nnoremap :g// :g//
 " cnoremap \>s/ \>smagic/
-" nnoremap :g/ :g/\v
-" nnoremap :g// :g//
 
 
 "--------------------------------------------------

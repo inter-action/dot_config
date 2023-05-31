@@ -123,5 +123,5 @@ utils.map_func("n", "<F3>",
 
 -- folding
 
-utils.map_command("n", "z=", "<cmd>zr<CR>", merge2(opts, {desc = "one more fold"}))
-utils.map_command("n", "z-", "<cmd>zm<CR>", merge2(opts, {desc = "one less fold"}))
+utils.map_command("n", "z=", "zr", merge2(opts, {desc = "one more fold"}))
+utils.map_command("n", "z-", "zm", merge2(opts, {desc = "one less fold"}))

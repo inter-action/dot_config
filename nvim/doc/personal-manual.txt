@@ -37,6 +37,27 @@ format code to table format
     :!column -t -s =    " create a table. use column edit mode to add = back
 
 
+auto format using shell command. for example, here I created a local .vimrc file under
+my project root, then I can simply format file using shortcut
+    
+    " load config using
+    " :source .vimrc
+
+    " format current file
+    nnoremap <leader>ff :wa <bar> %! clang-format<CR>   
+
+
+      	repeat tips				*repeat-tips*
+
+repeat in vim
+
+    &   // search repeat
+    @   // macro repeat
+    ;   // find repeat
+    .   // edit repeat
+
+
+
 
 ==============================================================================
 *01.3*	git tips				*git-tips*
@@ -51,6 +72,7 @@ some of my most used git command (using zsh git plugin)
     $ git log --author=<email> -p
     $ git log --name-only
     $ git log -p -- "*.java"            // search java changes
+    $ git log -G <regex_pattern> -p     // search commit that contain pattern
 
 
 
