@@ -8,9 +8,9 @@ utils.map_func('n', '<Leader>hq', function()
 end)
 
 local hint = [[
- _J_: next hunk   _s_: stage hunk        _d_: show deleted   _b_: blame line
- _K_: prev hunk   _u_: undo last stage   _p_: preview hunk   _B_: blame show full 
- _D_: diff view   _S_: stage buffer      _r_: reset hunk     _/_: show base file
+ _J_: next hunk         _K_: prev hunk      _d_: diff this         _D_: diff previous commit   
+ _s_: stage hunk        _b_: blame line     _B_: blame show full   _u_: undo last stage   
+ _p_: preview hunk      _S_: stage buffer   _r_: reset hunk        _/_: show base file
  ^
  ^ ^              _<Enter>_: Neogit              _q_: exit
 ]]
@@ -29,7 +29,7 @@ Hydra({
       on_enter = function()
          vim.cmd 'mkview'
          vim.cmd 'silent! %foldopen!'
-         vim.bo.modifiable = false
+         -- vim.bo.modifiable = false
          gitsigns.toggle_signs(true)
          gitsigns.toggle_linehl(true)
       end,
@@ -64,8 +64,8 @@ Hydra({
       { 'u', gitsigns.undo_stage_hunk, { desc = 'undo last stage' } },
       { 'S', gitsigns.stage_buffer, { desc = 'stage buffer' } },
       { 'p', gitsigns.preview_hunk, { desc = 'preview hunk' } },
-      { 'd', gitsigns.toggle_deleted, { nowait = true, desc = 'toggle deleted' } },
-      { 'D', gitsigns.diffthis, { nowait = true, desc = 'diff this' } },
+      { 'd', function() gitsigns.diffthis() end, { nowait = true, exit = true, desc = 'diff this' } },
+      { 'D', function() gitsigns.diffthis('~') end, { nowait = true, exit = true, desc = 'diff previous commit' } },
       { 'b', gitsigns.blame_line, { desc = 'blame' } },
       { 'r', gitsigns.reset_hunk, { desc = 'reset hunk' } },
       { 'B', function() gitsigns.blame_line{ full = true } end, { desc = 'blame show full' } },
