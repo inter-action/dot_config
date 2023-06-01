@@ -21,6 +21,7 @@ telescope.setup {
             },
             ["i"] = {
                 -- ["<C-u>"] = function() vim.cmd('normal dd') end,
+                ["<C-h>"] = "which_key",
                 ["<C-j>"] = actions.move_selection_next,
                 ["<C-k>"] = actions.move_selection_previous,
             },
