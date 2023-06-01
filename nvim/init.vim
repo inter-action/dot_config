@@ -17,6 +17,7 @@ require('textcase-config')
 require('git-config/gitsigns')
 require('zenmode-config')
 require('hydra-config')
+require('whichkey-config')
 EOF
 
 
@@ -203,16 +204,15 @@ set cursorline
 
 " Copy indent from previous line
 set autoindent
-set smartindent
 
 " Enable smart indent. It add additional indents whe necessary
-" set smartindent
+set smartindent
 
 " Replace tabs with spaces
 set expandtab
 
 " When you hit tab at start of line, indent added according to shiftwidth value
-" set smarttab
+set smarttab
 
 
 " Number of spaces to use for each step of indent

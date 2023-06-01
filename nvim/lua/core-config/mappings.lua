@@ -1,10 +1,6 @@
 local utils = require("../lua-utils")
 local merge2 = utils.merge2
 
-local ok, whichkey = pcall(require, "which-key")
-if (not ok) then 
-    return
-end
 
 local opts = { silent=false, noremap = true }
 local slicent_opts = { silent=true }
