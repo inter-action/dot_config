@@ -18,6 +18,7 @@ require('git-config')
 require('zenmode-config')
 require('hydra-config')
 require('whichkey-config')
+require('harpoon-config')
 EOF
 
 
@@ -285,6 +286,9 @@ set foldlevel=99
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
+" disable folding at startup
+" set nofoldenable
+
 
 "--------------------------------------------------
 " Edit
@@ -335,8 +339,6 @@ set diffopt+=indent-heuristic
 " window navigation
 
 " split
-" nnoremap <C-w>- <C-w>s
-" nnoremap <C-w>\ <C-w>v
 nnoremap s- <C-w>s
 nnoremap s\ <C-w>v
 
@@ -350,8 +352,8 @@ nnoremap sl <C-w>l
 nnoremap sj <C-w>j
 nnoremap sk <C-w>k
 
-nnoremap <C-w><Left> <C-w>5<
-nnoremap <C-w><Right> <C-w>5>
+nnoremap <C-w><Right> <C-w>5<
+nnoremap <C-w><Left> <C-w>5>
 nnoremap <C-w><Up> <C-w>5+
 nnoremap <C-w><Down> <C-w>5-
 
@@ -392,7 +394,11 @@ xnoremap p P
 inoremap <M-h> <Left>
 inoremap <M-l> <Right>
 
+" save current session into a file
 nnoremap <F10> :wa<Bar>exe "mksession! " .. v:this_session<CR>
+
+" folding
+nnoremap <space> za
 
 "-------------------------------------------------- 
 " Options config copied from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim

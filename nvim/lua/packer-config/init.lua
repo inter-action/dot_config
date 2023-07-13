@@ -100,6 +100,8 @@ return require('packer').startup(function(use)
     -- hydra
     use 'anuvyklack/hydra.nvim' 
 
+    use 'ThePrimeagen/harpoon'
+
     use {
         "folke/which-key.nvim",
         config = function()

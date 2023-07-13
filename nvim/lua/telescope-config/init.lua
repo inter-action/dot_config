@@ -75,22 +75,16 @@ map("n", ";ch",
         builtin.command_history()
     end
 )
-map("n", ";m",
-    function()
-        builtin.marks()
-    end
-)
+-- map("n", ";m",
+--     function()
+--         builtin.marks()
+--     end
+-- )
 map("n", ";a",
     function()
         builtin.builtin()
     end
 )
-map('n', ';;', 
-    function()
-        builtin.resume()
-    end
-)
-
 map('n', ';;', 
     function()
         builtin.resume()
