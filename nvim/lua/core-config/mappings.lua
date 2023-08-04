@@ -73,17 +73,6 @@ utils.map_func("n", ";rr",
     merge2(opts, {desc = "ripgrep"})
 )
 
--- fold
--- map iterm with <cmd-[> to zc and map <cmd-]> to zo
-utils.map_func("n", "zf", 
-    function()
-        local foldlevel = vim.fn.input("foldlevel > ")
-        vim.api.nvim_command("set foldlevel=" .. foldlevel)
-        vim.api.nvim_command("normal zx")
-    end, 
-    merge2(opts, {desc = "set foldlevel"})
-)
-
 -- quickfix window
 utils.map_func("n", "<F4>", 
     function()
@@ -118,6 +107,15 @@ utils.map_func("n", "<F3>",
 )
 
 -- folding
+---- map iterm with <cmd-[> to zc and map <cmd-]> to zo
+utils.map_func("n", "zf", 
+    function()
+        local foldlevel = vim.fn.input("foldlevel > ")
+        vim.api.nvim_command("set foldlevel=" .. foldlevel)
+        vim.api.nvim_command("normal zx")
+    end, 
+    merge2(opts, {desc = "set foldlevel"})
+)
 
 utils.map_command("n", "z=", "zr", merge2(opts, {desc = "one more fold"}))
 utils.map_command("n", "z-", "zm", merge2(opts, {desc = "one less fold"}))
