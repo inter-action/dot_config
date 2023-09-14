@@ -69,5 +69,6 @@ print(vim.inspect(vim.v.argv))
 
 
 ## Neovim Config influenced by
+* ! https://github.com/nvim-lua/kickstart.nvim
 * https://dev.to/craftzdog/my-neovim-setup-for-react-typescript-tailwind-css-etc-58fb
 * https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/#1-download-rust-analyzer-and-codelldb-with-neovims-plugins
