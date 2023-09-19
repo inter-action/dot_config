@@ -1,12 +1,8 @@
 -- Diagnostic keymaps
-vim.keymap.set('n', '[d', vim.diagnostic.goto_prev,
-               {desc = 'Go to previous diagnostic message'})
-vim.keymap.set('n', ']d', vim.diagnostic.goto_next,
-               {desc = 'Go to next diagnostic message'})
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float,
-               {desc = 'Open floating diagnostic message'})
-vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist,
-               {desc = 'Open diagnostics list'})
+vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, {desc = 'Go to previous diagnostic message'})
+vim.keymap.set('n', ']e', vim.diagnostic.goto_next, {desc = 'Go to next diagnostic message'})
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, {desc = 'Open floating diagnostic message'})
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, {desc = 'Open diagnostics list'})
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -23,40 +19,33 @@ local on_attach = function(_, bufnr)
         vim.keymap.set('n', keys, func, {buffer = bufnr, desc = desc})
     end
 
-    nmap('<leader>rn', vim.lsp.buf.rename, '[R]e[n]ame')
-    nmap('<leader>ca', vim.lsp.buf.code_action, '[C]ode [A]ction')
-
-    nmap('gd', vim.lsp.buf.definition, '[G]oto [D]efinition')
-    nmap('gr', require('telescope.builtin').lsp_references,
-         '[G]oto [R]eferences')
-    nmap('gI', require('telescope.builtin').lsp_implementations,
-         '[G]oto [I]mplementation')
-    nmap('<leader>D', vim.lsp.buf.type_definition, 'Type [D]efinition')
-    nmap('<leader>ds', require('telescope.builtin').lsp_document_symbols,
-         '[D]ocument [S]ymbols')
-    nmap('<leader>ws',
-         require('telescope.builtin').lsp_dynamic_workspace_symbols,
-         '[W]orkspace [S]ymbols')
-
+    -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- See `:help K` for why this keymap
     nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
+    nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
+    nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration')
+
+    nmap('gr', require('telescope.builtin').lsp_references, 'Goto References')
+    nmap('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
+
+
+    nmap('<space>r', vim.lsp.buf.rename, 'rename')
+    nmap('<space>a', vim.lsp.buf.code_action, 'code action')
+    nmap('<space>D', vim.lsp.buf.type_definition, 'Type Definition')
+
+    nmap('<space>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
+    nmap('<space>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols')
 
     -- Lesser used LSP functionality
-    nmap('gD', vim.lsp.buf.declaration, '[G]oto [D]eclaration')
-    nmap('<leader>wa', vim.lsp.buf.add_workspace_folder,
-         '[W]orkspace [A]dd Folder')
-    nmap('<leader>wr', vim.lsp.buf.remove_workspace_folder,
-         '[W]orkspace [R]emove Folder')
-    nmap('<leader>wl', function()
-        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
-    end, '[W]orkspace [L]ist Folders')
+    nmap('<space>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder')
+    nmap('<space>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder')
+    nmap('<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
+         'Workspace List Folders')
 
     -- Create a command `:Format` local to the LSP buffer
-    vim.api.nvim_buf_create_user_command(bufnr, 'Format',
-                                         function(_) vim.lsp.buf.format() end, {
-        desc = 'Format current buffer with LSP'
-    })
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end,
+                                         {desc = 'Format current buffer with LSP'})
 end
 
 -- Enable the following language servers
@@ -77,12 +66,7 @@ local servers = {
     tsserver = {},
     html = {filetypes = {'html', 'twig', 'hbs'}},
 
-    lua_ls = {
-        Lua = {
-            workspace = {checkThirdParty = false},
-            telemetry = {enable = false}
-        }
-    }
+    lua_ls = {Lua = {workspace = {checkThirdParty = false}, telemetry = {enable = false}}}
 }
 
 require("mason").setup()
@@ -106,17 +90,6 @@ mason_lspconfig.setup_handlers {
         }
     end
 }
-
--- local on_attach = function(client, bufnr)
---   -- format on save
---   if client.server_capabilities.documentFormattingProvider then
---     vim.api.nvim_create_autocmd("BufWritePre", {
---       group = vim.api.nvim_create_augroup("Format", { clear = true }),
---       buffer = bufnr,
---       callback = function() vim.lsp.buf.formatting_seq_sync() end
---     })
---   end
--- end
 
 -- Enable some language servers with the additional completion capabilities offered by nvim-cmp
 -- keep sync with mason

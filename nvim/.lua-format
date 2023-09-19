@@ -1,0 +1,3 @@
+# https://github.com/Koihik/LuaFormatter/blob/master/docs/Style-Config.md
+indent_width: 4
+column_limit: 120
