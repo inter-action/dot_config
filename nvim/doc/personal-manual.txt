@@ -76,3 +76,14 @@ some of my most used git command (using zsh git plugin)
 
 
 
+==============================================================================
+*01.4*	quickfix				*quickfix-tips*
+
+
+using treesitter to filter quickfix (not able to filter filename)
+
+    - create a quickfix window
+    - open quickfix in treesitter
+    - now you can filter quickfix in treesitter
+    - <C-Q> send to quickfix, now u have a filtered quickfix
+
