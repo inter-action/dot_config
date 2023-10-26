@@ -1,8 +1,8 @@
 -- Diagnostic keymaps
-vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, {desc = 'Go to previous diagnostic message'})
-vim.keymap.set('n', ']e', vim.diagnostic.goto_next, {desc = 'Go to next diagnostic message'})
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, {desc = 'Open floating diagnostic message'})
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, {desc = 'Open diagnostics list'})
+vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
@@ -16,7 +16,7 @@ local on_attach = function(_, bufnr)
     local nmap = function(keys, func, desc)
         if desc then desc = 'LSP: ' .. desc end
 
-        vim.keymap.set('n', keys, func, {buffer = bufnr, desc = desc})
+        vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
@@ -41,11 +41,11 @@ local on_attach = function(_, bufnr)
     nmap('<space>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder')
     nmap('<space>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder')
     nmap('<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-         'Workspace List Folders')
+        'Workspace List Folders')
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end,
-                                         {desc = 'Format current buffer with LSP'})
+        { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
@@ -64,9 +64,14 @@ local servers = {
     cssls = {},
     rust_analyzer = {},
     tsserver = {},
-    html = {filetypes = {'html', 'twig', 'hbs'}},
-
-    lua_ls = {Lua = {workspace = {checkThirdParty = false}, telemetry = {enable = false}}}
+    html = { filetypes = { 'html', 'twig', 'hbs' } },
+    lua_ls = {
+        Lua = {
+            diagnostics = { globals = { 'vim' } },
+            workspace = { checkThirdParty = false },
+            telemetry = { enable = false }
+        }
+    }
 }
 
 require("mason").setup()
@@ -78,7 +83,7 @@ local lspconfig = require('lspconfig')
 -- Ensure the servers above are installed
 local mason_lspconfig = require 'mason-lspconfig'
 
-mason_lspconfig.setup {ensure_installed = vim.tbl_keys(servers)}
+mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers) }
 
 mason_lspconfig.setup_handlers {
     function(server_name)
@@ -90,27 +95,3 @@ mason_lspconfig.setup_handlers {
         }
     end
 }
-
--- Enable some language servers with the additional completion capabilities offered by nvim-cmp
--- keep sync with mason
-
--- TODO: remove this?
--- local rt = require("rust-tools")
--- rt.setup({
---     server = {
---         on_attach = function(_, bufnr)
---             -- Hover actions
---             -- todo: try to remove this line
---             vim.keymap.set("n", "<C-space>", rt.hover_actions.hover_actions,
---                            {buffer = bufnr})
---         end,
---         capabilities = capabilities
---     }
--- })
-
--- TODO: remove this?
--- this requires html LSP to be installed, use Mason to install
--- lspconfig.html.setup {
---     filetypes = {"html", "handlebars"},
---     capabilities = capabilities
--- }

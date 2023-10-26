@@ -12,22 +12,22 @@ utils.map_command("n", "<leader>nf", ":NvimTreeFindFile<CR>", opts)
 
 
 --- quit & write
-utils.map_func("n", "<space>z", 
+utils.map_func("n", "<space>z",
     function()
         local ok, _ = pcall(vim.api.nvim_command, "wa")
         vim.api.nvim_command("stop")
-    end, 
+    end,
     merge2(slicent_opts, {desc = "hide neovim"}) -- use fg to move neovim to foregroud
 )
 
-utils.map_func("n", ";w", 
+utils.map_func("n", ";w",
     function()
         vim.api.nvim_command("wa")
-    end, 
+    end,
     merge2(opts, {desc = "write all"})
 )
 
-utils.map_func("n", ";q", 
+utils.map_func("n", ";q",
     function()
         local modifiable = vim.bo.modifiable
         -- local modified = vim.bo.modified
@@ -39,7 +39,7 @@ utils.map_func("n", ";q",
 
         if not is_noname_buffer then
             vim.api.nvim_command("bd")
-            return 
+            return
         end
 
         return vim.ui.select({ '1', '2' }, {
@@ -52,34 +52,34 @@ utils.map_func("n", ";q",
             end
         end)
 
-    end, 
+    end,
     merge2(opts, {desc = "close file"})
 )
 
-utils.map_func("n", "<leader><leader>q", 
+utils.map_func("n", "<leader><leader>q",
     function()
         vim.api.nvim_command("wa")
         vim.api.nvim_command("qa!")
-    end, 
+    end,
     merge2(opts, {desc = "quit neovim"})
 )
 
-utils.map_func("n", ";rr", 
+utils.map_func("n", ";rr",
     function()
         local cword = vim.fn.expand('<cword>')
         local search = vim.fn.input("Keywords > ", cword)
         vim.api.nvim_feedkeys(":Rg -F '" .. search .. "' -w", "n", false)
-    end, 
+    end,
     merge2(opts, {desc = "ripgrep"})
 )
 
 -- quickfix window
-utils.map_func("n", "<F4>", 
+utils.map_func("n", "<F4>",
     function()
         local wininfos = vim.fn.getwininfo()
         local hasQuickFix = false
 
-        for i = 1, #wininfos do 
+        for i = 1, #wininfos do
             local v = wininfos[i]
 
             if v.quickfix == 1 then
@@ -93,27 +93,27 @@ utils.map_func("n", "<F4>",
         else
             vim.api.nvim_command("copen 20")
         end
-    end, 
+    end,
     merge2(opts, {desc = "toggle quickfix"})
 )
 
 
 -- buffer line
-utils.map_func("n", "<leader>tc", 
+utils.map_func("n", "<leader>tc",
     function()
         vim.api.nvim_command("BufferLinePickClose")
-    end, 
+    end,
     merge2(opts, {desc = "BufferLinePickClose"})
 )
 
 -- folding
 ---- map iterm with <cmd-[> to zc and map <cmd-]> to zo
-utils.map_func("n", "zf", 
+utils.map_func("n", "zf",
     function()
         local foldlevel = vim.fn.input("foldlevel > ")
         vim.api.nvim_command("set foldlevel=" .. foldlevel)
         vim.api.nvim_command("normal zx")
-    end, 
+    end,
     merge2(opts, {desc = "set foldlevel"})
 )
 
