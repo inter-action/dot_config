@@ -30,7 +30,7 @@ local on_attach = function(_, bufnr)
     nmap('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
 
 
-    nmap('<space>r', vim.lsp.buf.rename, 'rename')
+    nmap('<F2>', vim.lsp.buf.rename, 'rename')
     nmap('<space>a', vim.lsp.buf.code_action, 'code action')
     nmap('<space>D', vim.lsp.buf.type_definition, 'Type Definition')
 

@@ -34,11 +34,6 @@ let g:closetag_filetypes = 'html,xhtml,phtml,handlebars'
 
 
 "-------------------------
-" vim-highlightedyank
-let g:highlightedyank_highlight_duration = 250
-
-
-"-------------------------
 " vimwiki
 let g:vimwiki_list = [
   \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
@@ -290,6 +285,7 @@ set foldexpr=nvim_treesitter#foldexpr()
 " set nofoldenable
 
 
+
 "--------------------------------------------------
 " Edit
 
@@ -398,7 +394,13 @@ inoremap <M-l> <Right>
 nnoremap <F10> :wa<Bar>exe "mksession! " .. v:this_session<CR>
 
 " folding
-nnoremap <space> za
+" nnoremap <space> za
+
+
+" quickfix, combine with :set modifiable and use :cgetbuffer to recreate
+" quickfix list
+set errorformat+=%f\|%l\ col\ %c\|%m
+
 
 "-------------------------------------------------- 
 " Options config copied from https://github.com/jonhoo/configs/blob/master/editor/.config/nvim/init.vim
@@ -424,7 +426,9 @@ augroup _general_settings
     autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
-    " autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200}) 
+
+    " yarnk on highlight
+    autocmd TextYankPost * silent! lua vim.highlight.on_yank()
 
     " see :h fo-table
     " stop auto add comment header when hit o in normal mode
@@ -455,4 +459,3 @@ augroup _filetypes
     autocmd FileType scss set ft=scss.css
     autocmd FileType less set ft=less.css
 augroup end
-

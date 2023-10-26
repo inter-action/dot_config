@@ -38,15 +38,15 @@ utils.map_func("n", ";q",
         end
 
         if not is_noname_buffer then
-            vim.api.nvim_command("x")
+            vim.api.nvim_command("bd")
             return 
         end
 
-        return vim.ui.select({ 'y', 'n' }, {
+        return vim.ui.select({ '1', '2' }, {
             prompt = 'no name buffer, force close? :',
         }, function(choice)
-            if choice == 'y' then
-                vim.api.nvim_command("q!")
+            if choice == '1' then
+                vim.api.nvim_command("bd!")
             else
                 return
             end
@@ -99,7 +99,7 @@ utils.map_func("n", "<F4>",
 
 
 -- buffer line
-utils.map_func("n", "<F3>", 
+utils.map_func("n", "<leader>tc", 
     function()
         vim.api.nvim_command("BufferLinePickClose")
     end, 

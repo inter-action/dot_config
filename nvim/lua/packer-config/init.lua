@@ -2,7 +2,7 @@ return require('packer').startup(function(use)
     -- Packer can manage itself
     use 'wbthomason/packer.nvim'
 
-    -- use 'editorconfig/editorconfig-vim'
+    use 'editorconfig/editorconfig-vim'
     use 'jremmen/vim-ripgrep'
 
     use 'MattesGroeger/vim-bookmarks'
@@ -74,7 +74,6 @@ return require('packer').startup(function(use)
 
     -- motion
     use 'easymotion/vim-easymotion'
-    use 'machakann/vim-highlightedyank'
     use 'tpope/vim-surround'
 
     -- telescope

@@ -5,8 +5,6 @@ local actions = require("telescope.actions")
 local builtin = require("telescope.builtin")
 local utils = require("../lua-utils")
 
-local function telescope_buffer_dir() return vim.fn.expand("%:p:h") end
-
 local map = utils.map_func
 
 telescope.setup {
@@ -25,26 +23,23 @@ telescope.setup {
     }
 }
 
+local theme = themes.get_dropdown({
+    previewer = false,
+    layout_config = {
+        -- width = function(_, max_columns, _)
+        --     return math.min(max_columns, 120)
+        -- end,
+        width = 0.8,
+        height = 0.6
+    }
+})
+
 -- keymaps
 -- map iterm with send vim chars, map `<Cmd-p>` to `\<M-p>`
-function find_files()
-    builtin.find_files(themes.get_dropdown({
-        previewer = false,
-        layout_config = {
-            -- width = function(_, max_columns, _)
-            --     return math.min(max_columns, 120)
-            -- end,
-            width = 0.8,
-            height = 0.6
-        }
-    }))
-end
-map("n", "<M-p>", find_files)
+map("n", "<M-p>", function() builtin.find_files(theme) end)
 -- map("n", ";f", find_files)
 
-function buffers() builtin.buffers() end
-
-map("n", "<M-b>", buffers)
+map("n", "<M-b>", function() builtin.buffers(theme) end)
 -- map("n", ";b", buffers)
 
 -- use ;<Esc> to repeat find instead!

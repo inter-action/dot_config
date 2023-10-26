@@ -10,9 +10,9 @@ local sign = function(opts)
     )
 end
 
-sign({name = "DiagnosticSignError", text = "☢️"})
-sign({name = "DiagnosticSignWarn", text = "⚠︎"})
-sign({name = "DiagnosticSignHint", text = "·"})
+sign({name = "DiagnosticSignError", text = "E"})
+sign({name = "DiagnosticSignWarn", text = "W"})
+sign({name = "DiagnosticSignHint", text = "H"})
 sign({name = "DiagnosticSignInfo", text = "I"})
 
 vim.diagnostic.config(
