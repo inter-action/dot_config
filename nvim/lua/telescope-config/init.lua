@@ -10,7 +10,7 @@ local map = utils.map_func
 telescope.setup {
     defaults = {
         mappings = {
-            n = {["q"] = actions.close},
+            n = { ["q"] = actions.close },
             ["i"] = {
                 ['<C-u>'] = false,
                 ['<C-d>'] = false,
@@ -37,7 +37,19 @@ local theme = themes.get_dropdown({
 -- keymaps
 -- map iterm with send vim chars, map `<Cmd-p>` to `\<M-p>`
 map("n", "<M-p>", function() builtin.find_files(theme) end)
--- map("n", ";f", find_files)
+map("n", ";f", function()
+    local search_file = vim.fn.expand('<cword>')
+    local option = vim.tbl_extend('force', theme, { search_file = search_file })
+    builtin.find_files(option)
+end)
+
+-- map("n", ";f", function ()
+--     vim.cmd('normal "+y')
+--     local search_file = vim.api.nvim_eval('@+')
+--     local option = vim.tbl_extend('force', theme, {search_file = search_file})
+--     builtin.find_files(option)
+-- end)
+
 
 map("n", "<M-b>", function() builtin.buffers(theme) end)
 -- map("n", ";b", buffers)
@@ -47,10 +59,5 @@ map("n", ";r", function() builtin.live_grep() end)
 map("n", ";s", function() builtin.lsp_document_symbols() end)
 map("n", ";c", function() builtin.commands() end)
 map("n", ";ch", function() builtin.command_history() end)
--- map("n", ";m",
---     function()
---         builtin.marks()
---     end
--- )
 map("n", ";a", function() builtin.builtin() end)
 map('n', ';;', function() builtin.resume() end)
