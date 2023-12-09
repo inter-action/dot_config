@@ -12,8 +12,8 @@ telescope.setup {
         mappings = {
             n = { ["q"] = actions.close },
             ["i"] = {
-                ['<C-u>'] = false,
-                ['<C-d>'] = false,
+                -- ['<C-u>'] = false,
+                -- ['<C-d>'] = false,
                 -- ["<C-u>"] = function() vim.cmd('normal dd') end,
                 ["<C-h>"] = "which_key",
                 ["<C-j>"] = actions.move_selection_next,
@@ -42,13 +42,6 @@ map("n", ";f", function()
     local option = vim.tbl_extend('force', theme, { search_file = search_file })
     builtin.find_files(option)
 end)
-
--- map("n", ";f", function ()
---     vim.cmd('normal "+y')
---     local search_file = vim.api.nvim_eval('@+')
---     local option = vim.tbl_extend('force', theme, {search_file = search_file})
---     builtin.find_files(option)
--- end)
 
 
 map("n", "<M-b>", function() builtin.buffers(theme) end)
