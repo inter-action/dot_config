@@ -426,6 +426,8 @@ augroup _general_settings
     autocmd BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif
 
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
+    
+    " autocmd FileType vimdoc :TSDisable highlight<CR> 
 
     " yarnk on highlight
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
@@ -436,7 +438,8 @@ augroup _general_settings
     autocmd FileType qf set nobuflisted
 
     " no syntax highlight for 1 million lines
-    autocmd BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax clear | endif
+    " moved this check in treesitter
+    " autocmd BufWinEnter * if line2byte(line("$") + 1) > 100000 | syntax off | endif
 
     " auto save on focus lost
     autocmd FocusLost * silent! wa
