@@ -5,8 +5,8 @@
 ## Setup
 
 * install Packer
-* `:PackInstall`
 * `:Mason` - to install your fav LSP server
+* `:checkhealth`
 
 
 ## Iterm setup
