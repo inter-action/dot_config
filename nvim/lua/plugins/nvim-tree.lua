@@ -67,19 +67,20 @@ local function my_on_attach(bufnr)
     -- END_DEFAULT_ON_ATTACH
 end
 
-
-
-require("nvim-tree").setup({
-    on_attach = my_on_attach,
-
-    view = {
-        width = 45,
-    },
-    -- todo: passing it via cmd line options?
-    update_focused_file = {
-        enable = true,
-    },
-    hijack_directories = {
-        enable = false,
+return {
+    'kyazdani42/nvim-tree.lua',
+    opts = {
+        on_attach = my_on_attach,
+    
+        view = {
+            width = 45,
+        },
+        -- todo: passing it via cmd line options?
+        update_focused_file = {
+            enable = true,
+        },
+        hijack_directories = {
+            enable = false,
+        }
     }
-})
+}

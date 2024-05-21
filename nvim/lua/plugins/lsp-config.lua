@@ -74,24 +74,42 @@ local servers = {
     }
 }
 
-require("mason").setup()
--- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-local lspconfig = require('lspconfig')
 
--- Ensure the servers above are installed
-local mason_lspconfig = require 'mason-lspconfig'
+return {
+    {
+        "williamboman/mason.nvim",
+        lazy = false,
+        config = function()
+            require("mason").setup()
+        end,
+    },
+    {
+        "williamboman/mason-lspconfig.nvim",
+        config = function()
+            -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
+            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+            local lspconfig = require('lspconfig')
 
-mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers) }
+            -- Ensure the servers above are installed
+            local mason_lspconfig = require 'mason-lspconfig'
 
-mason_lspconfig.setup_handlers {
-    function(server_name)
-        lspconfig[server_name].setup {
-            capabilities = capabilities,
-            on_attach = on_attach,
-            settings = servers[server_name],
-            filetypes = (servers[server_name] or {}).filetypes
+            mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers) }
+
+            mason_lspconfig.setup_handlers {
+                function(server_name)
+                    lspconfig[server_name].setup {
+                        capabilities = capabilities,
+                        on_attach = on_attach,
+                        settings = servers[server_name],
+                        filetypes = (servers[server_name] or {}).filetypes
+                    }
+                end
+            }
+        end,
+        dependencies = {
+            "williamboman/mason.nvim",
         }
-    end
+    },
+    "neovim/nvim-lspconfig",
 }

@@ -4,25 +4,11 @@
 
 " TODO: migrate all other config into lua
 " I don't know if this is necessary at all
+
 lua << EOF
+require('lazy-nvim')
 require('core-config')
-require('packer-config')
-require('nvim-tree-config')
-require('lsp-config')
-require('lualine-config')
-require('bufferline-config')
-require('treesitter-config')
-require('telescope-config')
-require('textcase-config')
-require('git-config')
-require('zenmode-config')
-require('hydra-config')
-require('whichkey-config')
-require('harpoon-config')
 EOF
-
-
-
 
 "--------------------------------------------------
 " vim configurations
