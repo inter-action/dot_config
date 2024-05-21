@@ -4,8 +4,6 @@ return {
     opts = {
         on_attach = function(bufnr)
             local gs = require('gitsigns')
-
-
             local function map(mode, l, r, opts)
                 -- default options in lua
                 opts = opts or {}

@@ -25,8 +25,6 @@ return {
     'rcarriga/nvim-notify',
     { "nvim-tree/nvim-web-devicons", lazy = true },
 
-
-
     'vimwiki/vimwiki',
 
     {

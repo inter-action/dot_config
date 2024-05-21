@@ -81,7 +81,7 @@ return {
     -- hydra
     "anuvyklack/hydra.nvim",
     config = config,
-    -- dependencies = {
-    --     "lewis6991/gitsigns.nvim"
-    -- }
+    dependencies = {
+        "lewis6991/gitsigns.nvim"
+    }
 }
