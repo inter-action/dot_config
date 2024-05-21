@@ -10,6 +10,7 @@ return {
     -- auto pair
     {
         "windwp/nvim-autopairs",
+        event = "InsertEnter",
         opts = {},
     },
     'alvan/vim-closetag',
