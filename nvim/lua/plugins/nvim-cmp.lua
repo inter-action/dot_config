@@ -18,7 +18,7 @@ local function config()
     -- Enable LSP snippets
     snippet = {
         expand = function(args)
-        luasnip.lsp_expand(args.body)
+            luasnip.lsp_expand(args.body)
         end,
     },
     mapping = cmp.mapping.preset.insert {
@@ -53,7 +53,6 @@ local function config()
     -- Installed sources:
     sources = {
         { name = 'path' },                              -- file paths
-        -- { name = 'nvim_lsp', keyword_length = 3 },      -- from language server
         { name = 'nvim_lsp' },      -- from language server
         { name = 'nvim_lsp_signature_help'},            -- display function signatures with current parameter emphasized
         { name = 'nvim_lua', keyword_length = 2},       -- complete neovim's Lua runtime API such vim.lsp.*
@@ -137,11 +136,7 @@ return {
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
         'onsails/lspkind.nvim',
-        {
-            "L3MON4D3/LuaSnip",
-            -- follow latest release.
-            version = "v2.*"
-        }
+        -- "L3MON4D3/LuaSnip",
     },
     config = config,
 }
