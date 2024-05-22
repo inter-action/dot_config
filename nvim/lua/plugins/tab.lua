@@ -1,6 +1,17 @@
 -- tabs
 return {
     'akinsho/bufferline.nvim', 
-    version = "*", 
-    dependencies = 'nvim-tree/nvim-web-devicons'
+    version = "*",
+    opts = {
+        options = {
+            indicator = {
+                icon = '▎',
+            },
+            buffer_close_icon = '✘',
+        }
+    },
+    dependencies = {
+        'nvim-tree/nvim-web-devicons',
+    }
 }
+
