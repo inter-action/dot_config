@@ -17,7 +17,19 @@ return {
 
 
     -- theme
-    "EdenEast/nightfox.nvim",
+    {
+        "EdenEast/nightfox.nvim",
+        opts = {
+            groups = {
+                nightfox = {
+                    DiagnosticUnderlineError = { fg = "#dc362e" },
+                },
+                dayfox = {
+                    DiagnosticUnderlineError = { fg = "#dc362e", bg = "#fcebeb" },
+                },
+            }
+        }
+    },
     -- todo: remove this
     -- 'kyazdani42/nvim-web-devicons',
 
