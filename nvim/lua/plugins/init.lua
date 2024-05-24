@@ -11,8 +11,6 @@ return {
     ---- search
     "jremmen/vim-ripgrep",
     
-    ---- motion
-    'easymotion/vim-easymotion',
     'tpope/vim-surround',
 
     -- UI
