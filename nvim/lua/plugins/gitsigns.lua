@@ -1,10 +1,11 @@
 -- git
 return {
     'lewis6991/gitsigns.nvim',
-    lazy = false,
     config = function()
         local gs = require('gitsigns')
         local on_attach = function(bufnr)
+            -- local gs = package.loaded.gitsigns
+
             local function map(mode, l, r, opts)
                 -- default options in lua
                 opts = opts or {}
@@ -27,7 +28,15 @@ return {
         end
 
         gs.setup({
-            on_attach = on_attach
+            on_attach = on_attach,
+            signs = {
+                add = { text = "▎" },
+                change = { text = "▎" },
+                delete = { text = "" },
+                topdelete = { text = "" },
+                changedelete = { text = "▎" },
+                untracked = { text = "▎" },
+            },
         })
     end
 }
