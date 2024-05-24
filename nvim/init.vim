@@ -413,8 +413,6 @@ augroup _general_settings
 
     autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
     
-    " autocmd FileType vimdoc :TSDisable highlight<CR> 
-
     " yarnk on highlight
     autocmd TextYankPost * silent! lua vim.highlight.on_yank()
 

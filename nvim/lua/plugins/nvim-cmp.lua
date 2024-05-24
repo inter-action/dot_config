@@ -6,13 +6,9 @@ local function config()
     local lspkind = require('lspkind')
     local cmp = require'cmp'
 
-    -- require("folke/neodev.nvim").setup()
-
     local luasnip = require 'luasnip'
     require('luasnip.loaders.from_vscode').lazy_load()
     luasnip.config.setup {}
-
-    vim.g.vsnip_snippet_dir = "~/.config/vsnip"
 
     cmp.setup({
     -- Enable LSP snippets
@@ -107,17 +103,8 @@ local function config()
     -- shortness: avoid showing extra messages when using completion
     -- updatetime: set updatetime for CursorHold
     vim.opt.completeopt = {'menuone', 'noselect', 'noinsert'}
-    vim.opt.shortmess = vim.opt.shortmess + { c = true}
+    vim.opt.shortmess = vim.opt.shortmess + { c = true }
     vim.api.nvim_set_option('updatetime', 300) 
-
-    -- Fixed column for diagnostics to appear
-    -- Show autodiagnostic popup on cursor hover_range
-    -- Goto previous / next diagnostic warning / error 
-    -- Show inlay_hints more frequently 
-    vim.cmd([[
-    set signcolumn=yes
-    autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-    ]])
 end
 
 
@@ -132,11 +119,11 @@ return {
         "hrsh7th/cmp-buffer",
         'hrsh7th/cmp-nvim-lua',
         'hrsh7th/cmp-nvim-lsp-signature-help',
-        'hrsh7th/cmp-vsnip',
         'hrsh7th/cmp-path',
         'hrsh7th/cmp-cmdline',
         'onsails/lspkind.nvim',
-        -- "L3MON4D3/LuaSnip",
+        -- need?
+        "L3MON4D3/LuaSnip",
     },
     config = config,
 }

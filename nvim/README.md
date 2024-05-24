@@ -21,16 +21,6 @@
 `:helptags ~/.config/nvim/doc`
 
 
--> vsnipt setup
-
-for vsnipt to work, all the snippet files must be valid json syntax. the vscode snippets is not valid json by default.
-has to do mannual correction before it can be loaded by `vsnip` neovim plugin.
-
-```
-ln -s ~/Library/Application\ Support/Code/User/snippets ~/.config/vsnip
-```
-
-
 ## Rust Lsp
 
 ```
