@@ -1,10 +1,6 @@
 -- alias
 local opt = vim.opt
 
-vim.notify = require("notify")
-
-vim.cmd("colorscheme nightfox")
-
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "qf",
     callback = function()

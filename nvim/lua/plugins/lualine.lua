@@ -30,5 +30,8 @@ end -- config
 
 return {
     'nvim-lualine/lualine.nvim',
-    config = config
+    config = config,
+    dependencies = {
+        "anuvyklack/hydra.nvim",
+    }
 }

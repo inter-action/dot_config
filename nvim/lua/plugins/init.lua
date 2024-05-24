@@ -1,13 +1,6 @@
 return {
-    -- search
-    "jremmen/vim-ripgrep",
-    
-    -- motion
-    'easymotion/vim-easymotion',
-    'tpope/vim-surround',
-
-    -- todo, add these back
-    -- auto pair
+    -- Editor
+    ---- auto pair
     {
         "windwp/nvim-autopairs",
         event = "InsertEnter",
@@ -15,30 +8,26 @@ return {
     },
     'alvan/vim-closetag',
 
+    ---- search
+    "jremmen/vim-ripgrep",
+    
+    ---- motion
+    'easymotion/vim-easymotion',
+    'tpope/vim-surround',
 
-    -- theme
+    -- UI
+    ---- notify
     {
-        "EdenEast/nightfox.nvim",
-        opts = {
-            groups = {
-                nightfox = {
-                    DiagnosticUnderlineError = { fg = "#dc362e" },
-                },
-                dayfox = {
-                    DiagnosticUnderlineError = { fg = "#dc362e", bg = "#fcebeb" },
-                },
-            }
-        }
+        'rcarriga/nvim-notify',
+        -- lazy loading not gonna work for this plugin
+        lazy = false,
+        -- config = true,
+        config = function()
+            vim.notify = require("notify")
+        end,
     },
-    -- todo: remove this
-    -- 'kyazdani42/nvim-web-devicons',
-
-    -- notify
-    'rcarriga/nvim-notify',
     { "nvim-tree/nvim-web-devicons", lazy = true },
-
-    'vimwiki/vimwiki',
-
+    ---- which key
     {
         "folke/which-key.nvim",
         opts = {
@@ -57,4 +46,24 @@ return {
             vim.o.timeoutlen = 300
         end,
     },
+    ---- theme
+    {
+        "EdenEast/nightfox.nvim",
+        config = function()
+            require('nightfox').setup({
+                groups = {
+                    nightfox = {
+                        DiagnosticUnderlineError = { fg = "#dc362e" },
+                    },
+                    dayfox = {
+                        DiagnosticUnderlineError = { fg = "#dc362e", bg = "#fcebeb" },
+                    },
+                }
+            })
+            vim.cmd("colorscheme nightfox")
+        end
+    },
+
+    -- Others
+    'vimwiki/vimwiki',
 }
