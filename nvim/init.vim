@@ -53,7 +53,7 @@ nmap <Leader>l <Plug>BookmarkShowAll
 set t_Co=256
 
 " force language
-language en_US
+" language en_US
 
 " Enable per-directory .vimrc files and disable unsafe commands in them
 "set exrc secure
