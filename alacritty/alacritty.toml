@@ -11,7 +11,7 @@ bindings = [
 # <C-c> should used for abort current process
 # { key = "c", mods = "Control", action="Copy" },
 # force linux paste
-{ key = "v", mods = "Control", action="Paste" },
+# { key = "v", mods = "Control", action="Paste" },
 # not working
 #{ key = "t", mods = "Super", action="CreateNewTab" },
 ]
