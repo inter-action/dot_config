@@ -1,0 +1,17 @@
+
+[window]
+opacity=1
+decorations="Transparent"
+blur=true
+
+
+[keyboard]
+bindings = [
+{ key = "g", mods = "Super", chars="gitui\n" },
+# <C-c> should used for abort current process
+# { key = "c", mods = "Control", action="Copy" },
+# force linux paste
+{ key = "v", mods = "Control", action="Paste" },
+# not working
+#{ key = "t", mods = "Super", action="CreateNewTab" },
+]
