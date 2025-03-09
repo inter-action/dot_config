@@ -7,11 +7,15 @@ blur=true
 
 [keyboard]
 bindings = [
-{ key = "g", mods = "Super", chars="gitui\n" },
-# <C-c> should used for abort current process
-# { key = "c", mods = "Control", action="Copy" },
-# force linux paste
-# { key = "v", mods = "Control", action="Paste" },
+    { key = "g", mods = "Super", chars="gitui\n" },
+    { key = "e", mods = "Super", chars="fg\n" },
+    { key = "=", mods = "Control", action="IncreaseFontSize" },
+    { key = "-", mods = "Control", action="DecreaseFontSize" },
+    { key = "0", mods = "Control", action="ResetFontSize" },
+# not working in linux. let's see if it would work on mac
+    { key = "[", mods = "Control | Shift", chars=":bp\n" },
+    { key = "]", mods = "Control | Shift", chars=":bn\n" },
 # not working
 #{ key = "t", mods = "Super", action="CreateNewTab" },
 ]
+

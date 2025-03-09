@@ -105,6 +105,12 @@ utils.map_func("n", "<leader>tc",
     end,
     merge2(opts, {desc = "BufferLinePickClose"})
 )
+utils.map_func("n", "<leader>tt",
+    function()
+        vim.api.nvim_command("BufferLinePick")
+    end,
+    merge2(opts, {desc = "BufferLinePick"})
+)
 
 -- folding
 ---- map iterm with <cmd-[> to zc and map <cmd-]> to zo
