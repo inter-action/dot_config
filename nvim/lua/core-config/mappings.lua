@@ -105,7 +105,7 @@ utils.map_func("n", "<leader>tc",
     end,
     merge2(opts, {desc = "BufferLinePickClose"})
 )
-utils.map_func("n", "<leader>tt",
+utils.map_func("n", "<leader>ts",
     function()
         vim.api.nvim_command("BufferLinePick")
     end,
