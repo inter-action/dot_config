@@ -1,4 +1,13 @@
 
+[font]
+# ls ~/.local/share/fonts
+normal = { family = "JetBrainsMonoNerdFontMono", style = "Regular" }
+bold = { family = "JetBrainsMonoNerdFontMono", style = "Bold" }
+italic = { family = "JetBrainsMonoNerdFontMono", style = "Italic" }
+bold_italic = { family = "JetBrainsMonoNerdFontMono", style = "BoldItalic" }
+
+
+
 [window]
 opacity=1
 decorations="Transparent"
