@@ -14,16 +14,44 @@ decorations="Transparent"
 blur=true
 
 
+# [[hints.enabled]]
+# #command = "xdg-open" # On Linux/BSD
+# command = "open" # On macOS
+# # command = { program = "cmd", args = [ "/c", "start", "" ] } # On Windows
+# hyperlinks = true
+# post_processing = true
+# persist = false
+# mouse.enabled = true
+# binding = { key = "O", mods = "Control|Shift" }
+
+[[hints.enabled]]
+regex = "[^ ]+\\.rs:\\d+:\\d+"
+command = { program = "code", args = [ "--goto" ] }
+mouse = { enabled = true }
+
+# [[hints.enabled]]
+# command = "open" # On macOS
+# # command = { program = "cmd", args = [ "/c", "start", "" ] } # On Windows
+# hyperlinks = true
+# mouse = { enabled = true }
+
+[mouse]
+bindings = [
+    { mouse = "Left", mods = "Control", action="Open" },
+]
+
 [keyboard]
 bindings = [
     { key = "g", mods = "Super", chars="gitui\n" },
     { key = "e", mods = "Super", chars="fg\n" },
-    { key = "=", mods = "Control", action="IncreaseFontSize" },
-    { key = "-", mods = "Control", action="DecreaseFontSize" },
-    { key = "0", mods = "Control", action="ResetFontSize" },
 # not working in linux. let's see if it would work on mac
     { key = "[", mods = "Control | Shift", chars=":bp\n" },
     { key = "]", mods = "Control | Shift", chars=":bn\n" },
+# actions
+    { key = "=", mods = "Control", action="IncreaseFontSize" },
+    { key = "-", mods = "Control", action="DecreaseFontSize" },
+    { key = "0", mods = "Control", action="ResetFontSize" },
+    { key = "i", mods = "Control | Shift", action="ToggleViMode" },
 # not working
 #{ key = "t", mods = "Super", action="CreateNewTab" },
 ]
