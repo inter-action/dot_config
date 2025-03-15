@@ -70,7 +70,10 @@ alias astro="NVIM_APPNAME=nvim-astro nvim"
 
 * lua vim guide - https://github.com/glepnir/nvim-lua-guide-zh
 * https://vonheikemen.github.io/devlog/tools/configuring-neovim-using-lua/
+* https://tui.ninja/neovim/customizing/user_commands/creating/
 
+### lua lang 101
+* lua index starts from 1
 
 
 ## Neovim Config influenced by
