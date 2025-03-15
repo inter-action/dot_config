@@ -77,26 +77,35 @@ utils.map_func("n", ";rr",
 
 -- quickfix window
 -- previously was mapped to <F4>
+
+local function toggle_quickfix()
+    local wininfos = vim.fn.getwininfo()
+    local hasQuickFix = false
+
+    for i = 1, #wininfos do
+        local v = wininfos[i]
+
+        if v.quickfix == 1 then
+            hasQuickFix = true
+            break
+        end
+    end
+
+    if hasQuickFix then
+        vim.api.nvim_command("cclose")
+    else
+        vim.api.nvim_command("copen 20")
+    end
+end
+
+-- todo: remove this?
+utils.map_func("n", "<F4>",
+    toggle_quickfix,
+    merge2(opts, {desc = "toggle quickfix"})
+)
+
 utils.map_func("n", "<C-j>",
-    function()
-        local wininfos = vim.fn.getwininfo()
-        local hasQuickFix = false
-
-        for i = 1, #wininfos do
-            local v = wininfos[i]
-
-            if v.quickfix == 1 then
-                hasQuickFix = true
-                break
-            end
-        end
-
-        if hasQuickFix then
-            vim.api.nvim_command("cclose")
-        else
-            vim.api.nvim_command("copen 20")
-        end
-    end,
+    toggle_quickfix,
     merge2(opts, {desc = "toggle quickfix"})
 )
 

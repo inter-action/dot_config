@@ -353,6 +353,14 @@ nnoremap <M-l> gt
 "-------------------------------------------------- 
 " personal options
 
+
+" quick navi buffers
+nnoremap <C-H> :bp<CR>
+nnoremap <C-L> :bn<CR>
+
+inoremap <C-H> <Esc>:bp<CR>
+inoremap <C-L> <Esc>:bn<CR>
+
 set pyxversion=3
 
 " yank to system clipboard
