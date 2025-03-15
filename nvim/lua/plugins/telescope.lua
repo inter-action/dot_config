@@ -39,6 +39,7 @@ local config = function()
     -- map iterm with send vim chars, map `<Cmd-p>` to `\<M-p>`
     map("n", "<M-p>", function() builtin.find_files(theme) end)
     map("n", ";p", function() builtin.find_files(theme) end)
+    map("n", ";o", function() builtin.oldfiles(theme) end)
     map("n", ";f", function()
         local search_file = vim.fn.expand('<cword>')
         local option = vim.tbl_extend('force', theme, { search_file = search_file })

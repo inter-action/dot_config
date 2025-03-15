@@ -39,8 +39,15 @@
 print(vim.inspect(vim.v.argv))
 ```
 
+## Official Guide
+* quick reference - https://neovim.io/doc/user/quickref.html#_inserting-text
+* user guide - https://neovim.io/doc/user/
+
+
 ## TIPS & 101s
 * !! https://learnvim.irian.to/
+* !! https://practical.li/neovim/reference/neovim/quickfix/
+
 * http://vimcasts.org/categories/
 * morden neovim 
     * https://alpha2phi.medium.com/learn-neovim-the-practical-way-8818fcf4830f#8c31
@@ -48,6 +55,14 @@ print(vim.inspect(vim.v.argv))
 
 * config examples
     * https://github.com/LunarVim/Neovim-from-scratch
+
+
+* multiple config - https://practical.li/neovim/install/multiple-configurations/#configure-shell-alias
+
+```
+alias astro="NVIM_APPNAME=nvim-astro nvim"
+             ^ this would choose the folder name to load under `./config/<NVIM_APPNAME>`
+```
 
 * !!Neovim Power Tips: Volume 2 - https://www.youtube.com/watch?v=yMs97o_TdBU
 

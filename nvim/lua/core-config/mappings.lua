@@ -5,6 +5,8 @@ local merge2 = utils.merge2
 local opts = { silent=false, noremap = true }
 local slicent_opts = { silent=true }
 
+-- input mode, editing
+vim.keymap.set('i', '<C-l>', utils.move_cursor_next, { desc = "move cursor to right" })
 
 -- nvim tree
 utils.map_command("n", "<leader>e", ":NvimTreeToggle<CR>", opts)
@@ -74,7 +76,8 @@ utils.map_func("n", ";rr",
 )
 
 -- quickfix window
-utils.map_func("n", "<F4>",
+-- previously was mapped to <F4>
+utils.map_func("n", "<C-j>",
     function()
         local wininfos = vim.fn.getwininfo()
         local hasQuickFix = false

@@ -1,6 +1,20 @@
 local exports = {}
 
 
+-- Function to retrieve and display the current cursor position
+function exports.move_cursor_next()
+
+  -- Get the current cursor position in the current window
+  local current_win_id = 0
+  local cursor_pos = vim.api.nvim_win_get_cursor(current_win_id)
+  local line = cursor_pos[1] -- 1-based line number
+  local col = cursor_pos[2] -- 0-based column number
+
+  -- Display the cursor position in the command line
+  -- print("Cursor Position: Line " .. line .. ", Column " .. col)
+  vim.api.nvim_win_set_cursor(current_win_id, {line, col + 1})
+end
+
 
 function exports.get_buffer_relative_filename()
     -- return string.gsub(vim.api.nvim_buf_get_name(0), vim.loop.cwd() .. '/', '')
