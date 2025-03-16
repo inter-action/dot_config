@@ -44,14 +44,14 @@ bindings = [
 bindings = [
     { key = "g", mods = "Super", chars="gitui\n" },
     { key = "e", mods = "Super", chars="fg\n" },
-# not working in linux. let's see if it would work on mac
-    { key = "[", mods = "Control | Shift", chars=":bp\n" },
-    { key = "]", mods = "Control | Shift", chars=":bn\n" },
+# override default behavior of alacritty
+    { key = "b", mods = "Control | Shift", action="None" },
 # actions
     { key = "=", mods = "Control", action="IncreaseFontSize" },
     { key = "-", mods = "Control", action="DecreaseFontSize" },
     { key = "0", mods = "Control", action="ResetFontSize" },
-    { key = "i", mods = "Control | Shift", action="ToggleViMode" },
+
+    ## { key = "i", mods = "Control | Shift", action="ToggleViMode" },
 # not working
 #{ key = "t", mods = "Super", action="CreateNewTab" },
 ]
