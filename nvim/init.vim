@@ -323,6 +323,8 @@ set diffopt+=indent-heuristic
 " split
 nnoremap s- <C-w>s
 nnoremap s\ <C-w>v
+nnoremap <C-w>- <C-w>s
+nnoremap <C-w>\ <C-w>v
 
 " close
 nnoremap sc <C-w>c
