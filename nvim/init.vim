@@ -358,6 +358,15 @@ nnoremap ]t gt
 nnoremap [b :bp<CR>
 nnoremap ]b :bn<CR>
 
+" switch quickfix
+nnoremap [c :cp<CR>
+nnoremap ]c :cn<CR>
+
+"-------------------------------------------------- 
+" insert mode
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
+
 
 " conflicts with <C-L> in insert mode
 " inoremap <C-H> <Esc>:bp<CR>
@@ -366,9 +375,6 @@ nnoremap ]b :bn<CR>
 "-------------------------------------------------- 
 " personal options
 
-" insert mode
-inoremap <C-h> <Left>
-inoremap <C-l> <Right>
 
 
 set pyxversion=3

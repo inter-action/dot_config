@@ -59,6 +59,10 @@ print(vim.inspect(vim.v.argv))
 
 * multiple config - https://practical.li/neovim/install/multiple-configurations/#configure-shell-alias
 
+* insert mode
+    * https://dev.to/iggredible/the-only-vim-insert-mode-cheatsheet-you-ever-needed-nk9#:~:text=You%20can%20use%20autocomplete%20feature%20in%20insert%20mode,Ctrl-p.%20Autocomplete%20is%20a%20vast%20topic%20in%20Vim.
+    * https://neovim.io/doc/user/insert.html#:~:text=CTRL-X%20Enter%20CTRL-X%20mode.%20This%20is%20a%20sub-mode,Insert%20the%20character%20which%20is%20above%20the%20cursor.
+
 ```
 alias astro="NVIM_APPNAME=nvim-astro nvim"
              ^ this would choose the folder name to load under `./config/<NVIM_APPNAME>`
