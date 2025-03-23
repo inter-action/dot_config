@@ -1,4 +1,12 @@
 
+[general]
+import = [
+# "themes/themes/Tokyonight_Day.toml"
+# "themes/themes/Tokyonight_Night.toml"
+    "themes/Dracula.toml"
+]
+
+
 [font]
 # ls ~/.local/share/fonts
 normal = { family = "JetBrainsMonoNerdFontMono", style = "Regular" }
