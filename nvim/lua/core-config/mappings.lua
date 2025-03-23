@@ -5,8 +5,8 @@ local merge2 = utils.merge2
 local opts = { silent=false, noremap = true }
 local slicent_opts = { silent=true }
 
--- input mode, editing
-vim.keymap.set('i', '<C-l>', utils.move_cursor_next, { desc = "move cursor to right" })
+-- input mode, editing. config inside init.vm
+-- vim.keymap.set('i', '<C-l>', utils.move_cursor_next, { desc = "move cursor to right" })
 
 -- nvim tree
 utils.map_command("n", "<leader>e", ":NvimTreeToggle<CR>", opts)

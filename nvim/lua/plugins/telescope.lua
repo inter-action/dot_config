@@ -37,7 +37,6 @@ local config = function()
 
     -- keymaps
     -- map iterm with send vim chars, map `<Cmd-p>` to `\<M-p>`
-    map("n", "<M-p>", function() builtin.find_files(theme) end)
     map("n", ";p", function() builtin.find_files(theme) end)
     map("n", ";o", function() builtin.oldfiles(theme) end)
     map("n", ";f", function()
@@ -47,7 +46,6 @@ local config = function()
     end)
 
 
-    map("n", "<M-b>", function() builtin.buffers(theme) end)
     map("n", ";b", function() builtin.buffers(theme) end)
     -- map("n", ";b", buffers)
 

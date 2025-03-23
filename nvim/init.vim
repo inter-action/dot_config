@@ -346,20 +346,30 @@ map H ^
 map L $
 
 " switch tabs
-nnoremap <M-h> gT
-nnoremap <M-l> gt
+nnoremap [t gT
+nnoremap ]t gt
 
+
+" quick navi buffers
+" nnoremap <C-H> :bp<CR>
+" nnoremap <C-L> :bn<CR>
+
+" switch buffers
+nnoremap [b :bp<CR>
+nnoremap ]b :bn<CR>
+
+
+" conflicts with <C-L> in insert mode
+" inoremap <C-H> <Esc>:bp<CR>
+" inoremap <C-L> <Esc>:bn<CR>
 
 "-------------------------------------------------- 
 " personal options
 
+" insert mode
+inoremap <C-h> <Left>
+inoremap <C-l> <Right>
 
-" quick navi buffers
-nnoremap <C-H> :bp<CR>
-nnoremap <C-L> :bn<CR>
-
-inoremap <C-H> <Esc>:bp<CR>
-inoremap <C-L> <Esc>:bn<CR>
 
 set pyxversion=3
 
@@ -379,10 +389,6 @@ highlight clear SignColumn
 
 " prevent paste in visual mode from replacing unnamed buffer
 xnoremap p P
-
-" insert mode
-inoremap <M-h> <Left>
-inoremap <M-l> <Right>
 
 " save current session into a file
 nnoremap <F10> :wa<Bar>exe "mksession! " .. v:this_session<CR>
