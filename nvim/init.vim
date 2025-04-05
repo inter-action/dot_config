@@ -368,6 +368,9 @@ nnoremap ]c :cn<CR>
 " insert mode
 inoremap <C-h> <Left>
 inoremap <C-l> <Right>
+inoremap <C-e> <End>
+inoremap <C-a> <Home>
+
 
 
 " conflicts with <C-L> in insert mode

@@ -19,8 +19,8 @@ local function config()
             -- <C-f> original mapping
             ['<C-u>'] = cmp.mapping.scroll_docs(4),
             ['<C-Space>'] = cmp.mapping.complete {},
-            ['<C-f>'] = cmp.mapping.confirm {
-                behavior = cmp.ConfirmBehavior.Replace,
+            ['<C-e>'] = cmp.mapping.confirm {
+                behavior = cmp.ConfirmBehavior.Insert,
                 select = true
             },
             -- vim.api.nvim_paste
