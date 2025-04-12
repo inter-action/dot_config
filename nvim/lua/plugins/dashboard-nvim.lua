@@ -3,8 +3,17 @@ return {
     event = 'VimEnter',
     config = function()
         require('dashboard').setup {
-            -- config
+            theme = 'hyper',
+            disable_move = true,
+            config = {
+                week_header = {
+                    enable = true,
+                },
+                packages = {
+                    enable = false,
+                }
+            },
         }
     end,
-    dependencies = {{'nvim-tree/nvim-web-devicons'}}
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
 }
