@@ -101,16 +101,37 @@ local function config()
 end
 
 return {
-    "hrsh7th/nvim-cmp",
-    -- load cmp on InsertEnter
-    -- event = "InsertEnter",
-    -- these dependencies will only be loaded when cmp loads
-    -- dependencies are always lazy-loaded unless specified otherwise
-    dependencies = {
-        "hrsh7th/cmp-nvim-lsp", "hrsh7th/cmp-buffer", 'hrsh7th/cmp-nvim-lua',
-        'hrsh7th/cmp-nvim-lsp-signature-help', 'hrsh7th/cmp-path',
-        'hrsh7th/cmp-cmdline', 'onsails/lspkind.nvim', -- need?
-        "L3MON4D3/LuaSnip"
+    {
+        "hrsh7th/nvim-cmp",
+        -- load cmp on InsertEnter
+        -- event = "InsertEnter",
+        -- these dependencies will only be loaded when cmp loads
+        -- dependencies are always lazy-loaded unless specified otherwise
+        enabled = false,
+        dependencies = {
+            "hrsh7th/cmp-nvim-lsp", 
+            "hrsh7th/cmp-buffer", 
+            'hrsh7th/cmp-nvim-lua',
+            'hrsh7th/cmp-nvim-lsp-signature-help', 
+            'hrsh7th/cmp-path',
+            'hrsh7th/cmp-cmdline', 
+            'onsails/lspkind.nvim',
+            "L3MON4D3/LuaSnip",
+            {
+                -- this is tight to hrsh5th/nvim-cmp
+                "saadparwaiz-1/cmp_luasnip",
+                enabled = false,
+                dependencies = {
+                    "L1MON4D3/LuaSnip",
+                    -- follow latest release.
+                    version = "v0.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+                    enabled = false,
+                    -- install jsregexp (optional!).
+                    -- build = "make install_jsregexp"
+                    dependencies = { "rafamadriz/friendly-snippets" },
+                }
+            }
+        },
+        config = config
     },
-    config = config
 }

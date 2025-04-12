@@ -63,7 +63,7 @@ local servers = {
     -- pyright = {},
     cssls = {},
     rust_analyzer = {},
-    tsserver = {},
+    -- tsserver = {},
     html = { filetypes = { 'html', 'twig', 'hbs' } },
     lua_ls = {
         Lua = {
@@ -86,10 +86,13 @@ return {
     {
         "williamboman/mason-lspconfig.nvim",
         config = function()
+            -- when use together with hrsh7th/nvim-cmp
             -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+            -- local capabilities = vim.lsp.protocol.make_client_capabilities()
+            -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+
             local lspconfig = require('lspconfig')
+            local blinkcmp = require('blink.cmp')
 
             -- Ensure the servers above are installed
             local mason_lspconfig = require 'mason-lspconfig'
@@ -99,7 +102,7 @@ return {
             mason_lspconfig.setup_handlers {
                 function(server_name)
                     lspconfig[server_name].setup {
-                        capabilities = capabilities,
+                        capabilities = blinkcmp.get_lsp_capabilities(lspconfig[server_name].capabilities),
                         on_attach = on_attach,
                         settings = servers[server_name],
                         filetypes = (servers[server_name] or {}).filetypes
@@ -109,7 +112,11 @@ return {
         end,
         dependencies = {
             "williamboman/mason.nvim",
+            "neovim/nvim-lspconfig"
         }
     },
-    "neovim/nvim-lspconfig",
+    {
+        "neovim/nvim-lspconfig",
+        -- dependencies = { 'saghen/blink.cmp' },
+    }
 }

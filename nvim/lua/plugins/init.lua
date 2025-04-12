@@ -18,7 +18,8 @@ return {
     {
         'rcarriga/nvim-notify',
         -- lazy loading not gonna work for this plugin
-        lazy = false,
+        version = "v3.14.0",    
+        event = 'VimEnter',
         -- config = true,
         config = function()
             vim.notify = require("notify")

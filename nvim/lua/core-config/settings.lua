@@ -10,3 +10,19 @@ vim.api.nvim_create_autocmd("FileType", {
         vim.api.nvim_win_set_height(0, lines)
     end
 })
+
+-- need to disable telescope's border first
+-- vim.o.winborder = 'rounded'
+
+vim.api.nvim_create_autocmd('LspAttach', {
+    callback = function(ev)
+        vim.diagnostic.config({
+            virtual_text = { current_line = true }
+            -- Alternatively, customize specific options
+            -- virtual_lines = {
+            --  -- Only show virtual line diagnostics for the current cursor line
+            --  current_line = true,
+            -- },
+        })
+    end,
+})

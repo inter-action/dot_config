@@ -85,9 +85,6 @@ set ttyfast
 " Set character encoding to use in vim
 set encoding=utf-8
 
-" Let vim know what encoding we use in our terminal
-set termencoding=utf-8
-
 " Which EOl used. For us it's unix
 " Not works with modifiable=no
 if &modifiable
@@ -277,9 +274,6 @@ set foldexpr=nvim_treesitter#foldexpr()
 
 " Allow backspace to remove indents, newlines and old text
 set backspace=indent,eol,start
-
-" toggle paste mode on \p
-set pastetoggle=<leader>p
 
 " Add '-' as recognized word symbol. e.g dw delete all 'foo-bar' instead just 'foo'
 set iskeyword+=-
