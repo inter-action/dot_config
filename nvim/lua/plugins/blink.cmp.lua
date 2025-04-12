@@ -36,23 +36,27 @@ return {
         keymap = {
             ['<C-u>'] = {
                 function(cmp)
-                    cmp.scroll_documentation_up(4)
+                    return cmp.scroll_documentation_up(4)
                 end,
+                'fallback'
             },
             ['<C-d>'] = {
                 function(cmp)
-                    cmp.scroll_documentation_down(4)
+                    return cmp.scroll_documentation_down(4)
                 end,
+                'fallback'
             },
             ['<C-e>'] = {
                 function(cmp)
-                    cmp.select_and_accept()
+                    return cmp.select_and_accept()
                 end,
+                'fallback'
             },
             ['<CR>'] = {
                 function(cmp)
-                    cmp.select_and_accept()
+                    return cmp.select_and_accept()
                 end,
+                'fallback'
             }
         },
 
