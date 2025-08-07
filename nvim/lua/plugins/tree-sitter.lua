@@ -14,7 +14,8 @@ return {
                 -- A list of parser names, or "all"
                 ensure_installed = {
                     "c", "cpp", "rust", "vim", "lua", "python", "go", "typescript", "javascript", "tsx", "toml", "json",
-                    "html", "markdown", "markdown_inline", "swift"
+                    "html", "markdown", "markdown_inline",
+                    -- ,"swift"
                 },
 
                 -- Install parsers synchronously (only applied to `ensure_installed`)
