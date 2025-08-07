@@ -28,5 +28,6 @@ end
 
 return {
     "ThePrimeagen/harpoon",
+    enabled = false,
     config = config
 }

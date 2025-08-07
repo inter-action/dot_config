@@ -59,11 +59,11 @@ end
 
 local servers = {
     clangd = {},
-    gopls = {},
+    -- gopls = {},
     -- pyright = {},
     cssls = {},
     rust_analyzer = {},
-    -- tsserver = {},
+    ts_ls = {},
     html = { filetypes = { 'html', 'twig', 'hbs' } },
     lua_ls = {
         Lua = {
@@ -76,47 +76,33 @@ local servers = {
 
 
 return {
+    -- {
+    --     "williamboman/mason.nvim",
+    --     lazy = false,
+    --     config = function()
+    --         require("mason").setup()
+    --     end,
+    -- },
     {
-        "williamboman/mason.nvim",
-        lazy = false,
+        "mason-org/mason-lspconfig.nvim",
         config = function()
-            require("mason").setup()
-        end,
-    },
-    {
-        "williamboman/mason-lspconfig.nvim",
-        config = function()
-            -- when use together with hrsh7th/nvim-cmp
-            -- nvim-cmp supports additional completion capabilities, so broadcast that to servers
-            -- local capabilities = vim.lsp.protocol.make_client_capabilities()
-            -- capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
-
-            local lspconfig = require('lspconfig')
             local blinkcmp = require('blink.cmp')
-
-            -- Ensure the servers above are installed
             local mason_lspconfig = require 'mason-lspconfig'
 
             mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers) }
 
-            mason_lspconfig.setup_handlers {
-                function(server_name)
-                    lspconfig[server_name].setup {
-                        capabilities = blinkcmp.get_lsp_capabilities(lspconfig[server_name].capabilities),
-                        on_attach = on_attach,
-                        settings = servers[server_name],
-                        filetypes = (servers[server_name] or {}).filetypes
-                    }
-                end
-            }
+            for server_name, server_opts in pairs(servers) do
+                vim.lsp.config(server_name, {
+                    capabilities = blinkcmp.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities()),
+                    on_attach = on_attach,
+                    settings = servers[server_name],
+                    filetypes = server_opts.filetypes,
+                })
+            end
         end,
         dependencies = {
-            "williamboman/mason.nvim",
-            "neovim/nvim-lspconfig"
-        }
+            { "mason-org/mason.nvim", opts = {} },
+            "neovim/nvim-lspconfig",
+        },
     },
-    {
-        "neovim/nvim-lspconfig",
-        -- dependencies = { 'saghen/blink.cmp' },
-    }
 }
