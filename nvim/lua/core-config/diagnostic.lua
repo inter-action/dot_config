@@ -31,6 +31,15 @@ vim.diagnostic.config(
     }
 )
 
+
+-- vim.api.nvim_create_autocmd('LspAttach', {
+--     callback = function(ev)
+--         vim.diagnostic.config({
+--             virtual_text = { current_line = true }
+--         })
+--     end,
+-- })
+
 vim.cmd([[
 set signcolumn=yes
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
