@@ -32,17 +32,27 @@ end
 -- Functional wrapper for mapping custom keybindings
 function M.map_command(mode, lhs, rhs, opts)
     local options = { noremap = true }
-    if opts then
+    if type(opts) == "table" then
         options = vim.tbl_extend("force", options, opts)
+    elseif type(opts) == "string" then
+        options = vim.tbl_extend("force", options, {
+            desc = opts
+        })
     end
+
     vim.api.nvim_set_keymap(mode, lhs, rhs, options)
 end
 
 function M.map_func(mode, lhs, rhs, opts)
     local options = { noremap = true }
-    if opts then
+    if type(opts) == "table" then
         options = vim.tbl_extend("force", options, opts)
+    elseif type(opts) == "string" then
+        options = vim.tbl_extend("force", options, {
+            desc = opts
+        })
     end
+
     vim.keymap.set(mode, lhs, rhs, options)
 end
 

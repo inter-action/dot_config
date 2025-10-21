@@ -37,12 +37,8 @@ local on_attach = function(client, bufnr)
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
     nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
     nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration')
-
-    -- nmap('gr', require('telescope.builtin').lsp_references, 'Goto References')
-    -- nmap('gI', require('telescope.builtin').lsp_implementations, 'Goto Implementation')
-    -- nmap('<space>ds', require('telescope.builtin').lsp_document_symbols, 'Document Symbols')
-    -- nmap('<space>ws', require('telescope.builtin').lsp_dynamic_workspace_symbols, 'Workspace Symbols')
-
+    nmap('gI', vim.lsp.buf.implementation, 'Goto Implementation')
+    nmap('gr', vim.lsp.buf.references, 'Goto References')
 
     nmap('<F2>', vim.lsp.buf.rename, 'rename')
     nmap('<space>a', vim.lsp.buf.code_action, 'code action')
