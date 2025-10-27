@@ -1,19 +1,21 @@
 
 [general]
 import = [
-# "themes/themes/Tokyonight_Day.toml"
-# "themes/themes/Tokyonight_Night.toml"
-    "themes/Dracula.toml"
+# "themes/Tokyonight_Day.toml"
+# "themes/Tokyonight_Night.toml"
+"themes/catppuccin-latte.toml"
+    # "themes/Dracula.toml"
 ]
 
 
 [font]
 # ls ~/.local/share/fonts
-normal = { family = "JetBrainsMonoNerdFontMono", style = "Regular" }
-bold = { family = "JetBrainsMonoNerdFontMono", style = "Bold" }
-italic = { family = "JetBrainsMonoNerdFontMono", style = "Italic" }
-bold_italic = { family = "JetBrainsMonoNerdFontMono", style = "BoldItalic" }
-
+# fc-list : familiy | sort -f | grep Nerd
+normal = { family = "JetBrainsMono NFM", style = "Regular" }
+bold = { family = "JetBrainsMono NFM", style = "Bold" }
+italic = { family = "JetBrainsMono NFM", style = "Italic" }
+bold_italic = { family = "JetBrainsMono NFM", style = "BoldItalic" }
+size = 14
 
 
 [window]
