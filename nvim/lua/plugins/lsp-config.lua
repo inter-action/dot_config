@@ -78,10 +78,10 @@ local servers = {
     },
     -- gopls = {},
     pyright = {},
-    cssls = {},
     rust_analyzer = {},
     ts_ls = {},
-    html = { filetypes = { 'html', 'twig', 'hbs' } },
+    -- cssls = {},
+    -- html = { filetypes = { 'html', 'twig', 'hbs' } },
     lua_ls = {
         Lua = {
             diagnostics = { globals = { 'vim' } },
