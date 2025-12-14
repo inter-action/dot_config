@@ -12,8 +12,15 @@ return {
         local utils = require('../lua-utils')
         local map = utils.map_func
 
-        map("n", ";p", function() fzflua.files() end)
-        map("n", ";o", function() fzflua.oldfiles() end)
+        local no_preview_theme = {
+            winopts = {
+                preview = {
+                    hidden = true
+                }
+            }
+        }
+        map("n", ";p", function() fzflua.files(no_preview_theme) end)
+        map("n", ";o", function() fzflua.oldfiles(no_preview_theme) end)
 
         map("n", '<space>ds', fzflua.lsp_document_symbols, {
             desc =  'LSP: Document Symbols'

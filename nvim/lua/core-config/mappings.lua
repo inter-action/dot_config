@@ -104,12 +104,6 @@ utils.map_func("n", "<F4>",
     merge2(opts, {desc = "toggle quickfix"})
 )
 
-utils.map_func("n", "<C-j>",
-    toggle_quickfix,
-    merge2(opts, {desc = "toggle quickfix"})
-)
-
-
 -- buffer line
 utils.map_func("n", "<leader>tc",
     function()
