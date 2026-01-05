@@ -19,18 +19,6 @@ EOF
 let g:closetag_filetypes = 'html,xhtml,phtml,handlebars'
 
 
-"-------------------------
-" vimwiki
-let g:vimwiki_list = [
-  \ {'path': '~/vimwiki/', 'syntax': 'markdown', 'ext': '.md'},
-  \ {'path': '~/personalwiki/', 'syntax': 'markdown', 'ext': '.md'},
-  \ ]
-
-" limit vimwiki to the files listed in g:vimwiki_list config
-" let g:vimwiki_global_ext = 0
-
-
-
 
 "-------------------------
 " vim-bookmarks

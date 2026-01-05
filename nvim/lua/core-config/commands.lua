@@ -51,3 +51,14 @@ local function get_visual_selection()
     end
     return table.concat(lines, '\n')
 end
+
+
+-- todo: 
+-- vim.api.nvim_create_user_command(
+--     'ReloadVimConfig',
+--     function(opts)
+--         local cmd = ":source $MYVIMRC"
+--         vim.api.nvim_command(cmd)
+--     end,
+--     { nargs = 0, range = false, desc = "reload vim config" }
+-- )

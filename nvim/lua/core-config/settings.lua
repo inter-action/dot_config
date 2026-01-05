@@ -1,6 +1,7 @@
 -- alias
 local opt = vim.opt
 
+-- adjust quickfix window height automatically, limit its range in [10, 30]
 vim.api.nvim_create_autocmd("FileType", {
     pattern = "qf",
     callback = function()
