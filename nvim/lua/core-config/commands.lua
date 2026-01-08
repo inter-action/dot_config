@@ -53,16 +53,6 @@ local function get_visual_selection()
 end
 
 
--- todo: 
--- vim.api.nvim_create_user_command(
---     'ReloadVimConfig',
---     function(opts)
---         local cmd = ":source $MYVIMRC"
---         vim.api.nvim_command(cmd)
---     end,
---     { nargs = 0, range = false, desc = "reload vim config" }
--- )
-
 -- Moved from init.vim
 -- Add any additional commands here
 
@@ -74,3 +64,10 @@ vim.api.nvim_create_user_command(
     end,
     {}
 )
+-- Custom user commands for Neovim
+-- Define your own commands for quick actions
+
+local cmd = vim.api.nvim_create_user_command
+
+-- Reload Neovim config
+cmd('ReloadConfig', 'source $MYVIMRC', {})
