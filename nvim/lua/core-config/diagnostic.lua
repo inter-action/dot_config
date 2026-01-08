@@ -1,45 +1,28 @@
--- LSP Diagnostics Options Setup
-local sign = function(opts)
-    vim.fn.sign_define(
-        opts.name,
-        {
-            texthl = opts.name,
-            text = opts.text,
-            numhl = ""
-        }
-    )
+-- Diagnostics configuration for Neovim
+-- Customize how diagnostics are displayed
+
+-- Example: Custom diagnostic signs
+local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
+for type, icon in pairs(signs) do
+    local hl = 'DiagnosticSign' .. type
+    vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-sign({name = "DiagnosticSignError", text = "✕"})
-sign({name = "DiagnosticSignWarn", text = "W"})
-sign({name = "DiagnosticSignHint", text = "H"})
-sign({name = "DiagnosticSignInfo", text = "I"})
-
-vim.diagnostic.config(
-    {
-        virtual_text = false,
-        signs = true,
-        update_in_insert = true,
-        underline = true,
-        severity_sort = false,
-        float = {
-            border = "rounded",
-            source = "always",
-            header = "",
-            prefix = ""
-        }
+vim.diagnostic.config({
+    virtual_text = false,
+    signs = true,
+    underline = true,
+    update_in_insert = false,
+    severity_sort = true,
+    float = {
+        border = "rounded",
+        source = "always",
+        header = "",
+        prefix = ""
     }
-)
+})
 
-
--- vim.api.nvim_create_autocmd('LspAttach', {
---     callback = function(ev)
---         vim.diagnostic.config({
---             virtual_text = { current_line = true }
---         })
---     end,
--- })
-
+-- open float window when cursor holds, use `]e` to view next error
 vim.cmd([[
 set signcolumn=yes
 autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
