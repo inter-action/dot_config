@@ -62,3 +62,15 @@ end
 --     end,
 --     { nargs = 0, range = false, desc = "reload vim config" }
 -- )
+
+-- Moved from init.vim
+-- Add any additional commands here
+
+-- Example: Highlight search results centered
+vim.api.nvim_create_user_command(
+    'NoHighlight',
+    function()
+        vim.cmd('nohlsearch')
+    end,
+    {}
+)

@@ -131,3 +131,69 @@ utils.map_func("n", "zf",
 
 utils.map_command("n", "z=", "zr", merge2(opts, {desc = "one more fold"}))
 utils.map_command("n", "z-", "zm", merge2(opts, {desc = "one less fold"}))
+
+-- Bookmark mappings
+vim.keymap.set('n', '<Leader>m', '<Plug>BookmarkToggle', { desc = 'Toggle Bookmark' })
+vim.keymap.set('n', '<Leader>l', '<Plug>BookmarkShowAll', { desc = 'Show All Bookmarks' })
+
+-- Navigation mappings
+vim.keymap.set('n', 'H', '^', { desc = 'Move to beginning of line' })
+vim.keymap.set('n', 'L', '$', { desc = 'Move to end of line' })
+vim.keymap.set('n', '[t', 'gT', { desc = 'Previous Tab' })
+vim.keymap.set('n', ']t', 'gt', { desc = 'Next Tab' })
+vim.keymap.set('n', '[b', ':bp<CR>', { desc = 'Previous Buffer' })
+vim.keymap.set('n', ']b', ':bn<CR>', { desc = 'Next Buffer' })
+vim.keymap.set('n', '[c', ':cp<CR>', { desc = 'Previous Quickfix' })
+vim.keymap.set('n', ']c', ':cn<CR>', { desc = 'Next Quickfix' })
+
+-- Insert mode mappings
+vim.keymap.set('i', '<C-h>', '<Left>', { desc = 'Move Left in Insert Mode' })
+vim.keymap.set('i', '<C-l>', '<Right>', { desc = 'Move Right in Insert Mode' })
+vim.keymap.set('i', '<C-e>', '<End>', { desc = 'Move to End in Insert Mode' })
+vim.keymap.set('i', '<C-a>', '<Home>', { desc = 'Move to Start in Insert Mode' })
+
+-- Window navigation mappings
+vim.keymap.set('n', 's-', '<C-w>s', { desc = 'Split window horizontally' })
+vim.keymap.set('n', 's\\', '<C-w>v', { desc = 'Split window vertically' })
+vim.keymap.set('n', '<C-w>-', '<C-w>s', { desc = 'Split window horizontally (alternative)' })
+vim.keymap.set('n', '<C-w>\\', '<C-w>v', { desc = 'Split window vertically (alternative)' })
+vim.keymap.set('n', 'sc', '<C-w>c', { desc = 'Close window' })
+vim.keymap.set('n', 'ss', '<C-w>w', { desc = 'Switch window' })
+vim.keymap.set('n', 'sh', '<C-w>h', { desc = 'Move to left window' })
+vim.keymap.set('n', 'sl', '<C-w>l', { desc = 'Move to right window' })
+vim.keymap.set('n', 'sj', '<C-w>j', { desc = 'Move to bottom window' })
+vim.keymap.set('n', 'sk', '<C-w>k', { desc = 'Move to top window' })
+vim.keymap.set('n', '<C-w><Left>', '<C-w>5<', { desc = 'Resize window left' })
+vim.keymap.set('n', '<C-w><Right>', '<C-w>5>', { desc = 'Resize window right' })
+vim.keymap.set('n', '<C-w><Up>', '<C-w>5+', { desc = 'Resize window up' })
+vim.keymap.set('n', '<C-w><Down>', '<C-w>5-', { desc = 'Resize window down' })
+
+-- Clipboard yank mapping
+vim.keymap.set('v', '<leader>y', '"+y', { silent = true, desc = 'Yank to system clipboard' })
+
+-- Terminal mode mapping
+vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+
+-- Prevent paste in visual mode from replacing unnamed buffer
+vim.keymap.set('x', 'p', 'P', { desc = 'Prevent paste from replacing unnamed buffer' })
+
+-- Search-related mappings
+vim.keymap.set('n', 'n', 'nzz', { silent = true, desc = 'Next search result centered' })
+vim.keymap.set('n', 'N', 'Nzz', { silent = true, desc = 'Previous search result centered' })
+vim.keymap.set('n', '*', '*zz', { silent = true, desc = 'Search word under cursor forward centered' })
+vim.keymap.set('n', '#', '#zz', { silent = true, desc = 'Search word under cursor backward centered' })
+vim.keymap.set('n', 'g*', 'g*zz', { silent = true, desc = 'Search partial word forward centered' })
+
+-- Disable highlighting search result on Enter key
+vim.keymap.set('n', '<CR>', ':nohlsearch<CR><CR>', { silent = true, desc = 'Disable search highlight' })
+
+-- Very magic search mappings
+vim.keymap.set('n', '?', '?\\v', { desc = 'Very magic backward search' })
+vim.keymap.set('n', '/', '/\\v', { desc = 'Very magic forward search' })
+vim.keymap.set('n', ':g/', ':g/\\v', { desc = 'Very magic global search' })
+vim.keymap.set('n', ':g//', ':g//', { desc = 'Repeat last global search' })
+
+-- Line navigation mappings
+vim.keymap.set('n', 'j', 'gj', { desc = 'Move down visually' })
+vim.keymap.set('n', 'k', 'gk', { desc = 'Move up visually' })
+

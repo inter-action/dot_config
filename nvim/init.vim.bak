@@ -1,3 +1,6 @@
+" This file has been deprecated. All configurations have been migrated to Lua.
+" Please refer to init.lua and the core-config folder for further customization.
+
 " debug map `:verbose map <tab>`
 
 
