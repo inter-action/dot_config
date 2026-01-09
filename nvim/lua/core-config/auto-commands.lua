@@ -37,5 +37,14 @@ vim.api.nvim_create_autocmd('FocusLost', {
     desc = 'Auto save on focus lost'
 })
 
+-- Set winbar to show the current buffer's file path
+vim.api.nvim_create_autocmd({'BufEnter', 'BufWinEnter'}, {
+    group = vim.api.nvim_create_augroup('WinbarFilename', { clear = true }),
+    callback = function()
+        vim.wo.winbar = vim.fn.expand('%:p'):gsub(vim.loop.cwd() .. '/', '')
+    end,
+    desc = 'Show relative file path in winbar'
+})
+
 return true
 
