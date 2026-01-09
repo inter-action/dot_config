@@ -1,7 +1,5 @@
 ## TODO
 
-* clean one-line plugin config, put them into packer.lua
-* refactor `init.vim` to `init.lua` using LLM
 
 ## Setup
 
