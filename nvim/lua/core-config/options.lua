@@ -1,47 +1,62 @@
--- General options
-vim.o.hidden = true
-vim.o.mouse = 'a'
-vim.o.timeoutlen = 2000
-vim.o.autoread = true
-vim.o.signcolumn = 'yes'
-vim.o.encoding = 'utf-8'
---  Numbers of rows to keep to the left and to the right off the screen
-vim.o.scrolloff = 10
-vim.o.sidescrolloff = 10
--- Display command which you typing and other command related stuff
-vim.o.showcmd = true
-vim.o.laststatus = 2
-vim.o.wrap = true
-vim.o.linebreak = true
-vim.o.number = true
-vim.o.relativenumber = true
-vim.o.cursorline = true
-vim.o.termguicolors = true
-vim.o.title = true
-vim.o.splitbelow = true
-vim.o.completeopt = 'menu,noinsert'
-vim.o.shortmess = 'atI'
--- Show those damn hidden characters
-vim.o.listchars = 'nbsp:¬,extends:»,precedes:«,trail:•'
-vim.o.whichwrap = 'b,s,<,>,[,],h,l'
-vim.o.expandtab = true
-vim.o.autoindent = true
-vim.o.smartindent = true
-vim.o.shiftwidth = 4
-vim.o.tabstop = 4
-vim.o.softtabstop = 4
-vim.o.hlsearch = true
-vim.o.ignorecase = true
-vim.o.smartcase = true
-vim.o.incsearch = true
-vim.o.showmatch = true
-vim.o.gdefault = true
-vim.o.wildmenu = true
-vim.o.wildmode = 'list:longest'
-vim.o.foldlevel = 99
-vim.o.foldmethod = 'expr'
-vim.o.foldexpr = 'nvim_treesitter#foldexpr()'
-vim.o.backspace = 'indent,eol,start'
--- vim.o.iskeyword = vim.o.iskeyword .. '-'
--- vim.o.iskeyword:append("-")
-vim.o.diffopt = 'filler,vertical,iwhite,algorithm:patience,indent-heuristic'
+-- General Neovim options
+-- Use sensible defaults and avoid global side-effects where possible
+local o = vim.opt
+
+o.hidden = true -- allow background buffers
+o.mouse = 'a' -- enable mouse
+o.timeoutlen = 2000
+o.autoread = true
+o.signcolumn = 'yes'
+o.encoding = 'utf-8'
+o.scrolloff = 10
+o.sidescrolloff = 10
+o.showcmd = true
+o.laststatus = 2
+o.wrap = true
+o.linebreak = true
+o.number = true
+o.relativenumber = true
+o.cursorline = true
+o.termguicolors = true
+o.title = true
+o.splitbelow = true
+o.completeopt = 'menu,noinsert'
+o.shortmess = 'atI'
+o.listchars = 'nbsp:¬,extends:»,precedes:«,trail:•'
+o.whichwrap = 'b,s,<,>,[,],h,l'
+
+-- Indentation
+o.expandtab = true
+o.autoindent = true
+o.smartindent = true
+o.shiftwidth = 4
+o.tabstop = 4
+o.softtabstop = 4
+
+-- Search
+o.hlsearch = true
+o.ignorecase = true
+o.smartcase = true
+o.incsearch = true
+o.showmatch = true
+o.gdefault = true
+
+-- Wildmenu
+o.wildmenu = true
+o.wildmode = 'list:longest'
+
+-- Folding (prefer using nvim-treesitter fold expr)
+o.foldlevel = 99
+o.foldmethod = 'expr'
+o.foldexpr = 'nvim_treesitter#foldexpr()'
+
+-- Backspace behavior
+o.backspace = 'indent,eol,start'
+
+-- Diff options
+o.diffopt = 'filler,vertical,iwhite,algorithm:patience,indent-heuristic'
+
+-- Keep runtime global options minimal; prefer local buffer/window options where applicable
+
+-- Expose a helper return for tests/other modules
+return true
