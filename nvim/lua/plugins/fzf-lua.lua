@@ -9,7 +9,11 @@ return {
     -- opts = {},
     config = function()
         local fzflua = require('fzf-lua')
-        local utils = require('../lua-utils')
+        local ok, utils = pcall(require, 'lua-utils')
+        if not ok then
+            vim.notify('lua-utils not available for fzf-lua mappings', vim.log.levels.WARN)
+            return
+        end
         local map = utils.map_func
 
         local no_preview_theme = {
