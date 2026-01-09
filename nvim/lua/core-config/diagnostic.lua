@@ -1,29 +1,31 @@
 -- Diagnostics configuration for Neovim
--- Customize how diagnostics are displayed
+-- Use `vim.diagnostic` API and create autocmds via `nvim_create_autocmd`
 
--- Example: Custom diagnostic signs
 local signs = { Error = ' ', Warn = ' ', Hint = ' ', Info = ' ' }
-for type, icon in pairs(signs) do
-    local hl = 'DiagnosticSign' .. type
+for sev, icon in pairs(signs) do
+    local hl = 'DiagnosticSign' .. sev
     vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = hl })
 end
 
-vim.diagnostic.config({
+vim.diagnostic.config {
     virtual_text = false,
     signs = true,
     underline = true,
     update_in_insert = false,
     severity_sort = true,
     float = {
-        border = "rounded",
-        source = "always",
-        header = "",
-        prefix = ""
+        border = 'rounded',
+        source = 'always',
+        header = '',
+        prefix = ''
     }
+}
+
+-- Show diagnostics float on CursorHold (non-focusable)
+-- vim.o.signcolumn = 'yes'
+vim.api.nvim_create_autocmd('CursorHold', {
+    callback = function() vim.diagnostic.open_float(nil, { focusable = false }) end,
+    desc = 'Open diagnostics float on CursorHold',
 })
 
--- open float window when cursor holds, use `]e` to view next error
-vim.cmd([[
-set signcolumn=yes
-autocmd CursorHold * lua vim.diagnostic.open_float(nil, { focusable = false })
-]])
+return true

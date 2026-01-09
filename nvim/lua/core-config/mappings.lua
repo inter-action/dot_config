@@ -1,9 +1,11 @@
-local utils = require("../lua-utils")
+-- Key mappings: prefer `vim.keymap.set` and descriptive `desc` fields
+-- Uses `lua-utils` helpers where convenient
+local utils = require("lua-utils")
 local merge2 = utils.merge2
 
-
-local opts = { silent=false, noremap = true }
-local slicent_opts = { silent=true }
+-- Default options for mappings. Use `silent = true` by default for cleaner UX.
+local opts = { silent = true, noremap = true }
+local slicent_opts = { silent = true }
 
 -- input mode, editing. config inside init.vm
 -- vim.keymap.set('i', '<C-l>', utils.move_cursor_next, { desc = "move cursor to right" })
@@ -197,3 +199,5 @@ vim.keymap.set('n', ':g//', ':g//', { desc = 'Repeat last global search' })
 vim.keymap.set('n', 'j', 'gj', { desc = 'Move down visually' })
 vim.keymap.set('n', 'k', 'gk', { desc = 'Move up visually' })
 
+-- Return true for tests/require checks
+return true
