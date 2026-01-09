@@ -4,20 +4,14 @@ vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next diagnos
 vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
 vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
-vim.api.nvim_create_user_command(
-    'LspToggleInlayHints',
-    function(opts)
-        vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
-    end,
-    { nargs = 0 }
-)
+vim.api.nvim_create_user_command('LspToggleInlayHints', function(opts)
+    vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
+end, { nargs = 0 })
 
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(client, bufnr)
-
     vim.lsp.inlay_hint.enable(true)
-
 
     -- NOTE: Remember that lua is a real programming language, and as such it is possible
     -- to define small helper and utility functions so you don't have to repeat yourself
@@ -26,7 +20,9 @@ local on_attach = function(client, bufnr)
     -- In this case, we create a function that lets us more easily define mappings specific
     -- for LSP related items. It sets the mode, buffer and description for us each time.
     local nmap = function(keys, func, desc)
-        if desc then desc = 'LSP: ' .. desc end
+        if desc then
+            desc = 'LSP: ' .. desc
+        end
 
         vim.keymap.set('n', keys, func, { buffer = bufnr, desc = desc })
     end
@@ -44,16 +40,17 @@ local on_attach = function(client, bufnr)
     nmap('<space>a', vim.lsp.buf.code_action, 'code action')
     nmap('<space>D', vim.lsp.buf.type_definition, 'Type Definition')
 
-
     -- Lesser used LSP functionality
     nmap('<space>wa', vim.lsp.buf.add_workspace_folder, 'Workspace Add Folder')
     nmap('<space>wr', vim.lsp.buf.remove_workspace_folder, 'Workspace Remove Folder')
-    nmap('<space>wl', function() print(vim.inspect(vim.lsp.buf.list_workspace_folders())) end,
-        'Workspace List Folders')
+    nmap('<space>wl', function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, 'Workspace List Folders')
 
     -- Create a command `:Format` local to the LSP buffer
-    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_) vim.lsp.buf.format() end,
-        { desc = 'Format current buffer with LSP' })
+    vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
+        vim.lsp.buf.format()
+    end, { desc = 'Format current buffer with LSP' })
 end
 
 -- Enable the following language servers
@@ -72,9 +69,9 @@ local servers = {
                 enabled = true,
                 parameterNames = true,
                 parameterTypes = true,
-                functionReturnTypes = true
-            }
-        }
+                functionReturnTypes = true,
+            },
+        },
     },
     -- gopls = {},
     pyright = {},
@@ -86,11 +83,10 @@ local servers = {
         Lua = {
             diagnostics = { globals = { 'vim' } },
             workspace = { checkThirdParty = false },
-            telemetry = { enable = false }
-        }
-    }
+            telemetry = { enable = false },
+        },
+    },
 }
-
 
 return {
     -- {
@@ -101,10 +97,10 @@ return {
     --     end,
     -- },
     {
-        "mason-org/mason-lspconfig.nvim",
+        'mason-org/mason-lspconfig.nvim',
         config = function()
             local blinkcmp = require('blink.cmp')
-            local mason_lspconfig = require 'mason-lspconfig'
+            local mason_lspconfig = require('mason-lspconfig')
 
             mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers) }
 
@@ -121,8 +117,8 @@ return {
             end
         end,
         dependencies = {
-            { "mason-org/mason.nvim", opts = {} },
-            "neovim/nvim-lspconfig",
+            { 'mason-org/mason.nvim', opts = {} },
+            'neovim/nvim-lspconfig',
         },
     },
 }

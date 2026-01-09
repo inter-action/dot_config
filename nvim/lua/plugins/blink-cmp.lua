@@ -2,12 +2,12 @@ return {
     'saghen/blink.cmp',
     -- optional: provides snippets for the snippet source
     dependencies = {
-        "L3MON4D3/LuaSnip",
+        'L3MON4D3/LuaSnip',
         -- follow latest release.
-        version = "v2.*", -- Replace <CurrentMajor> by the latest released major (first number of latest release)
+        version = 'v2.*', -- Replace <CurrentMajor> by the latest released major (first number of latest release)
         -- install jsregexp (optional!).
         -- build = "make install_jsregexp"
-        dependencies = { "rafamadriz/friendly-snippets" },
+        dependencies = { 'rafamadriz/friendly-snippets' },
     },
 
     -- use a release tag to download pre-built binaries
@@ -38,32 +38,32 @@ return {
                 function(cmp)
                     return cmp.scroll_documentation_up(4)
                 end,
-                'fallback'
+                'fallback',
             },
             ['<C-d>'] = {
                 function(cmp)
                     return cmp.scroll_documentation_down(4)
                 end,
-                'fallback'
+                'fallback',
             },
             ['<C-e>'] = {
                 function(cmp)
                     return cmp.select_and_accept()
                 end,
-                'fallback'
+                'fallback',
             },
             ['<CR>'] = {
                 function(cmp)
                     return cmp.select_and_accept()
                 end,
-                'fallback'
-            }
+                'fallback',
+            },
         },
 
         appearance = {
             -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
             -- Adjusts spacing to ensure icons are aligned
-            nerd_font_variant = 'mono'
+            nerd_font_variant = 'mono',
         },
 
         -- (Default) Only show the documentation popup when manually triggered
@@ -85,10 +85,9 @@ return {
         -- when the Rust fuzzy matcher is not available, by using `implementation = "prefer_rust"`
         --
         -- See the fuzzy documentation for more information
-        fuzzy = { implementation = "prefer_rust_with_warning" },
+        fuzzy = { implementation = 'prefer_rust_with_warning' },
 
         signature = { enabled = true },
-
     },
-    opts_extend = { "sources.default" }
+    opts_extend = { 'sources.default' },
 }

@@ -1,13 +1,13 @@
 return {
-    "folke/flash.nvim",
-    event = "VeryLazy",
+    'folke/flash.nvim',
+    event = 'VeryLazy',
     vscode = true,
     ---@type Flash.Config
     opts = {
         label = {
             -- allow uppercase labels
             uppercase = false,
-        }
+        },
     },
     -- stylua: ignore
     keys = {
@@ -41,4 +41,5 @@ return {
         {"R", mode = {"o", "x"}, function() require("flash").treesitter_search() end, desc = "Treesitter Search"},
         {"<c-s>", mode = {"c"}, function() require("flash").toggle() end, desc = "Toggle Flash Search"}
     }
+,
 }

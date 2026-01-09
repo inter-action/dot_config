@@ -11,9 +11,9 @@ return {
                 },
                 packages = {
                     enable = false,
-                }
+                },
             },
         }
     end,
-    dependencies = { { 'nvim-tree/nvim-web-devicons' } }
+    dependencies = { { 'nvim-tree/nvim-web-devicons' } },
 }

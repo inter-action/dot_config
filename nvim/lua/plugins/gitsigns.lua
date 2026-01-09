@@ -1,7 +1,7 @@
 -- git
 return {
     'lewis6991/gitsigns.nvim',
-    version = "v0.8.1",
+    version = 'v0.8.1',
     config = function()
         local gs = require('gitsigns')
         local on_attach = function(bufnr)
@@ -16,28 +16,36 @@ return {
 
             -- Navigation
             map('n', ']c', function()
-                if vim.wo.diff then return ']c' end
-                vim.schedule(function() gs.next_hunk() end)
+                if vim.wo.diff then
+                    return ']c'
+                end
+                vim.schedule(function()
+                    gs.next_hunk()
+                end)
                 return '<Ignore>'
-            end, {expr = true})
+            end, { expr = true })
 
             map('n', '[c', function()
-                if vim.wo.diff then return '[c' end
-                vim.schedule(function() gs.prev_hunk() end)
+                if vim.wo.diff then
+                    return '[c'
+                end
+                vim.schedule(function()
+                    gs.prev_hunk()
+                end)
                 return '<Ignore>'
-            end, {expr = true})
+            end, { expr = true })
         end
 
-        gs.setup({
+        gs.setup {
             on_attach = on_attach,
             signs = {
-                add = { text = "▎" },
-                change = { text = "▎" },
-                delete = { text = "" },
-                topdelete = { text = "" },
-                changedelete = { text = "▎" },
-                untracked = { text = "▎" },
+                add = { text = '▎' },
+                change = { text = '▎' },
+                delete = { text = '' },
+                topdelete = { text = '' },
+                changedelete = { text = '▎' },
+                untracked = { text = '▎' },
             },
-        })
-    end
+        }
+    end,
 }

@@ -17,14 +17,16 @@ vim.diagnostic.config {
         border = 'rounded',
         source = 'always',
         header = '',
-        prefix = ''
-    }
+        prefix = '',
+    },
 }
 
 -- Show diagnostics float on CursorHold (non-focusable)
 -- vim.o.signcolumn = 'yes'
 vim.api.nvim_create_autocmd('CursorHold', {
-    callback = function() vim.diagnostic.open_float(nil, { focusable = false }) end,
+    callback = function()
+        vim.diagnostic.open_float(nil, { focusable = false })
+    end,
     desc = 'Open diagnostics float on CursorHold',
 })
 

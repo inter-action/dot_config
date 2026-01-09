@@ -5,16 +5,29 @@ return {
         version = 'v0.9.3',
         build = ':TSUpdate',
         dependencies = {
-            "nvim-treesitter/nvim-treesitter-textobjects"
+            'nvim-treesitter/nvim-treesitter-textobjects',
         },
         config = function()
-            local configs = require("nvim-treesitter.configs")
+            local configs = require('nvim-treesitter.configs')
 
-            configs.setup({
+            configs.setup {
                 -- A list of parser names, or "all"
                 ensure_installed = {
-                    "c", "cpp", "rust", "vim", "lua", "python", "go", "typescript", "javascript", "tsx", "toml", "json",
-                    "html", "markdown", "markdown_inline",
+                    'c',
+                    'cpp',
+                    'rust',
+                    'vim',
+                    'lua',
+                    'python',
+                    'go',
+                    'typescript',
+                    'javascript',
+                    'tsx',
+                    'toml',
+                    'json',
+                    'html',
+                    'markdown',
+                    'markdown_inline',
                     -- ,"swift"
                 },
 
@@ -33,8 +46,8 @@ return {
                         init_selection = '<c-space>',
                         node_incremental = '<c-space>',
                         scope_incremental = '<c-s>',
-                        node_decremental = '<M-space>'
-                    }
+                        node_decremental = '<M-space>',
+                    },
                 },
                 textobjects = {
                     select = {
@@ -45,12 +58,12 @@ return {
 
                         keymaps = {
                             -- You can use the capture groups defined in textobjects.scm
-                            ["af"] = "@function.outer",
-                            ["if"] = "@function.inner",
-                            ["ac"] = "@class.outer",
+                            ['af'] = '@function.outer',
+                            ['if'] = '@function.inner',
+                            ['ac'] = '@class.outer',
                             -- You can optionally set descriptions to the mappings (used in the desc parameter of
                             -- nvim_buf_set_keymap) which plugins like which-key display
-                            ["ic"] = {query = "@class.inner", desc = "Select inner part of a class region"}
+                            ['ic'] = { query = '@class.inner', desc = 'Select inner part of a class region' },
                             -- You can also use captures from other query groups like `locals.scm`
                             -- ["as"] = { query = "@scope", query_group = "locals", desc = "Select language scope" },
                         },
@@ -64,7 +77,7 @@ return {
                         selection_modes = {
                             ['@parameter.outer'] = 'v', -- charwise
                             ['@function.outer'] = 'V', -- linewise
-                            ['@class.outer'] = '<c-v>' -- blockwise
+                            ['@class.outer'] = '<c-v>', -- blockwise
                         },
                         -- If you set this to `true` (default is `false`) then any textobject is
                         -- extended to include preceding or succeeding whitespace. Succeeding
@@ -75,8 +88,8 @@ return {
                         -- * query_string: eg '@function.inner'
                         -- * selection_mode: eg 'v'
                         -- and should return true of false
-                        include_surrounding_whitespace = true
-                    }
+                        include_surrounding_whitespace = true,
+                    },
                 },
 
                 highlight = {
@@ -89,12 +102,12 @@ return {
                     -- list of language that will be disabled
                     -- disable = { "help" },
                     disable = function(lang, buf)
-                        if lang == "vimdoc" then
+                        if lang == 'vimdoc' then
                             -- print("disable highlighting for vimdoc")
                             vim.treesitter.stop()
                             return true
                         end
-                        if lang == "js" then
+                        if lang == 'js' then
                             local max_filesize = 100 * 1024 -- 100 KB
                             local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
                             if ok and stats and stats.size > max_filesize then
@@ -108,21 +121,21 @@ return {
                     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
                     -- Using this option may slow down your editor, and you may see some duplicate highlights.
                     -- Instead of true it can also be a list of languages
-                    additional_vim_regex_highlighting = false
+                    additional_vim_regex_highlighting = false,
                 },
 
-                ident = {enable = true},
-                rainbow = {enable = true, extended_mode = true, max_file_lines = 1000},
-                autopairs = {enable = true},
-                autotag = {enable = true}
-            })
-        end
+                ident = { enable = true },
+                rainbow = { enable = true, extended_mode = true, max_file_lines = 1000 },
+                autopairs = { enable = true },
+                autotag = { enable = true },
+            }
+        end,
     },
     {
-        "nvim-treesitter/nvim-treesitter-context",
-        dependencies = {"nvim-treesitter/nvim-treesitter"},
+        'nvim-treesitter/nvim-treesitter-context',
+        dependencies = { 'nvim-treesitter/nvim-treesitter' },
         config = function()
-            require("treesitter-context").setup()
-        end
-    }
+            require('treesitter-context').setup()
+        end,
+    },
 }
