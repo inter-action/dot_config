@@ -29,30 +29,36 @@ utils.map_func('n', ';w', function()
     vim.api.nvim_command('wa')
 end, merge2(opts, { desc = 'write all' }))
 
+--- Close buffer/window reliably
 utils.map_func('n', ';q', function()
-    local modifiable = vim.bo.modifiable
-    -- local modified = vim.bo.modified
-    local is_noname_buffer = vim.fn.expand('%:p') == '' -- same as, vim.api.nvim_buf_get_name(0)
+    -- If there are multiple windows in the current tab page, close the current window
+    if vim.fn.winnr('$') > 1 then
+        vim.cmd('close')
+    else
+        -- Otherwise, close the buffer
+        local modifiable = vim.bo.modifiable
+        local is_noname_buffer = vim.fn.expand('%:p') == ''
 
-    if not modifiable then
-        return vim.api.nvim_command('q')
-    end
+        if not modifiable then
+            return vim.api.nvim_command('q')
+        end
 
-    if not is_noname_buffer then
-        vim.api.nvim_command('bd')
-        return
-    end
-
-    return vim.ui.select({ '1', '2' }, {
-        prompt = 'no name buffer, force close? :',
-    }, function(choice)
-        if choice == '1' then
-            vim.api.nvim_command('bd!')
-        else
+        if not is_noname_buffer then
+            vim.api.nvim_command('bd')
             return
         end
-    end)
-end, merge2(opts, { desc = 'close file' }))
+
+        return vim.ui.select({ '1', '2' }, {
+            prompt = 'no name buffer, force close? :',
+        }, function(choice)
+            if choice == '1' then
+                vim.api.nvim_command('bd!')
+            else
+                return
+            end
+        end)
+    end
+end, merge2(opts, { desc = 'Close buffer or window' }))
 
 utils.map_func('n', '<leader><leader>q', function()
     vim.api.nvim_command('wa')
