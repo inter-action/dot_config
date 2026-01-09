@@ -18,10 +18,8 @@ function M.get_buffer_relative_filename()
     return vim.fn.expand('%')
 end
 
-function M.merge2(a, b)
-    -- return vim.tbl_extend("force", unpack(arg))
-    --                                       ^ arg is not working inside neovim
-    return vim.tbl_extend('force', a, b)
+function M.extends(...)
+    return vim.tbl_extend('force', ...)
 end
 
 -- Functional wrapper for mapping custom keybindings

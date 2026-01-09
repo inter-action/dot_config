@@ -4,7 +4,7 @@ local config = function()
         vim.notify('lua-utils not available for harpoon mappings', vim.log.levels.WARN)
         return
     end
-    local merge2 = utils.merge2
+    local extends = utils.extends
     local harpoon_mark = require('harpoon.mark')
     local harpoon_ui = require('harpoon.ui')
 
@@ -14,12 +14,12 @@ local config = function()
     -- mark
     utils.map_func('n', ';m', function()
         harpoon_mark.add_file()
-    end, merge2(slicent_opts, { desc = 'harpoon add file' }))
+    end, extends(slicent_opts, { desc = 'harpoon add file' }))
 
     -- list
     utils.map_func('n', ';l', function()
         harpoon_ui.toggle_quick_menu()
-    end, merge2(slicent_opts, { desc = 'harpoon list' }))
+    end, extends(slicent_opts, { desc = 'harpoon list' }))
 end
 
 return {
