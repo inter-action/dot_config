@@ -1,5 +1,9 @@
 local config = function()
-    local utils = require("../lua-utils")
+    local ok, utils = pcall(require, 'lua-utils')
+    if not ok then
+        vim.notify('lua-utils not available for harpoon mappings', vim.log.levels.WARN)
+        return
+    end
     local merge2 = utils.merge2
     local harpoon_mark = require("harpoon.mark")
     local harpoon_ui = require("harpoon.ui")

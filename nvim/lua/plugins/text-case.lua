@@ -6,11 +6,15 @@ local config = function()
         return
     end
 
-    local utils = require('../lua-utils')
+    local ok, utils = pcall(require, 'lua-utils')
+    if not ok then
+        vim.notify('lua-utils not available for text-case mappings', vim.log.levels.WARN)
+        return
+    end
 
     telescope.load_extension('textcase')
-    utils.map_command('n', ';cc', '<cmd>TextCaseOpenTelescope<CR>', { desc = "Telescope" })
-    utils.map_command('v', ';cc', "<cmd>TextCaseOpenTelescope<CR>", { desc = "Telescope" })
+    utils.map_command('n', ';cc', '<cmd>TextCaseOpenTelescope<CR>', { desc = 'Telescope' })
+    utils.map_command('v', ';cc', '<cmd>TextCaseOpenTelescope<CR>', { desc = 'Telescope' })
 
 end
 
