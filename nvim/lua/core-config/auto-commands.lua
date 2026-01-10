@@ -43,7 +43,7 @@ vim.api.nvim_create_autocmd('FocusLost', {
 vim.api.nvim_create_autocmd({ 'BufEnter', 'BufWinEnter' }, {
     group = vim.api.nvim_create_augroup('WinbarFilename', { clear = true }),
     callback = function()
-        vim.wo.winbar = vim.fn.expand('%:p'):gsub(vim.loop.cwd() .. '/', '')
+        vim.wo.winbar = vim.fn.expand('%')
     end,
     desc = 'Show relative file path in winbar',
 })
