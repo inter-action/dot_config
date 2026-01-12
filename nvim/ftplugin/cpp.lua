@@ -1,0 +1,8 @@
+-- config only for cpp file
+-- vim.opt_local.tabstop = 2
+-- vim.opt_local.shiftwidth = 2
+-- vim.opt_local.autoindent = true
+-- vim.api.nvim_create_user_command('Format', function(opts)
+--     -- local path = vim.fn.expand('%')
+--     vim.api.nvim_command('!clangd -i %')
+-- end, { nargs = 0 })
