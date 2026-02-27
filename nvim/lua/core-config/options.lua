@@ -48,7 +48,7 @@ o.wildmode = 'list:longest'
 -- Folding (prefer using nvim-treesitter fold expr)
 o.foldlevel = 99
 o.foldmethod = 'expr'
-o.foldexpr = 'nvim_treesitter#foldexpr()'
+o.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
 
 -- Backspace behavior
 o.backspace = 'indent,eol,start'

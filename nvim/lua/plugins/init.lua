@@ -1,11 +1,6 @@
 return {
     -- Editor
-    ---- auto pair
-    {
-        'windwp/nvim-autopairs',
-        event = 'InsertEnter',
-        opts = {},
-    },
+    ---- auto pair (blink.cmp handles this)
     'alvan/vim-closetag',
 
     ---- search

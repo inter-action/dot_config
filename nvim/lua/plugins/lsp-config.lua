@@ -49,7 +49,7 @@ local on_attach = function(client, bufnr)
 
     -- Create a command `:Format` local to the LSP buffer
     vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
-        vim.lsp.buf.format()
+        vim.lsp.buf.format({ async = true })
     end, { desc = 'Format current buffer with LSP' })
 end
 
@@ -99,12 +99,11 @@ return {
     {
         'mason-org/mason-lspconfig.nvim',
         config = function()
-            local blinkcmp = require('blink.cmp')
             local mason_lspconfig = require('mason-lspconfig')
 
             mason_lspconfig.setup { ensure_installed = vim.tbl_keys(servers) }
 
-            local capabilities = blinkcmp.get_lsp_capabilities(vim.lsp.protocol.make_client_capabilities())
+            local capabilities = vim.lsp.protocol.make_client_capabilities()
             capabilities.textDocument.typeHintProvider = true
 
             for server_name, server_opts in pairs(servers) do
@@ -117,7 +116,21 @@ return {
             end
         end,
         dependencies = {
-            { 'mason-org/mason.nvim', opts = {} },
+            {
+                'mason-org/mason.nvim',
+                opts = {
+                    ui = {
+                        border = 'rounded',
+                        icons = {
+                            package_installed = '✓',
+                            package_pending = '➜',
+                            package_uninstalled = '✗',
+                        },
+                    },
+                    log_level = vim.log.levels.INFO,
+                    max_concurrent_installers = 4,
+                },
+            },
             'neovim/nvim-lspconfig',
         },
     },
