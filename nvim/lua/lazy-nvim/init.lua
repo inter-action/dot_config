@@ -27,6 +27,7 @@ lazy.setup {
     change_detection = { enabled = false },
     install = { colorscheme = { 'habamax' } },
     checker = { enabled = false },
+    rocks = { enabled = false },
 }
 
 return true
