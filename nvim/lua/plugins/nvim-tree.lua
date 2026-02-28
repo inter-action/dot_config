@@ -10,6 +10,8 @@ local function my_on_attach(bufnr)
     vim.keymap.del('n', 's', { buffer = bufnr })
 
     vim.keymap.set('n', '<C-t>', api.node.open.tab, opts('Open: New Tab'))
+    -- default is `g?`
+    vim.keymap.set('n', '<F1>', api.tree.toggle_help, opts('Help'))
     vim.keymap.set('n', '<C-v>', api.node.open.vertical, opts('Open: Vertical Split'))
     vim.keymap.set('n', '<C-x>', api.node.open.horizontal, opts('Open: Horizontal Split'))
     vim.keymap.set('n', 'a', api.fs.create, opts('Create'))
