@@ -7,6 +7,8 @@ local function my_on_attach(bufnr)
 
     api.config.mappings.default_on_attach(bufnr)
 
+    vim.keymap.del('n', 's', { buffer = bufnr })
+
     vim.keymap.set('n', '<C-t>', api.node.open.tab, opts('Open: New Tab'))
     vim.keymap.set('n', '<C-v>', api.node.open.vertical, opts('Open: Vertical Split'))
     vim.keymap.set('n', '<C-x>', api.node.open.horizontal, opts('Open: Horizontal Split'))
