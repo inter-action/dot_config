@@ -20,8 +20,7 @@ size = 14
 
 [window]
 opacity=1
-decorations="Transparent"
-blur=true
+decorations = "none"
 
 
 [[hints.enabled]]

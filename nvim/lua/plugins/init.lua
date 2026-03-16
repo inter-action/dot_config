@@ -1,8 +1,5 @@
 return {
     -- Editor
-    ---- auto pair (blink.cmp handles this)
-    'alvan/vim-closetag',
-
     ---- search
     'jremmen/vim-ripgrep',
 
@@ -12,10 +9,7 @@ return {
     ---- notify
     {
         'rcarriga/nvim-notify',
-        -- lazy loading not gonna work for this plugin
-        version = 'v3.14.0',
         event = 'VimEnter',
-        -- config = true,
         config = function()
             vim.notify = require('notify')
         end,
