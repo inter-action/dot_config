@@ -24,20 +24,36 @@ decorations="Transparent"
 blur=true
 
 
-# [[hints.enabled]]
-# #command = "xdg-open" # On Linux/BSD
-# command = "open" # On macOS
-# # command = { program = "cmd", args = [ "/c", "start", "" ] } # On Windows
-# hyperlinks = true
-# post_processing = true
-# persist = false
-# mouse.enabled = true
-# binding = { key = "O", mods = "Control|Shift" }
-
 [[hints.enabled]]
-regex = "[^ ]+\\.rs:\\d+:\\d+"
-command = { program = "code", args = [ "--goto" ] }
-mouse = { enabled = true }
+# enable OSC 8 escape sequence hyperlinks. example: 
+# $printf '\e]8;;http://example.com\e\\This is a link\e]8;;\e\\\n'
+
+#command = "xdg-open" # On Linux/BSD
+command = "open" # On macOS
+# command = { program = "cmd", args = [ "/c", "start", "" ] } # On Windows
+hyperlinks = true
+post_processing = true
+persist = false
+mouse.enabled = true
+binding = { key = "O", mods = "Control|Shift" }
+
+
+# Detect plain URLs (www.google.com, https://..., ftp://...)
+[[hints.enabled]]
+regex = "(https?|ftp|file)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]"
+command = "open" # On macOS
+mouse.enabled = true
+
+# [[hints.enabled]]
+# regex = '\bwww\.[-A-Za-z0-9]+\.[-A-Za-z0-9]+(\.[-A-Za-z0-9]+)*\b'
+# command = "open" # On macOS
+# mouse.enabled = true
+
+
+# [[hints.enabled]]
+# regex = "[^ ]+\\.rs:\\d+:\\d+"
+# command = { program = "code", args = [ "--goto" ] }
+# mouse = { enabled = true }
 
 
 [mouse]
@@ -56,7 +72,7 @@ bindings = [
     { key = "-", mods = "Control", action="DecreaseFontSize" },
     { key = "0", mods = "Control", action="ResetFontSize" },
 # new window
- { key = "N", mods = "Command", action = "SpawnNewInstance" }
+    { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" }
     ## { key = "i", mods = "Control | Shift", action="ToggleViMode" },
 # not working
 #{ key = "t", mods = "Super", action="CreateNewTab" },
