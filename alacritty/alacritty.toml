@@ -39,11 +39,6 @@ regex = "[^ ]+\\.rs:\\d+:\\d+"
 command = { program = "code", args = [ "--goto" ] }
 mouse = { enabled = true }
 
-# [[hints.enabled]]
-# command = "open" # On macOS
-# # command = { program = "cmd", args = [ "/c", "start", "" ] } # On Windows
-# hyperlinks = true
-# mouse = { enabled = true }
 
 [mouse]
 bindings = [
@@ -60,7 +55,8 @@ bindings = [
     { key = "=", mods = "Control", action="IncreaseFontSize" },
     { key = "-", mods = "Control", action="DecreaseFontSize" },
     { key = "0", mods = "Control", action="ResetFontSize" },
-
+# new window
+ { key = "N", mods = "Command", action = "SpawnNewInstance" }
     ## { key = "i", mods = "Control | Shift", action="ToggleViMode" },
 # not working
 #{ key = "t", mods = "Super", action="CreateNewTab" },
