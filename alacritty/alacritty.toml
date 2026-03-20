@@ -1,10 +1,7 @@
 
 [general]
 import = [
-#"themes/Tokyonight_Day.toml"
-#"themes/Tokyonight_Night.toml"
-"themes/catppuccin-latte.toml"
-#"themes/Dracula.toml"
+"current_theme.toml"
 ]
 
 
@@ -20,7 +17,7 @@ size = 14
 
 [window]
 opacity=1
-decorations = "none"
+startup_mode = "Maximized"
 
 
 [[hints.enabled]]
