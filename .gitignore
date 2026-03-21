@@ -3,3 +3,5 @@ Ryujinx
 .DS_Store
 vsnip
 iterm2
+
+starship.toml

@@ -1,0 +1,1 @@
+- hint: I could source theme files directly from nvim plugin folder`.local/share/nvim/lazy/nightfox.nvim/extra`

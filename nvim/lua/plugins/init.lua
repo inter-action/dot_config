@@ -48,7 +48,8 @@ return {
                     },
                 },
             }
-            vim.cmd('colorscheme dayfox')
+            local theme = os.getenv("NVIM_THEME") or "nightfox" -- default to nightfox
+            vim.cmd("colorscheme " .. theme)
         end,
     },
 
