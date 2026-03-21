@@ -173,6 +173,7 @@ toggle_theme() {
     case "$mode" in
         dark)
             ln -sf "$theme_dir/nightfox.toml" "$current_theme"
+            touch ~/.config/alacritty/alacritty.toml
             ln -sf "$sharship_dir/nightfox.toml" "$sharship_current"
             # nvim & tmux
             export NVIM_THEME=nightfox
@@ -180,10 +181,12 @@ toggle_theme() {
             tmux source "$HOME/.config/tmux/themes/nightfox.tmux"
 
             git config --global delta.dark true
+            git config --global delta.light false
             echo "Switched to dark theme."
             ;;
         light)
             ln -sf "$theme_dir/dayfox.toml" "$current_theme"
+            touch ~/.config/alacritty/alacritty.toml
             ln -sf "$sharship_dir/dayfox.toml" "$sharship_current"
             # nvim & tmux
             export NVIM_THEME=dayfox
@@ -191,6 +194,7 @@ toggle_theme() {
             tmux source "$HOME/.config/tmux/themes/dayfox.tmux"
 
             git config --global delta.dark false
+            git config --global delta.light true
             echo "Switched to light theme."
             ;;
         *)
