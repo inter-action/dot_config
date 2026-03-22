@@ -1,0 +1,5 @@
+code explain
+- skip the most obvious part, as the user is a developer himself.
+- explain the algorithms if the code has any.
+- provide at least one example on input/output of each step.
+- provide a summary about key design decisions that the author made if make sense.
