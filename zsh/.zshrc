@@ -177,6 +177,10 @@ toggle_theme() {
             ln -sf "$sharship_dir/nightfox.toml" "$sharship_current"
             # nvim & tmux
             export NVIM_THEME=nightfox
+            # send keys to force theme change via tmux send-keys
+            tmux list-panes -a -F '#{pane_id} #{pane_current_command}' | \
+                grep 'nvim' | cut -d' ' -f1 | \
+                xargs -I % tmux send-keys -t % Escape ":colorscheme nightfox" Enter
             tmux set-environment -g NVIM_THEME "nightfox"
             tmux source "$HOME/.config/tmux/themes/nightfox.tmux"
 
@@ -190,6 +194,9 @@ toggle_theme() {
             ln -sf "$sharship_dir/dayfox.toml" "$sharship_current"
             # nvim & tmux
             export NVIM_THEME=dayfox
+            tmux list-panes -a -F '#{pane_id} #{pane_current_command}' | \
+                grep 'nvim' | cut -d' ' -f1 | \
+                xargs -I % tmux send-keys -t % Escape ":colorscheme dayfox" Enter
             tmux set-environment -g NVIM_THEME "dayfox"
             tmux source "$HOME/.config/tmux/themes/dayfox.tmux"
 
