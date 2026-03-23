@@ -109,7 +109,7 @@ end, extends(opts, { desc = 'BufferLinePick' }))
 ---- map iterm with <cmd-[> to zc and map <cmd-]> to zo
 utils.map_func('n', 'zf', function()
     local foldlevel = vim.fn.input('foldlevel > ')
-    vim.api.nvim_command('set foldlevel=' .. foldlevel)
+    vim.api.nvim_command('setlocal foldlevel=' .. foldlevel)
     vim.api.nvim_command('normal zx')
 end, extends(opts, { desc = 'set foldlevel' }))
 
