@@ -2,19 +2,22 @@
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [[ ! -d $ZINIT_HOME ]]; then
     mkdir -p "$(dirname $ZINIT_HOME)"
+    # use this command to force update
+    # git fetch --depth 1 && git reset --hard
     git clone --depth=1 https://github.com/zdharma-continuum/zinit.git "$ZINIT_HOME"
 fi
 source "${ZINIT_HOME}/zinit.zsh"
 
+# prefer zinit to load snippet directly
+# but keep this repo clone in here because I like to load this locally.
 export ZSH="$HOME/.ohmyzsh"
 if [[ ! -d $ZSH ]]; then
     git clone --depth=1 https://github.com/ohmyzsh/ohmyzsh.git "$ZSH"
 fi
 
-source $ZSH/oh-my-zsh.sh
-
-
-# zinit plugins
+# zinit: zsh package manager
+# run: 
+#   zinit help
 
 # Load starship theme
 # line 1: `starship` binary as command, from github release
@@ -24,8 +27,9 @@ source $ZSH/oh-my-zsh.sh
 # zinit ice as"command" from"gh-r" \
 #           atclone"./starship init zsh > init.zsh; ./starship completions zsh > _starship" \
 #           atpull"%atclone" src"init.zsh"
-# zinit light starship/starship
+# zinit load starship/starship
 
+# add zinit packages
 zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
@@ -33,22 +37,25 @@ zinit light zsh-users/zsh-autosuggestions
 #Refresh Zsh completions instantly
 zinit cdreplay -q
 
-zinit wait'0' light zsh-users/zsh-autosuggestions
-
 # enable completion
 autoload -U compinit && compinit -d ~/.cache/zcompdump-$HOST
 
 # enable zsh git plugin
+# download file directly from https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
+# OMZP is a morden way to load snippet from official repo 
 # zinit snippet OMZP::git
-# zinit snippet "$ZSH/plugins/kubectl/kubectl.plugin.zsh"
-# zinit snippet OMZP::kubectx
+# zinit snippet OMZP::rsync
+# zinit snippet OMZP::fzf
+# zinit snippet OMZP::kubectl
+# zinit snippet OMZP::uv
+# zinit snippet OMZP::starship
+# zinit snippet OMZP::nvm
 
-# OR load plugin via
+# OR load plugin via (legacy)
 # zinit snippet "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/git/git.plugin.zsh"
 
 # load plugin locally
 zinit snippet "$ZSH/plugins/git/git.plugin.zsh"
-zinit snippet "$ZSH/plugins/minikube/minikube.plugin.zsh"
 zinit snippet "$ZSH/plugins/rsync/rsync.plugin.zsh"
 zinit snippet "$ZSH/plugins/fzf/fzf.plugin.zsh"
 zinit snippet "$ZSH/plugins/kubectl/kubectl.plugin.zsh"
@@ -208,4 +215,29 @@ toggle_theme() {
             return 2
             ;;
     esac
+}
+
+update_zinit() {
+    # 先判断 ZINIT_HOME 是否存在
+    if [[ -d "$ZINIT_HOME" ]]; then
+        cd "$ZINIT_HOME" || return 1
+        # 强制更新浅克隆仓库（depth=1 专用）
+        git fetch --depth 1 && git reset --hard origin/HEAD
+    fi
+
+    if [[ -d "$ZSH" ]]; then
+        cd "$ZSH" || return 1
+        # 强制更新浅克隆仓库（depth=1 专用）
+        git fetch --depth 1 && git reset --hard origin/HEAD
+    fi
+
+    # Zinit 官方更新
+    zinit self-update
+    zinit update
+
+    # 清理 + 刷新补全
+    zinit delete --clean
+    zinit cdreplay
+
+    echo -e "\n✅ Zinit 更新完成！"
 }
