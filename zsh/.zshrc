@@ -30,22 +30,68 @@ zinit light zsh-users/zsh-syntax-highlighting
 zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 
-# enable completion
-autoload -U compinit && compinit
-
+#Refresh Zsh completions instantly
 zinit cdreplay -q
+
+zinit wait'0' light zsh-users/zsh-autosuggestions
+
+# enable completion
+autoload -U compinit && compinit -d ~/.cache/zcompdump-$HOST
 
 # enable zsh git plugin
 # zinit snippet OMZP::git
 # zinit snippet "$ZSH/plugins/kubectl/kubectl.plugin.zsh"
 # zinit snippet OMZP::kubectx
 
+# OR load plugin via
+# zinit snippet "https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/plugins/git/git.plugin.zsh"
+
+# load plugin locally
 zinit snippet "$ZSH/plugins/git/git.plugin.zsh"
 zinit snippet "$ZSH/plugins/minikube/minikube.plugin.zsh"
 zinit snippet "$ZSH/plugins/rsync/rsync.plugin.zsh"
 zinit snippet "$ZSH/plugins/fzf/fzf.plugin.zsh"
-#zinit snippet "$ZSH/plugins/uv/uv.plugin.zsh"
+zinit snippet "$ZSH/plugins/kubectl/kubectl.plugin.zsh"
+zinit snippet "$ZSH/plugins/uv/uv.plugin.zsh"
+zinit snippet "$ZSH/plugins/starship/starship.plugin.zsh"
+zinit snippet "$ZSH/plugins/nvm/nvm.plugin.zsh"
 
+
+# load plugin manullay
+#
+# plugin fzf
+#   load fzf (no need, by above zsh plugin)
+# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# --- fzf configuration
+export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
+# Use ~~ as the trigger sequence instead of the default **
+export FZF_COMPLETION_TRIGGER='~~'
+# Use fd (https://github.com/sharkdp/fd) instead of the default find
+# command for listing path candidates.
+# - The first argument to the function ($1) is the base path to start traversal
+# - See the source code (completion.{bash,zsh}) for the details.
+_fzf_compgen_path() {
+  fd --hidden --follow --exclude ".git" . "$1"
+}
+
+# Use fd to generate the list for directory completion
+_fzf_compgen_dir() {
+  fd --type d --hidden --follow --exclude ".git" . "$1"
+}
+# --- end:fzf
+
+
+# plugin kubectl
+# if command -v kubectl &> /dev/null; then
+#     source <(kubectl completion zsh)
+# fi
+
+
+# --- start ship (loaded by zsh plugin above)
+# eval "$(starship init zsh)"
 
 # auto completion
 bindkey '^f' autosuggest-accept
@@ -84,47 +130,10 @@ alias diff='diff --color=auto'
 alias ip='ip -c=auto'
 
 
-# --- fzf
-export FZF_DEFAULT_COMMAND='fd --type f'
-export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
-# Use ~~ as the trigger sequence instead of the default **
-export FZF_COMPLETION_TRIGGER='~~'
-# Use fd (https://github.com/sharkdp/fd) instead of the default find
-# command for listing path candidates.
-# - The first argument to the function ($1) is the base path to start traversal
-# - See the source code (completion.{bash,zsh}) for the details.
-_fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
-}
-
-# Use fd to generate the list for directory completion
-_fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
-}
-
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-# todo: delete this? not find this --zsh option in linux binary
-# source <(fzf --zsh)
-
-# --- end:fzf
-
-
-# kubectl
-if command -v kubectl &> /dev/null; then
-    source <(kubectl completion zsh)
-fi
-
 # --- end:cli tools config
 
 # OS related
 if [[ $(uname) == "Darwin" ]]; then
-
-    # brew install nvm 
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "/opt/homebrew/opt/nvm/nvm.sh" ] && \. "/opt/homebrew/opt/nvm/nvm.sh"  # This loads nvm
-    [ -s "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm" ] && \. "/opt/homebrew/opt/nvm/etc/bash_completion.d/nvm"  # This loads nvm bash_completion
-
     # ruby
     export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
     export GEM_HOME=$HOME/.gem/ruby/3.3.0
@@ -145,22 +154,12 @@ if [[ $(uname) == "Darwin" ]]; then
     export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
 else
     # linux
-
-    # nvm 
-    # merge this with macos version?
-    export NVM_DIR="$HOME/.nvm"
-    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
     export PATH="$HOME/.local/bin:$PATH"
     # snap
     export PATH="$PATH:/snap/bin"
     # cargo 
     export PATH="$HOME/.cargo/bin:$PATH"
 fi
-
-# --- start:cli tools config
-eval "$(starship init zsh)"
 
 # personal utils function: toggle theme
 # need to manullay restart alacritty. not a big trouble as I am using tmux.
