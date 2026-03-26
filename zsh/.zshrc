@@ -1,3 +1,6 @@
+# enable completion
+autoload -Uz compinit && compinit -d ~/.cache/zcompdump-$HOST
+
 # zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [[ ! -d $ZINIT_HOME ]]; then
@@ -37,8 +40,6 @@ zinit light zsh-users/zsh-autosuggestions
 #Refresh Zsh completions instantly
 zinit cdreplay -q
 
-# enable completion
-autoload -U compinit && compinit -d ~/.cache/zcompdump-$HOST
 
 # enable zsh git plugin
 # download file directly from https://github.com/ohmyzsh/ohmyzsh/blob/master/plugins/git/git.plugin.zsh
