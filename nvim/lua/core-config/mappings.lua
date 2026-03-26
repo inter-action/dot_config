@@ -181,5 +181,36 @@ vim.keymap.set('n', ':g//', ':g//', { desc = 'Repeat last global search' })
 vim.keymap.set('n', 'j', 'gj', { desc = 'Move down visually' })
 vim.keymap.set('n', 'k', 'gk', { desc = 'Move up visually' })
 
+-- link hint and mouse click link
+local function open_url_under_cursor()
+  local url = vim.fn.expand('<cfile>')
+  if url:match('^https?://') then
+    -- using open on macOS
+    vim.fn.jobstart({'open', url}, {detach = true})
+  end
+end
+
+-- ctrl + Left Button to open link
+vim.keymap.set(
+  'n',
+  '<C-LeftMouse>',
+  open_url_under_cursor,
+  { silent = true, desc = 'Open URL under mouse with Command+Click' }
+)
+
+
+-- reload lua config
+vim.keymap.set('n', '<leader>R', function()
+  local file = vim.fn.expand('%:p')
+  
+  -- only match lua file under nvim folder
+  if file:match(vim.fn.stdpath('config') .. '/.-%.lua$') then
+    vim.cmd('source %')  -- reload current file
+    vim.notify('✅ Lua file reloaded\n-' .. vim.fn.fnamemodify(file, ':t'), vim.log.levels.INFO)
+  else
+    vim.notify('❌ only nvim lua file can be reload.', vim.log.levels.ERROR)
+  end
+end, { desc = 'reload current lua file', silent = true })
+
 -- Return true for tests/require checks
 return true
