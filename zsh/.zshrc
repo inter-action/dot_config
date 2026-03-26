@@ -101,6 +101,8 @@ _fzf_compgen_dir() {
 # --- start ship (loaded by zsh plugin above)
 # eval "$(starship init zsh)"
 
+
+# keybindings/keymap
 # auto completion
 bindkey '^f' autosuggest-accept
 # using emac bindings
@@ -109,6 +111,10 @@ bindkey -e
 # ctrl + p/n
 bindkey "^p" history-beginning-search-backward
 bindkey "^n" history-beginning-search-forward
+
+# ctrl + left/right arrow to move by word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
 
 # history settings
 # Maximum lines kept in memory (set to a large number like 1 million or more)
