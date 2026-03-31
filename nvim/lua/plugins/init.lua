@@ -3,7 +3,18 @@ return {
     ---- search
     'jremmen/vim-ripgrep',
 
+    -- add surrouding senmatics, 
+    -- yi(, yank in ()
+    -- yi", yank in ""
     'tpope/vim-surround',
+
+    -- auto close open brackets/parenthesis
+    { 
+        'nvim-mini/mini.pairs', version = false ,
+        config = function ()
+           require('mini.pairs').setup()
+        end
+    },
 
     -- UI
     ---- notify
