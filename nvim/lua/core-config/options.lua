@@ -38,7 +38,9 @@ o.hlsearch = true
 o.ignorecase = true
 o.smartcase = true
 o.incsearch = true
-o.showmatch = true
+-- When a bracket is inserted, briefly jump to the matching one.
+-- very annoying setting, don't ever turn it on
+o.showmatch = false
 o.gdefault = true
 
 -- Wildmenu
