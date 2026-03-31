@@ -4,7 +4,12 @@ return {
     opts = {},
     config = function()
         require('venv-selector').setup()
-        vim.keymap.set('n', '<leader>vs', require('venv-selector').select, { desc = 'Select Python Virtual Environment' })
+        vim.keymap.set(
+            'n',
+            '<leader>vs',
+            require('venv-selector').select,
+            { desc = 'Select Python Virtual Environment' }
+        )
     end,
     lazy = true,
     cmd = 'VenvSelect',

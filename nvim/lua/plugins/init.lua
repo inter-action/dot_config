@@ -3,17 +3,18 @@ return {
     ---- search
     'jremmen/vim-ripgrep',
 
-    -- add surrouding senmatics, 
+    -- add surrouding senmatics,
     -- yi(, yank in ()
     -- yi", yank in ""
     'tpope/vim-surround',
 
     -- auto close open brackets/parenthesis
-    { 
-        'nvim-mini/mini.pairs', version = false ,
-        config = function ()
-           require('mini.pairs').setup()
-        end
+    {
+        'nvim-mini/mini.pairs',
+        version = false,
+        config = function()
+            require('mini.pairs').setup()
+        end,
     },
 
     -- UI
@@ -59,8 +60,8 @@ return {
                     },
                 },
             }
-            local theme = os.getenv("NVIM_THEME") or "nightfox" -- default to nightfox
-            vim.cmd("colorscheme " .. theme)
+            local theme = os.getenv('NVIM_THEME') or 'nightfox' -- default to nightfox
+            vim.cmd('colorscheme ' .. theme)
         end,
     },
 
