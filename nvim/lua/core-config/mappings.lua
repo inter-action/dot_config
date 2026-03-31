@@ -135,6 +135,8 @@ vim.keymap.set('i', '<C-h>', '<Left>', { desc = 'Move Left in Insert Mode' })
 vim.keymap.set('i', '<C-l>', '<Right>', { desc = 'Move Right in Insert Mode' })
 vim.keymap.set('i', '<C-e>', '<End>', { desc = 'Move to End in Insert Mode' })
 vim.keymap.set('i', '<C-a>', '<Home>', { desc = 'Move to Start in Insert Mode' })
+vim.keymap.set('i', '<C-j>', '<Down>', { desc = 'Move cursor down in Insert Mode' })
+vim.keymap.set('i', '<C-k>', '<Up>', { desc = 'Move cursor up in Insert Mode' })
 
 -- Window navigation mappings
 vim.keymap.set('n', 's-', '<C-w>s', { desc = 'Split window horizontally' })

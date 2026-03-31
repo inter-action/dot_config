@@ -46,16 +46,18 @@ return {
                 end,
                 'fallback',
             },
-            ['<C-e>'] = {
+            ['<CR>'] = {
                 function(cmp)
                     return cmp.select_and_accept()
                 end,
                 'fallback',
             },
-            ['<CR>'] = {
-                function(cmp)
-                    return cmp.select_and_accept()
-                end,
+            -- disable default keymap, so to perfer our own mappings in insert mode
+            ['<C-k>'] = { 'fallback' },
+            ['<C-e>'] = {
+                -- function(cmp)
+                --     return cmp.select_and_accept()
+                -- end,
                 'fallback',
             },
         },
