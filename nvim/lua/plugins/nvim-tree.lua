@@ -5,6 +5,15 @@ local function my_on_attach(bufnr)
         return { desc = 'nvim-tree: ' .. desc, buffer = bufnr, noremap = true, silent = true, nowait = true }
     end
 
+    local function get_target_dir()
+        local node = api.tree.get_node_under_cursor()
+        if node and node.type == 'directory' then
+            return node.absolute_path
+        end
+        return vim.fn.getcwd()
+    end
+
+
     api.config.mappings.default_on_attach(bufnr)
 
     vim.keymap.del('n', 's', { buffer = bufnr })
@@ -20,6 +29,16 @@ local function my_on_attach(bufnr)
     vim.keymap.set('n', 'x', api.fs.cut, opts('Cut'))
     vim.keymap.set('n', 'c', api.fs.copy.node, opts('Copy'))
     vim.keymap.set('n', 'p', api.fs.paste, opts('Paste'))
+
+    local function create_editorconfig()
+        local filepath = get_target_dir() .. '/.editorconfig'
+        local template_path = vim.fn.stdpath('config') .. '/templates/.editorconfig'
+        local content = vim.fn.readfile(template_path)
+        vim.fn.writefile(content, filepath)
+        api.tree.reload()
+    end
+
+    vim.keymap.set('n', 'E', create_editorconfig, opts('Create .editorconfig'))
 end
 
 return {

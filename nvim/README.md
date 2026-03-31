@@ -1,9 +1,16 @@
 ## TODO
 
+## Insert mode
+
+```
+<C-h> // move cursor left by char
+<C-l> // move cursor right by char
+<C-j> // move cursor down
+<C-k> // move cursor up
+```
 
 ## Setup
 
-* install Packer
 * `:Mason` - to install your fav LSP server
 * `:checkhealth`
 
@@ -85,4 +92,3 @@ alias astro="NVIM_APPNAME=nvim-astro nvim"
 * https://rsdlt.github.io/posts/rust-nvim-ide-guide-walkthrough-development-debug/#1-download-rust-analyzer-and-codelldb-with-neovims-plugins
 * configuration examples
     * https://www.lazyvim.org/configuration
-
