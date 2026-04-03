@@ -9,8 +9,7 @@ return {
     -- opts = {},
     config = function()
         local fzflua = require('fzf-lua')
-        local utils = require('../lua-utils')
-        local map = utils.map_func
+        local map = vim.keymap.set
 
         local no_preview_theme = {
             winopts = {
@@ -19,6 +18,7 @@ return {
                 },
             },
         }
+
         map('n', ';p', function()
             fzflua.files(no_preview_theme)
         end)
@@ -34,7 +34,7 @@ return {
         })
 
         map('n', ';b', function()
-            fzflua.buffers()
+            fzflua.buffers(no_preview_theme)
         end)
 
         -- use ;<Esc> to repeat find instead!
