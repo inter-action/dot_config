@@ -71,6 +71,19 @@ function M.toggle_quickfix()
         vim.api.nvim_command('copen 20')
     end
 end
+
+function M.reload_current_file()
+    local file = vim.fn.expand('%:p')
+
+    -- only match lua file under nvim folder
+    if file:match(vim.fn.stdpath('config') .. '/.-%.lua$') then
+        vim.cmd('source %') -- reload current file
+        vim.notify('✅ Lua file reloaded\n-' .. vim.fn.fnamemodify(file, ':t'), vim.log.levels.INFO)
+    else
+        vim.notify('❌ only nvim lua file can be reload.', vim.log.levels.ERROR)
+    end
+end
+
 -- nvim tree
 kset('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
 kset('n', '<leader>nf', ':NvimTreeFindFile<CR>', opts)
@@ -133,8 +146,8 @@ kset('n', '<Leader>m', '<Plug>BookmarkToggle', { desc = 'Toggle Bookmark' })
 kset('n', '<Leader>l', '<Plug>BookmarkShowAll', { desc = 'Show All Bookmarks' })
 
 -- Navigation mappings
-kset('n', 'H', '^', { desc = 'Move to beginning of line' })
-kset('n', 'L', '$', { desc = 'Move to end of line' })
+kset({ 'n', 'v' }, 'H', '^', { desc = 'Move to beginning of line' })
+kset({ 'n', 'v' }, 'L', '$', { desc = 'Move to end of line' })
 kset('n', '[t', 'gT', { desc = 'Previous Tab' })
 kset('n', ']t', 'gt', { desc = 'Next Tab' })
 kset('n', '[b', ':bp<CR>', { desc = 'Previous Buffer' })
@@ -208,17 +221,7 @@ end
 kset('n', '<C-LeftMouse>', open_url_under_cursor, { silent = true, desc = 'Open URL under mouse with Command+Click' })
 
 -- reload lua config
-kset('n', '<leader>R', function()
-    local file = vim.fn.expand('%:p')
-
-    -- only match lua file under nvim folder
-    if file:match(vim.fn.stdpath('config') .. '/.-%.lua$') then
-        vim.cmd('source %') -- reload current file
-        vim.notify('✅ Lua file reloaded\n-' .. vim.fn.fnamemodify(file, ':t'), vim.log.levels.INFO)
-    else
-        vim.notify('❌ only nvim lua file can be reload.', vim.log.levels.ERROR)
-    end
-end, { desc = 'reload current lua file', silent = true })
+kset('n', '<leader>R', M.reload_current_file, { desc = 'reload current lua file', silent = true })
 
 -- tmux integration, using ALT+h/j/k/l to switch pane
 local function navigate_or_tmux(direction)
