@@ -1,5 +1,4 @@
 -- Key mappings: prefer `vim.keymap.set` and descriptive `desc` fields
--- Uses `lua-utils` helpers where convenient
 local utils = require('lua-utils')
 local extends = utils.extends
 
@@ -9,72 +8,51 @@ local slicent_opts = { silent = true }
 
 -- input mode, editing. config inside init.vm
 -- vim.keymap.set('i', '<C-l>', utils.move_cursor_next, { desc = "move cursor to right" })
+local kset = vim.keymap.set
+local M = {}
 
--- nvim tree
-utils.map_command('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
-utils.map_command('n', '<leader>nf', ':NvimTreeFindFile<CR>', opts)
+function M.unified_close()
+    -- close window/buffer
+    local buf = vim.api.nvim_get_current_buf()
+    local win_count = vim.fn.winnr('$')
 
---- quit & write
-utils.map_func(
-    'n',
-    '<space>z',
-    function()
-        local ok, _ = pcall(vim.api.nvim_command, 'wa')
-        vim.api.nvim_command('stop')
-    end,
-    extends(slicent_opts, { desc = 'hide neovim' }) -- use fg to move neovim to foregroud
-)
-
-utils.map_func('n', ';w', function()
-    vim.api.nvim_command('wa')
-end, extends(opts, { desc = 'write all' }))
-
---- Close buffer/window reliably
-utils.map_func('n', ';q', function()
-    -- If there are multiple windows in the current tab page, close the current window
-    if vim.fn.winnr('$') > 1 then
-        vim.cmd('close')
-    else
-        -- Otherwise, close the buffer
-        local modifiable = vim.bo.modifiable
-        local is_noname_buffer = vim.fn.expand('%:p') == ''
-
-        if not modifiable then
-            return vim.api.nvim_command('q')
-        end
-
-        if not is_noname_buffer then
-            vim.api.nvim_command('bd')
-            return
-        end
-
-        return vim.ui.select({ '1', '2' }, {
-            prompt = 'no name buffer, force close? :',
-        }, function(choice)
-            if choice == '1' then
-                vim.api.nvim_command('bd!')
-            else
-                return
-            end
-        end)
+    -- Case 1: Multiple windows → close window
+    if win_count > 1 then
+        vim.cmd.close()
+        return
     end
-end, extends(opts, { desc = 'Close buffer or window' }))
 
-utils.map_func('n', '<leader><leader>q', function()
-    vim.api.nvim_command('wa')
-    vim.api.nvim_command('qa!')
-end, extends(opts, { desc = 'quit neovim' }))
+    -- Case 2: Single window → smart buffer handling
+    local buftype = vim.bo[buf].buftype
+    local modified = vim.bo[buf].modified
+    local modifiable = vim.bo[buf].modifiable
 
-utils.map_func('n', ';rr', function()
-    local cword = vim.fn.expand('<cword>')
-    local search = vim.fn.input('Keywords > ', cword)
-    vim.api.nvim_feedkeys(":Rg -F '" .. search .. "' -w", 'n', false)
-end, extends(opts, { desc = 'ripgrep' }))
+    -- Special / non-modifiable buffers
+    if buftype ~= '' or not modifiable then
+        vim.cmd.quit()
+        return
+    end
 
--- quickfix window
--- previously was mapped to <F4>
+    -- Unmodified buffer → safe delete
+    if not modified then
+        vim.api.nvim_buf_delete(buf, { force = false })
+        return
+    end
 
-local function toggle_quickfix()
+    -- Modified buffer → confirm
+    local name = vim.api.nvim_buf_get_name(buf)
+    local display = name ~= '' and vim.fn.fnamemodify(name, ':t') or '[No Name]'
+
+    vim.ui.select({ 'Close without saving', 'Cancel' }, {
+        prompt = 'Unsaved changes in ' .. display .. ', continue?',
+    }, function(choice)
+        if choice == 'Close without saving' then
+            vim.api.nvim_buf_delete(buf, { force = true })
+        end
+    end)
+end
+
+function M.toggle_quickfix()
     local wininfos = vim.fn.getwininfo()
     local hasQuickFix = false
 
@@ -93,95 +71,129 @@ local function toggle_quickfix()
         vim.api.nvim_command('copen 20')
     end
 end
+-- nvim tree
+kset('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
+kset('n', '<leader>nf', ':NvimTreeFindFile<CR>', opts)
 
--- todo: remove this?
-utils.map_func('n', '<F4>', toggle_quickfix, extends(opts, { desc = 'toggle quickfix' }))
+--- quit & write
+kset(
+    'n',
+    '<space>z',
+    function()
+        local ok, _ = pcall(vim.api.nvim_command, 'wa')
+        vim.api.nvim_command('stop')
+    end,
+    extends(slicent_opts, { desc = 'hide neovim' }) -- use fg to move neovim to foregroud
+)
+
+kset('n', ';w', function()
+    vim.api.nvim_command('wa')
+end, extends(opts, { desc = 'write all' }))
+
+--- Close buffer/window reliably
+kset('n', ';q', M.unified_close, extends(opts, { desc = 'Close buffer or window' }))
+
+kset('n', '<leader><leader>q', function()
+    vim.api.nvim_command('wa')
+    vim.api.nvim_command('qa!')
+end, extends(opts, { desc = 'quit neovim' }))
+
+kset('n', ';rr', function()
+    local cword = vim.fn.expand('<cword>')
+    local search = vim.fn.input('Keywords > ', cword)
+    vim.api.nvim_feedkeys(":Rg -F '" .. search .. "' -w", 'n', false)
+end, extends(opts, { desc = 'ripgrep' }))
+
+-- quickfix window
+-- previously was mapped to <F4>
+
+kset('n', '<F4>', M.toggle_quickfix, extends(opts, { desc = 'toggle quickfix' }))
 
 -- buffer line
-utils.map_func('n', '<leader>tc', function()
+kset('n', '<leader>tc', function()
     vim.api.nvim_command('BufferLinePickClose')
 end, extends(opts, { desc = 'BufferLinePickClose' }))
-utils.map_func('n', '<leader>ts', function()
+kset('n', '<leader>ts', function()
     vim.api.nvim_command('BufferLinePick')
 end, extends(opts, { desc = 'BufferLinePick' }))
 
 -- folding
 ---- map iterm with <cmd-[> to zc and map <cmd-]> to zo
-utils.map_func('n', 'zf', function()
+kset('n', 'zf', function()
     local foldlevel = vim.fn.input('foldlevel > ')
     vim.api.nvim_command('setlocal foldlevel=' .. foldlevel)
     vim.api.nvim_command('normal zx')
 end, extends(opts, { desc = 'set foldlevel' }))
 
-utils.map_command('n', 'z=', 'zr', extends(opts, { desc = 'one more fold' }))
-utils.map_command('n', 'z-', 'zm', extends(opts, { desc = 'one less fold' }))
+kset('n', 'z=', 'zr', extends(opts, { desc = 'one more fold' }))
+kset('n', 'z-', 'zm', extends(opts, { desc = 'one less fold' }))
 
 -- Bookmark mappings
-vim.keymap.set('n', '<Leader>m', '<Plug>BookmarkToggle', { desc = 'Toggle Bookmark' })
-vim.keymap.set('n', '<Leader>l', '<Plug>BookmarkShowAll', { desc = 'Show All Bookmarks' })
+kset('n', '<Leader>m', '<Plug>BookmarkToggle', { desc = 'Toggle Bookmark' })
+kset('n', '<Leader>l', '<Plug>BookmarkShowAll', { desc = 'Show All Bookmarks' })
 
 -- Navigation mappings
-vim.keymap.set('n', 'H', '^', { desc = 'Move to beginning of line' })
-vim.keymap.set('n', 'L', '$', { desc = 'Move to end of line' })
-vim.keymap.set('n', '[t', 'gT', { desc = 'Previous Tab' })
-vim.keymap.set('n', ']t', 'gt', { desc = 'Next Tab' })
-vim.keymap.set('n', '[b', ':bp<CR>', { desc = 'Previous Buffer' })
-vim.keymap.set('n', ']b', ':bn<CR>', { desc = 'Next Buffer' })
-vim.keymap.set('n', '[c', ':cp<CR>', { desc = 'Previous Quickfix' })
-vim.keymap.set('n', ']c', ':cn<CR>', { desc = 'Next Quickfix' })
+kset('n', 'H', '^', { desc = 'Move to beginning of line' })
+kset('n', 'L', '$', { desc = 'Move to end of line' })
+kset('n', '[t', 'gT', { desc = 'Previous Tab' })
+kset('n', ']t', 'gt', { desc = 'Next Tab' })
+kset('n', '[b', ':bp<CR>', { desc = 'Previous Buffer' })
+kset('n', ']b', ':bn<CR>', { desc = 'Next Buffer' })
+kset('n', '[c', ':cp<CR>', { desc = 'Previous Quickfix' })
+kset('n', ']c', ':cn<CR>', { desc = 'Next Quickfix' })
 
 -- Insert mode mappings
-vim.keymap.set('i', '<C-h>', '<Left>', { desc = 'Move Left in Insert Mode' })
-vim.keymap.set('i', '<C-l>', '<Right>', { desc = 'Move Right in Insert Mode' })
-vim.keymap.set('i', '<C-e>', '<End>', { desc = 'Move to End in Insert Mode' })
-vim.keymap.set('i', '<C-a>', '<Home>', { desc = 'Move to Start in Insert Mode' })
-vim.keymap.set('i', '<C-j>', '<Down>', { desc = 'Move cursor down in Insert Mode' })
-vim.keymap.set('i', '<C-k>', '<Up>', { desc = 'Move cursor up in Insert Mode' })
+kset('i', '<C-h>', '<Left>', { desc = 'Move Left in Insert Mode' })
+kset('i', '<C-l>', '<Right>', { desc = 'Move Right in Insert Mode' })
+kset('i', '<C-e>', '<End>', { desc = 'Move to End in Insert Mode' })
+kset('i', '<C-a>', '<Home>', { desc = 'Move to Start in Insert Mode' })
+kset('i', '<C-j>', '<Down>', { desc = 'Move cursor down in Insert Mode' })
+kset('i', '<C-k>', '<Up>', { desc = 'Move cursor up in Insert Mode' })
 
 -- Window navigation mappings
-vim.keymap.set('n', 's-', '<C-w>s', { desc = 'Split window horizontally' })
-vim.keymap.set('n', 's\\', '<C-w>v', { desc = 'Split window vertically' })
-vim.keymap.set('n', '<C-w>-', '<C-w>s', { desc = 'Split window horizontally (alternative)' })
-vim.keymap.set('n', '<C-w>\\', '<C-w>v', { desc = 'Split window vertically (alternative)' })
-vim.keymap.set('n', 'sc', '<C-w>c', { desc = 'Close window' })
-vim.keymap.set('n', 'ss', '<C-w>w', { desc = 'Switch window' })
-vim.keymap.set('n', 'sh', '<C-w>h', { desc = 'Move to left window' })
-vim.keymap.set('n', 'sl', '<C-w>l', { desc = 'Move to right window' })
-vim.keymap.set('n', 'sj', '<C-w>j', { desc = 'Move to bottom window' })
-vim.keymap.set('n', 'sk', '<C-w>k', { desc = 'Move to top window' })
-vim.keymap.set('n', '<C-w><Left>', '<C-w>5<', { desc = 'Resize window left' })
-vim.keymap.set('n', '<C-w><Right>', '<C-w>5>', { desc = 'Resize window right' })
-vim.keymap.set('n', '<C-w><Up>', '<C-w>5+', { desc = 'Resize window up' })
-vim.keymap.set('n', '<C-w><Down>', '<C-w>5-', { desc = 'Resize window down' })
+kset('n', 's-', '<C-w>s', { desc = 'Split window horizontally' })
+kset('n', 's\\', '<C-w>v', { desc = 'Split window vertically' })
+kset('n', '<C-w>-', '<C-w>s', { desc = 'Split window horizontally (alternative)' })
+kset('n', '<C-w>\\', '<C-w>v', { desc = 'Split window vertically (alternative)' })
+kset('n', 'sc', '<C-w>c', { desc = 'Close window' })
+kset('n', 'ss', '<C-w>w', { desc = 'Switch window' })
+kset('n', 'sh', '<C-w>h', { desc = 'Move to left window' })
+kset('n', 'sl', '<C-w>l', { desc = 'Move to right window' })
+kset('n', 'sj', '<C-w>j', { desc = 'Move to bottom window' })
+kset('n', 'sk', '<C-w>k', { desc = 'Move to top window' })
+kset('n', '<C-w><Left>', '<C-w>5<', { desc = 'Resize window left' })
+kset('n', '<C-w><Right>', '<C-w>5>', { desc = 'Resize window right' })
+kset('n', '<C-w><Up>', '<C-w>5+', { desc = 'Resize window up' })
+kset('n', '<C-w><Down>', '<C-w>5-', { desc = 'Resize window down' })
 
 -- Clipboard yank mapping
-vim.keymap.set('v', '<leader>y', '"+y', { silent = true, desc = 'Yank to system clipboard' })
+kset('v', '<leader>y', '"+y', { silent = true, desc = 'Yank to system clipboard' })
 
 -- Terminal mode mapping
-vim.keymap.set('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
+kset('t', '<Esc>', '<C-\\><C-n>', { desc = 'Exit terminal mode' })
 
 -- Prevent paste in visual mode from replacing unnamed buffer
-vim.keymap.set('x', 'p', 'P', { desc = 'Prevent paste from replacing unnamed buffer' })
+kset('x', 'p', 'P', { desc = 'Prevent paste from replacing unnamed buffer' })
 
 -- Search-related mappings
-vim.keymap.set('n', 'n', 'nzz', { silent = true, desc = 'Next search result centered' })
-vim.keymap.set('n', 'N', 'Nzz', { silent = true, desc = 'Previous search result centered' })
-vim.keymap.set('n', '*', '*zz', { silent = true, desc = 'Search word under cursor forward centered' })
-vim.keymap.set('n', '#', '#zz', { silent = true, desc = 'Search word under cursor backward centered' })
-vim.keymap.set('n', 'g*', 'g*zz', { silent = true, desc = 'Search partial word forward centered' })
+kset('n', 'n', 'nzz', { silent = true, desc = 'Next search result centered' })
+kset('n', 'N', 'Nzz', { silent = true, desc = 'Previous search result centered' })
+kset('n', '*', '*zz', { silent = true, desc = 'Search word under cursor forward centered' })
+kset('n', '#', '#zz', { silent = true, desc = 'Search word under cursor backward centered' })
+kset('n', 'g*', 'g*zz', { silent = true, desc = 'Search partial word forward centered' })
 
 -- Disable highlighting search result on Enter key
-vim.keymap.set('n', '<CR>', ':nohlsearch<CR><CR>', { silent = true, desc = 'Disable search highlight' })
+kset('n', '<CR>', ':nohlsearch<CR><CR>', { silent = true, desc = 'Disable search highlight' })
 
 -- Very magic search mappings
-vim.keymap.set('n', '?', '?\\v', { desc = 'Very magic backward search' })
-vim.keymap.set('n', '/', '/\\v', { desc = 'Very magic forward search' })
-vim.keymap.set('n', ':g/', ':g/\\v', { desc = 'Very magic global search' })
-vim.keymap.set('n', ':g//', ':g//', { desc = 'Repeat last global search' })
+kset('n', '?', '?\\v', { desc = 'Very magic backward search' })
+kset('n', '/', '/\\v', { desc = 'Very magic forward search' })
+kset('n', ':g/', ':g/\\v', { desc = 'Very magic global search' })
+kset('n', ':g//', ':g//', { desc = 'Repeat last global search' })
 
 -- Line navigation mappings
-vim.keymap.set('n', 'j', 'gj', { desc = 'Move down visually' })
-vim.keymap.set('n', 'k', 'gk', { desc = 'Move up visually' })
+kset('n', 'j', 'gj', { desc = 'Move down visually' })
+kset('n', 'k', 'gk', { desc = 'Move up visually' })
 
 -- link hint and mouse click link
 local function open_url_under_cursor()
@@ -193,15 +205,10 @@ local function open_url_under_cursor()
 end
 
 -- ctrl + Left Button to open link
-vim.keymap.set(
-    'n',
-    '<C-LeftMouse>',
-    open_url_under_cursor,
-    { silent = true, desc = 'Open URL under mouse with Command+Click' }
-)
+kset('n', '<C-LeftMouse>', open_url_under_cursor, { silent = true, desc = 'Open URL under mouse with Command+Click' })
 
 -- reload lua config
-vim.keymap.set('n', '<leader>R', function()
+kset('n', '<leader>R', function()
     local file = vim.fn.expand('%:p')
 
     -- only match lua file under nvim folder
@@ -236,17 +243,17 @@ local function navigate_or_tmux(direction)
     end
 end
 
-vim.keymap.set('n', '<A-h>', function()
+kset('n', '<A-h>', function()
     navigate_or_tmux('h')
 end, { silent = true })
-vim.keymap.set('n', '<A-j>', function()
+kset('n', '<A-j>', function()
     navigate_or_tmux('j')
 end, { silent = true })
-vim.keymap.set('n', '<A-k>', function()
+kset('n', '<A-k>', function()
     navigate_or_tmux('k')
 end, { silent = true })
-vim.keymap.set('n', '<A-l>', function()
+kset('n', '<A-l>', function()
     navigate_or_tmux('l')
 end, { silent = true })
 -- Return true for tests/require checks
-return true
+return M
