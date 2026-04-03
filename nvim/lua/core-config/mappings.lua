@@ -213,5 +213,40 @@ vim.keymap.set('n', '<leader>R', function()
     end
 end, { desc = 'reload current lua file', silent = true })
 
+-- tmux integration, using ALT+h/j/k/l to switch pane
+local function navigate_or_tmux(direction)
+    local winid = vim.api.nvim_get_current_win()
+    local prev_winid = winid
+
+    -- try switch neovim window first
+    if direction == 'h' then
+        vim.cmd.wincmd('h')
+    elseif direction == 'j' then
+        vim.cmd.wincmd('j')
+    elseif direction == 'k' then
+        vim.cmd.wincmd('k')
+    elseif direction == 'l' then
+        vim.cmd.wincmd('l')
+    end
+
+    -- on neovim edge window, do tmux select-pane
+    if vim.api.nvim_get_current_win() == prev_winid then
+        local tmux_dir = ({ h = 'L', j = 'D', k = 'U', l = 'R' })[direction]
+        vim.fn.system('tmux select-pane -' .. tmux_dir)
+    end
+end
+
+vim.keymap.set('n', '<A-h>', function()
+    navigate_or_tmux('h')
+end, { silent = true })
+vim.keymap.set('n', '<A-j>', function()
+    navigate_or_tmux('j')
+end, { silent = true })
+vim.keymap.set('n', '<A-k>', function()
+    navigate_or_tmux('k')
+end, { silent = true })
+vim.keymap.set('n', '<A-l>', function()
+    navigate_or_tmux('l')
+end, { silent = true })
 -- Return true for tests/require checks
 return true

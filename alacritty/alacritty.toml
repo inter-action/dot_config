@@ -18,6 +18,9 @@ size = 14
 [window]
 opacity=1
 startup_mode = "Maximized"
+# macOS only option
+# option_as_alt = "Both"
+option_as_alt = "OnlyLeft"
 
 
 [[hints.enabled]]
