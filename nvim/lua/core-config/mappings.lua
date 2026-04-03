@@ -11,6 +11,7 @@ local slicent_opts = { silent = true }
 local kset = vim.keymap.set
 local M = {}
 
+-- starts: functions
 function M.unified_close()
     -- close window/buffer
     local buf = vim.api.nvim_get_current_buf()
@@ -83,6 +84,40 @@ function M.reload_current_file()
         vim.notify('❌ only nvim lua file can be reload.', vim.log.levels.ERROR)
     end
 end
+
+function M.navigate_or_tmux(direction)
+    -- navigate window or tmux pane
+    local winid = vim.api.nvim_get_current_win()
+    local prev_winid = winid
+
+    -- try switch neovim window first
+    if direction == 'h' then
+        vim.cmd.wincmd('h')
+    elseif direction == 'j' then
+        vim.cmd.wincmd('j')
+    elseif direction == 'k' then
+        vim.cmd.wincmd('k')
+    elseif direction == 'l' then
+        vim.cmd.wincmd('l')
+    end
+
+    -- on neovim edge window, do tmux select-pane
+    if vim.api.nvim_get_current_win() == prev_winid then
+        local tmux_dir = ({ h = 'L', j = 'D', k = 'U', l = 'R' })[direction]
+        vim.fn.system('tmux select-pane -' .. tmux_dir)
+    end
+end
+
+function M.open_url_under_cursor()
+    -- link hint and mouse click link
+    local url = vim.fn.expand('<cfile>')
+    if url:match('^https?://') then
+        -- using open on macOS
+        vim.fn.jobstart({ 'open', url }, { detach = true })
+    end
+end
+
+-- ends: functions
 
 -- nvim tree
 kset('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
@@ -208,55 +243,24 @@ kset('n', ':g//', ':g//', { desc = 'Repeat last global search' })
 kset('n', 'j', 'gj', { desc = 'Move down visually' })
 kset('n', 'k', 'gk', { desc = 'Move up visually' })
 
--- link hint and mouse click link
-local function open_url_under_cursor()
-    local url = vim.fn.expand('<cfile>')
-    if url:match('^https?://') then
-        -- using open on macOS
-        vim.fn.jobstart({ 'open', url }, { detach = true })
-    end
-end
-
 -- ctrl + Left Button to open link
-kset('n', '<C-LeftMouse>', open_url_under_cursor, { silent = true, desc = 'Open URL under mouse with Command+Click' })
+kset('n', '<C-LeftMouse>', M.open_url_under_cursor, { silent = true, desc = 'Open URL under mouse with Command+Click' })
 
 -- reload lua config
 kset('n', '<leader>R', M.reload_current_file, { desc = 'reload current lua file', silent = true })
 
 -- tmux integration, using ALT+h/j/k/l to switch pane
-local function navigate_or_tmux(direction)
-    local winid = vim.api.nvim_get_current_win()
-    local prev_winid = winid
-
-    -- try switch neovim window first
-    if direction == 'h' then
-        vim.cmd.wincmd('h')
-    elseif direction == 'j' then
-        vim.cmd.wincmd('j')
-    elseif direction == 'k' then
-        vim.cmd.wincmd('k')
-    elseif direction == 'l' then
-        vim.cmd.wincmd('l')
-    end
-
-    -- on neovim edge window, do tmux select-pane
-    if vim.api.nvim_get_current_win() == prev_winid then
-        local tmux_dir = ({ h = 'L', j = 'D', k = 'U', l = 'R' })[direction]
-        vim.fn.system('tmux select-pane -' .. tmux_dir)
-    end
-end
-
 kset('n', '<A-h>', function()
-    navigate_or_tmux('h')
+    M.navigate_or_tmux('h')
 end, { silent = true })
 kset('n', '<A-j>', function()
-    navigate_or_tmux('j')
+    M.navigate_or_tmux('j')
 end, { silent = true })
 kset('n', '<A-k>', function()
-    navigate_or_tmux('k')
+    M.navigate_or_tmux('k')
 end, { silent = true })
 kset('n', '<A-l>', function()
-    navigate_or_tmux('l')
+    M.navigate_or_tmux('l')
 end, { silent = true })
 -- Return true for tests/require checks
 return M

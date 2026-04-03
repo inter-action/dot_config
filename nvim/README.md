@@ -9,6 +9,16 @@
 <C-k> // move cursor up
 ```
 
+## ALT + keys
+
+```
+// switch tmux pane or nvim window
+<M-h>
+<M-l>
+<M-j>
+<M-k>
+```
+
 ## Setup
 
 * `:Mason` - to install your fav LSP server
