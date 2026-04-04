@@ -11,7 +11,8 @@ end, { nargs = 0 })
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(client, bufnr)
-    vim.lsp.inlay_hint.enable(true)
+    -- todo: move this to filetypes 
+    vim.lsp.inlay_hint.enable(false)
 
     -- NOTE: Remember that lua is a real programming language, and as such it is possible
     -- to define small helper and utility functions so you don't have to repeat yourself
@@ -29,7 +30,11 @@ local on_attach = function(client, bufnr)
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- See `:help K` for why this keymap
-    nmap('K', vim.lsp.buf.hover, 'Hover Documentation')
+    nmap('K', function ()
+        vim.lsp.buf.hover({
+            border = 'rounded',
+        })
+    end, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
     nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
     nmap('gD', vim.lsp.buf.declaration, 'Goto Declaration')
@@ -82,20 +87,17 @@ local servers = {
     lua_ls = {
         Lua = {
             diagnostics = { globals = { 'vim' } },
-            workspace = { checkThirdParty = false },
+            workspace = {
+                checkThirdParty = false,
+                -- enable nvim runtime files
+                library = vim.api.nvim_get_runtime_file("", true),
+            },
             telemetry = { enable = false },
         },
     },
 }
 
 return {
-    -- {
-    --     "williamboman/mason.nvim",
-    --     lazy = false,
-    --     config = function()
-    --         require("mason").setup()
-    --     end,
-    -- },
     {
         'mason-org/mason-lspconfig.nvim',
         config = function()
