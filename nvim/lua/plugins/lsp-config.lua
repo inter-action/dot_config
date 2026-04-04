@@ -11,7 +11,7 @@ end, { nargs = 0 })
 -- [[ Configure LSP ]]
 --  This function gets run when an LSP connects to a particular buffer.
 local on_attach = function(client, bufnr)
-    -- todo: move this to filetypes 
+    -- todo: move this to filetypes
     vim.lsp.inlay_hint.enable(false)
 
     -- NOTE: Remember that lua is a real programming language, and as such it is possible
@@ -30,10 +30,12 @@ local on_attach = function(client, bufnr)
 
     -- See `:help vim.lsp.*` for documentation on any of the below functions
     -- See `:help K` for why this keymap
-    nmap('K', function ()
-        vim.lsp.buf.hover({
-            border = 'rounded',
-        })
+    -- click K double time will auto focus this floating window
+    -- then using normal <C-d> <C-u> to scroll, q to quit
+    nmap('K', function()
+        vim.lsp.buf.hover {
+            -- border = 'rounded',
+        }
     end, 'Hover Documentation')
     nmap('<C-k>', vim.lsp.buf.signature_help, 'Signature Documentation')
     nmap('gd', vim.lsp.buf.definition, 'Goto Definition')
@@ -90,7 +92,7 @@ local servers = {
             workspace = {
                 checkThirdParty = false,
                 -- enable nvim runtime files
-                library = vim.api.nvim_get_runtime_file("", true),
+                library = vim.api.nvim_get_runtime_file('', true),
             },
             telemetry = { enable = false },
         },
