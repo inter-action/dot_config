@@ -13,7 +13,6 @@ local function my_on_attach(bufnr)
         return vim.fn.getcwd()
     end
 
-
     api.config.mappings.default_on_attach(bufnr)
 
     vim.keymap.del('n', 's', { buffer = bufnr })

@@ -119,9 +119,17 @@ end
 
 -- ends: functions
 
--- nvim tree
-kset('n', '<leader>e', ':NvimTreeToggle<CR>', opts)
-kset('n', '<leader>nf', ':NvimTreeFindFile<CR>', opts)
+-- tmux terminal
+-- use <C-d> to close it
+vim.keymap.set('n', ';t', function()
+    -- current root dir
+    local root_dir = vim.fn.getcwd()
+    --local cmd = string.format([[tmux display-popup -c %s]], vim.fn.shellescape(root_dir))
+    local cmd = [[tmux display-popup -w 50% -h 50% -E -T 'tmux(<C-d> to close)' -d]]
+        .. ' '
+        .. vim.fn.shellescape(root_dir)
+    vim.fn.system(cmd)
+end, { silent = true })
 
 --- quit & write
 kset(
