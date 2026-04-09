@@ -40,6 +40,10 @@ local function my_on_attach(bufnr)
     vim.keymap.set('n', 'E', create_editorconfig, opts('Create .editorconfig'))
 end
 
+-- nvim tree
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {silent = true})
+vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', {silent = true})
+
 return {
     'kyazdani42/nvim-tree.lua',
     opts = {
