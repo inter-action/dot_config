@@ -41,8 +41,8 @@ local function my_on_attach(bufnr)
 end
 
 -- nvim tree
-vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', {silent = true})
-vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', {silent = true})
+vim.keymap.set('n', '<leader>e', ':NvimTreeToggle<CR>', { silent = true })
+vim.keymap.set('n', '<leader>nf', ':NvimTreeFindFile<CR>', { silent = true })
 
 return {
     'kyazdani42/nvim-tree.lua',

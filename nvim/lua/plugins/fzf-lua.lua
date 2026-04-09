@@ -9,7 +9,18 @@ return {
     -- opts = {},
     config = function()
         local fzflua = require('fzf-lua')
-        local map = vim.keymap.set
+        local utils = require('lua-utils')
+
+        local kmap = vim.keymap.set
+
+        fzflua.setup {
+            winopts = {
+                preview = {
+                    layout = 'vertical',
+                    vertical = 'down:45%',
+                },
+            },
+        }
 
         local no_preview_theme = {
             winopts = {
@@ -19,39 +30,64 @@ return {
             },
         }
 
-        map('n', ';p', function()
-            fzflua.files(no_preview_theme)
-        end)
-        map('n', ';o', function()
-            fzflua.oldfiles(no_preview_theme)
-        end)
+        local bottom_preview_theme = {
+            winopts = {
+                preview = {
+                    layout = 'vertical',
+                    vertical = 'down:50%',
+                    hidden = false, -- ensure preview didn't hidden
+                },
+            },
+        }
 
-        map('n', '<space>ds', fzflua.lsp_document_symbols, {
+        -- Exact match: Precede with a single quote (e.g., 'filename).
+        -- Prefix-exact: Precede with ^ (e.g., ^src).
+        -- Suffix-exact: Append $ (e.g., .lua$).
+        -- Inverse match: Precede with ! (e.g., !node_modules).
+        kmap('n', ';p', function()
+            fzflua.files(utils.extends(no_preview_theme, {
+                header = "::match syntax, ::exact '<word> "
+                    .. '::prefix ^<word>  ::suffix <word>$ ::inverse !<word> \n' -- break line
+                    .. '::toggle hidden <A-h>',
+            }))
+        end, { desc = 'Fzf: Find files' })
+
+        kmap('n', ';o', function()
+            fzflua.oldfiles(no_preview_theme)
+        end, { desc = 'Fzf: Recent files' })
+
+        kmap('n', '<space>ds', fzflua.lsp_document_symbols, {
             desc = 'LSP: Document Symbols',
         })
-        map('n', '<space>ws', fzflua.lsp_live_workspace_symbols, {
+
+        kmap('n', '<space>ws', fzflua.lsp_live_workspace_symbols, {
             desc = 'LSP: Workspace Symbols',
         })
 
-        map('n', ';b', function()
+        kmap('n', ';b', function()
             fzflua.buffers(no_preview_theme)
-        end)
+        end, { desc = 'Fzf: Opened buffers' })
 
-        -- use ;<Esc> to repeat find instead!
-        map('n', ';r', function()
-            fzflua.live_grep()
-        end)
-        map('n', ';c', function()
-            fzflua.commands()
-        end)
-        map('n', ';ch', function()
-            fzflua.command_history()
-        end)
-        map('n', ';a', function()
+        kmap('n', ';r', function()
+            fzflua.live_grep {
+                header = '::Syntax <keyword> -- <glob> <!neg glob>  ::Example lua -- *.ts',
+            }
+        end, { desc = 'Fzf: Live grep (Search text)' })
+
+        kmap('n', ';c', function()
+            fzflua.commands(no_preview_theme)
+        end, { desc = 'Fzf: Neovim commands' })
+
+        kmap('n', ';h', function()
+            fzflua.command_history(no_preview_theme)
+        end, { desc = 'Fzf: Command history' })
+
+        kmap('n', ';a', function()
             fzflua.builtin()
-        end)
-        map('n', ';;', function()
+        end, { desc = 'Fzf: Built-in pickers' })
+
+        kmap('n', ';;', function()
             fzflua.resume()
-        end)
+        end, { desc = 'Fzf: Resume last picker' })
     end,
 }
