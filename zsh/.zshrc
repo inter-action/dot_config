@@ -1,7 +1,7 @@
-# enable completion
+# --- enable completion
 autoload -Uz compinit && compinit -d ~/.cache/zcompdump-$HOST
 
-# zinit
+# --- zinit
 ZINIT_HOME="${XDG_DATA_HOME:-${HOME}/.local/share}/zinit/zinit.git"
 if [[ ! -d $ZINIT_HOME ]]; then
     mkdir -p "$(dirname $ZINIT_HOME)"
@@ -72,6 +72,14 @@ zinit snippet "$ZSH/plugins/nvm/nvm.plugin.zsh"
 # [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
+# plugin kubectl
+# if command -v kubectl &> /dev/null; then
+#     source <(kubectl completion zsh)
+# fi
+
+# --- start ship (loaded by zsh plugin above)
+# eval "$(starship init zsh)"
+
 # --- fzf configuration
 export FZF_DEFAULT_COMMAND='fd --type f'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
@@ -92,91 +100,9 @@ _fzf_compgen_dir() {
 # --- end:fzf
 
 
-# plugin kubectl
-# if command -v kubectl &> /dev/null; then
-#     source <(kubectl completion zsh)
-# fi
 
 
-# --- start ship (loaded by zsh plugin above)
-# eval "$(starship init zsh)"
-
-
-# keybindings/keymap
-# auto completion
-bindkey '^f' autosuggest-accept
-# using emac bindings
-bindkey -e
-
-# ctrl + p/n
-bindkey "^p" history-beginning-search-backward
-bindkey "^n" history-beginning-search-forward
-
-# ctrl + left/right arrow to move by word
-bindkey "^[[1;5D" backward-word
-bindkey "^[[1;5C" forward-word
-
-# history settings
-# Maximum lines kept in memory (set to a large number like 1 million or more)
-HISTSIZE=100000
-# Maximum lines saved to $HISTFILE (set to the same large number)
-SAVEHIST=100000
-# Write to the history file immediately, not when the shell exits
-setopt INC_APPEND_HISTORY
-# Share history between all sessions
-setopt SHARE_HISTORY
-# Record the time when each command was executed along with the command itself
-setopt EXTENDED_HISTORY
-# Do not record an event that was just recorded again
-setopt HIST_IGNORE_DUPS
-# Delete an old recorded event if a new event is a duplicate
-setopt HIST_IGNORE_ALL_DUPS
-# Do not display a previously found event (I use fzf, disable it for now)
-# setopt HIST_FIND_NO_DUPS
-# Do not record an event starting with a space (useful for sensitive commands)
-setopt HIST_IGNORE_SPACE
-
-
-# colors
-alias ls='ls --color=auto -hv'
-alias grep='grep --color=auto'
-alias diff='diff --color=auto'
-alias ip='ip -c=auto'
-
-
-# --- end:cli tools config
-
-# OS related
-if [[ $(uname) == "Darwin" ]]; then
-    # ruby
-    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
-    export GEM_HOME=$HOME/.gem/ruby/3.3.0
-    export PATH=$GEM_HOME/bin:$PATH
-
-    # homebrew
-    # disable homebrew auto update
-    export HOMEBREW_NO_AUTO_UPDATE=0
-    export PATH=/opt/homebrew/bin:$PATH
-
-    # editor
-    export EDITOR=nvim
-
-    # export JAVA_HOME=/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home
-    # export PATH=$JAVA_HOME/bin:$PATH
-
-    # android
-    export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
-else
-    # linux
-    export PATH="$HOME/.local/bin:$PATH"
-    # snap
-    export PATH="$PATH:/snap/bin"
-    # cargo 
-    export PATH="$HOME/.cargo/bin:$PATH"
-fi
-
-# personal utils function: toggle theme
-# need to manullay restart alacritty. not a big trouble as I am using tmux.
+# --- personal utils function: toggle theme
 toggle_theme() {
     local mode="$1"
     local theme_dir="$HOME/.config/alacritty/themes"
@@ -248,3 +174,110 @@ update_zinit() {
 
     echo -e "\n✅ Zinit 更新完成！"
 }
+
+
+clean_zsh_history() {
+    local hist_file="${HISTFILE:-$HOME/.zsh_history}"
+    local tmp_file="${hist_file}.tmp"
+
+    cp $hist_file ~/.zsh_history.bak
+
+    # - awk -F';': split on ; 
+    # - !x[$2]++: dudupe command
+    tail -r "$hist_file" | awk -F';' '!x[$2]++' | tail -r > "$tmp_file"
+    # tail -r "$hist_file" | awk '!x[$0]++' | tail -r > "$tmp_file"
+
+
+    mv "$tmp_file" "$hist_file"
+    fc -R "$hist_file"
+
+    echo "✅ Cleaned zsh history: duplicates removed."
+    echo "📁 Backup at ~/.zsh_history.bak"
+}
+
+# --- keybindings/keymap
+# auto completion
+bindkey '^f' autosuggest-accept
+# using emac bindings
+bindkey -e
+
+# ctrl + p/n
+bindkey "^p" history-beginning-search-backward
+bindkey "^n" history-beginning-search-forward
+
+# ctrl + left/right arrow to move by word
+bindkey "^[[1;5D" backward-word
+bindkey "^[[1;5C" forward-word
+
+# --- history settings
+# Maximum lines kept in memory (set to a large number like 1 million or more)
+export HISTSIZE=10000
+# Maximum lines saved to $HISTFILE (set to the same large number)
+export SAVEHIST=10000
+# Write to the history file immediately, not when the shell exits
+setopt INC_APPEND_HISTORY
+# Share history between all sessions
+setopt SHARE_HISTORY
+# Record the time when each command was executed along with the command itself
+setopt EXTENDED_HISTORY
+# Do not record an event that was just recorded again
+setopt HIST_IGNORE_DUPS
+# Delete an old recorded event if a new event is a duplicate
+# setopt HIST_IGNORE_ALL_DUPS
+# Do not display a previously found event (I use fzf, disable it for now)
+# setopt HIST_FIND_NO_DUPS
+# **Do not record an event** that starting with a space, useful for ignore sensitive commands
+setopt HIST_IGNORE_SPACE
+
+# flush history on exit
+# exit_zsh() {
+#   fc -W
+# }
+# 
+# # add zsh hook
+# add-zsh-hook zshexit exit_zsh
+
+# --- alias
+# colors
+alias ls='ls --color=auto -hv'
+alias grep='grep --color=auto'
+alias diff='diff --color=auto'
+alias ip='ip -c=auto'
+
+
+# --- envs
+export LANG=en_US.UTF-8
+
+# OS specific
+if [[ $(uname) == "Darwin" ]]; then
+    # ruby
+    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+    export GEM_HOME=$HOME/.gem/ruby/3.3.0
+    export PATH=$GEM_HOME/bin:$PATH
+
+    # homebrew
+    # disable homebrew auto update
+    export HOMEBREW_NO_AUTO_UPDATE=0
+    export PATH=/opt/homebrew/bin:$PATH
+
+    # editor
+    export EDITOR=nvim
+
+    # export JAVA_HOME=/Library/Java/JavaVirtualMachines/microsoft-17.jdk/Contents/Home
+    # export PATH=$JAVA_HOME/bin:$PATH
+
+    # android
+    export PATH="$HOME/Library/Android/sdk/platform-tools:$PATH"
+else
+    # linux
+    export PATH="$HOME/.local/bin:$PATH"
+    # snap
+    export PATH="$PATH:/snap/bin"
+    # cargo 
+    export PATH="$HOME/.cargo/bin:$PATH"
+fi
+
+# --- extension
+if [[ -f "$HOME/.zsh-local" ]]; then
+   source "$HOME/.zsh-local" 
+fi
