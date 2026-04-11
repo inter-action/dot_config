@@ -45,8 +45,9 @@ return {
                     keymaps = {
                         init_selection = '<c-space>',
                         node_incremental = '<c-space>',
-                        scope_incremental = '<c-s>',
-                        node_decremental = '<M-space>',
+                        scope_incremental = '<c-s>', -- block scope, if/while block etc...
+                        -- node_decremental = '<M-space>',
+                        node_decremental = '<bs>', -- delete key
                     },
                 },
                 textobjects = {

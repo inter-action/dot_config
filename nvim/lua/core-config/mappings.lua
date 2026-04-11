@@ -1,3 +1,6 @@
+-- view all map-modes
+-- :h map-modes
+
 -- Key mappings: prefer `vim.keymap.set` and descriptive `desc` fields
 local utils = require('lua-utils')
 local extends = utils.extends
