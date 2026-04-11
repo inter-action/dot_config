@@ -14,6 +14,16 @@ return {
         { ',', mode = { 'n' }, '', desc = 'ignore this key' },
 
         {
+            'S',
+            mode = { 'n' },
+            function()
+                require('flash').jump {
+                    search = { wrap = false, multi_window = true },
+                }
+            end,
+            desc = 'Flash',
+        },
+        {
             '<leader><leader>w',
             mode = { 'n' },
             function()
@@ -21,7 +31,7 @@ return {
                     search = { forward = true, wrap = false, multi_window = false },
                 }
             end,
-            desc = 'Flash',
+            desc = 'Flash jump forward',
         },
         {
             '<leader><leader>b',
@@ -33,15 +43,17 @@ return {
             end,
             desc = 'Flash',
         },
-        -- open treesitter
-        {
-            'S',
-            mode = { 'n', 'x', 'o' },
-            function()
-                require('flash').treesitter()
-            end,
-            desc = 'Flash Treesitter',
-        },
+
+        -- open treesitter, outwards from current node
+        -- prefer: treesitter plugin, to init selection
+        -- {
+        --     'S',
+        --     mode = { 'n', 'x', 'o' },
+        --     function()
+        --         require('flash').treesitter()
+        --     end,
+        --     desc = 'Flash Treesitter',
+        -- },
         -- keymap mode: o, object mode
         -- keymap mode: x, visual mode
         -- see: mapmode for help
@@ -53,6 +65,8 @@ return {
         --
         -- prefer jump then use `` to jump back
         -- { "r", mode = "o", function() require("flash").remote() end, desc = "Remote Flash" },
+
+        -- yR<char>
         {
             'R',
             mode = { 'o', 'x' },
