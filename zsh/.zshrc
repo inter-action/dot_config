@@ -113,7 +113,7 @@ toggle_theme() {
         dark)
             ln -sf "$theme_dir/nightfox.toml" "$current_theme"
             touch ~/.config/alacritty/alacritty.toml
-            ln -sf "$sharship_dir/nightfox.toml" "$sharship_current"
+            # ln -sf "$sharship_dir/nightfox.toml" "$sharship_current"
             # nvim & tmux
             export NVIM_THEME=nightfox
             # send keys to force theme change via tmux send-keys
@@ -130,7 +130,7 @@ toggle_theme() {
         light)
             ln -sf "$theme_dir/dayfox.toml" "$current_theme"
             touch ~/.config/alacritty/alacritty.toml
-            ln -sf "$sharship_dir/dayfox.toml" "$sharship_current"
+            # ln -sf "$sharship_dir/dayfox.toml" "$sharship_current"
             # nvim & tmux
             export NVIM_THEME=dayfox
             tmux list-panes -a -F '#{pane_id} #{pane_current_command}' | \
