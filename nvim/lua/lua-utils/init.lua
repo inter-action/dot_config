@@ -54,6 +54,56 @@ local function move_cursor_up(lines)
     vim.api.nvim_feedkeys(tostring(lines) .. 'k', 'n', false)
 end
 
+function M.has_visual_selection()
+    local mode = vim.fn.mode()
+
+    -- visul mode (v, V, Ctrl-V)
+    if mode == 'v' or mode == 'V' or mode == '' then
+        return true
+    end
+
+    -- if not in visual mode，check last slection still valid
+    local start_pos = vim.fn.getpos("'<")
+    local end_pos = vim.fn.getpos("'>")
+
+    return start_pos[2] ~= 0 and end_pos[2] ~= 0
+end
+
+-- get visual mode coordinates
+-- returns: start_row, start_col, end_row, end_col (0-based)
+function M.get_visual_range()
+    -- return value of vim.fn.getpos
+    -- pos = [
+    --   1,   ← buffer no
+    --   10,  ← line num
+    --   5,   ← col num
+    --   0    ← offset
+    -- ]
+    local start = vim.fn.getpos("'<")
+    local end_ = vim.fn.getpos("'>")
+
+    local start_row = start[2] - 1
+    local start_col = start[3] - 1
+    local end_row = end_[2] - 1
+    local end_col = end_[3]
+
+    return start_row, start_col, end_row, end_col
+end
+
+-- visual text (using '< and '>)
+function M.get_visual_selection_text()
+    start_row, start_col, end_row, end_col = M.get_visual_range()
+    local lines = vim.api.nvim_buf_get_text(0, start_row, start_col, end_row, end_col, {})
+
+    return table.concat(lines, '\n')
+end
+
+-- replace visual text
+function M.replace_visual_selection_text(new_text)
+    start_row, start_col, end_row, end_col = M.get_visual_range()
+    vim.api.nvim_buf_set_text(0, start_row, start_col, end_row, end_col, vim.split(new_text, '\n'))
+end
+
 -- Example usage: Move the cursor up by 5 lines
 -- vim.keymap.set('n', '<leader>k', function()
 --   move_cursor_up(5)
