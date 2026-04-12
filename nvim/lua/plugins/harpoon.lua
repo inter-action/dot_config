@@ -23,12 +23,12 @@ local config = function()
     -- mark
     vim.keymap.set('n', ';m', function()
         harpoon_mark.add_file()
-    end, extends(slicent_opts, { desc = 'harpoon add file' }))
+    end, extends(slicent_opts, { desc = 'harpoon: add file' }))
 
     -- list
     vim.keymap.set('n', ';l', function()
         harpoon_ui.toggle_quick_menu()
-    end, extends(slicent_opts, { desc = 'harpoon list' }))
+    end, extends(slicent_opts, { desc = 'harpoon: list' }))
 end
 
 return {

@@ -4,7 +4,7 @@ local o = vim.opt
 
 o.hidden = true -- allow background buffers
 o.mouse = 'a' -- enable mouse
-o.timeoutlen = 2000
+o.timeoutlen = 300 -- short the wait time for same keybinding eg. `;rr` and `;r`, `;r` will wait the timeout before triggering
 o.autoread = true
 o.signcolumn = 'yes'
 o.encoding = 'utf-8'
