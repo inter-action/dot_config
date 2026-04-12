@@ -8,22 +8,32 @@ local config = function()
     local harpoon_mark = require('harpoon.mark')
     local harpoon_ui = require('harpoon.ui')
 
-    local opts = { silent = false, noremap = true }
+    -- 80% width
+    local width = math.min(120, math.floor(vim.api.nvim_win_get_width(0) * 0.8))
+    require('harpoon').setup {
+        menu = {
+            -- width = vim.api.nvim_win_get_width(0) - 4,
+            width = width,
+        },
+    }
+
+    -- local opts = { silent = false, noremap = true }
     local slicent_opts = { silent = true }
 
     -- mark
-    utils.map_func('n', ';m', function()
+    vim.keymap.set('n', ';m', function()
         harpoon_mark.add_file()
     end, extends(slicent_opts, { desc = 'harpoon add file' }))
 
     -- list
-    utils.map_func('n', ';l', function()
+    vim.keymap.set('n', ';l', function()
         harpoon_ui.toggle_quick_menu()
     end, extends(slicent_opts, { desc = 'harpoon list' }))
 end
 
 return {
     'ThePrimeagen/harpoon',
-    enabled = false,
+    enabled = true,
     config = config,
+    dependencies = { 'nvim-lua/plenary.nvim' },
 }
