@@ -5,8 +5,6 @@ return {
     config = function()
         local gs = require('gitsigns')
         local on_attach = function(bufnr)
-            -- local gs = package.loaded.gitsigns
-
             local function map(mode, l, r, opts)
                 -- default options in lua
                 opts = opts or {}
@@ -15,25 +13,25 @@ return {
             end
 
             -- Navigation
-            map('n', ']c', function()
+            map('n', ']g', function()
                 if vim.wo.diff then
-                    return ']c'
+                    return ']g'
                 end
                 vim.schedule(function()
                     gs.next_hunk()
                 end)
                 return '<Ignore>'
-            end, { expr = true })
+            end, { expr = true, desc = 'Git: next_hunk' })
 
-            map('n', '[c', function()
+            map('n', '[g', function()
                 if vim.wo.diff then
-                    return '[c'
+                    return '[g'
                 end
                 vim.schedule(function()
                     gs.prev_hunk()
                 end)
                 return '<Ignore>'
-            end, { expr = true })
+            end, { expr = true, desc = 'Git: prev_hunk' })
         end
 
         gs.setup {
