@@ -1,3 +1,27 @@
+# --- start: Homebrew Quiet Mode: Disable All Automatic Behavior
+# Disable automatic brew update before install/upgrade
+export HOMEBREW_NO_AUTO_UPDATE=1
+# Do not auto-upgrade installed packages during install
+export HOMEBREW_NO_INSTALL_UPGRADE=1
+# Disable automatic cleanup of old versions
+export HOMEBREW_NO_INSTALL_CLEANUP=1
+# Disable automatic API metadata updates
+export HOMEBREW_NO_API_AUTO_UPDATE=1
+# Disable cask auto-updater background checks
+export HOMEBREW_NO_CASK_UPDATER=1
+# Disable tap migration files download (formula_tap_migrations.jws.json & cask_tap_migrations.jws.json)
+export HOMEBREW_NO_INSTALL_MIGRATIONS=1
+# Disable Homebrew analytics / telemetry
+export HOMEBREW_NO_ANALYTICS=1
+# Prevent Homebrew from opening the browser automatically
+export HOMEBREW_NO_BROWSER=1
+# Optional: Disable colors (remove if you want colored output)
+# export HOMEBREW_NO_COLOR=1
+
+# Optional: Disable progress spinner
+# export HOMEBREW_NO_PROGRESS=1
+# --- end: Homebrew Quiet Mode: Disable All Automatic Behavior
+
 # setting $PATH at top level to make source $(fzf --zsh) works by ensuring that fzf bin is reachable
 # OS specific
 if [[ $(uname) == "Darwin" ]]; then
