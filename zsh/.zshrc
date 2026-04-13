@@ -1,3 +1,11 @@
+# setting $PATH at top level to make source $(fzf --zsh) works by ensuring that fzf bin is reachable
+# OS specific
+if [[ $(uname) == "Darwin" ]]; then
+    export PATH=/opt/homebrew/bin:$PATH
+else
+    # linux
+fi
+
 # --- enable completion
 autoload -Uz compinit && compinit -d ~/.cache/zcompdump-$HOST
 
@@ -32,12 +40,20 @@ fi
 #           atpull"%atclone" src"init.zsh"
 # zinit load starship/starship
 
-# add zinit packages
+# --- zinit: add zinit packages
 zinit light zsh-users/zsh-syntax-highlighting
-zinit light zsh-users/zsh-completions
 zinit light zsh-users/zsh-autosuggestions
 
-#Refresh Zsh completions instantly
+# auto completion
+# prefer fzf-tab for completion
+# tips: 
+#   - <C-space>     - select multiple results, can be configured by fzf-bindings tag
+#   - <F1> or <F2>  - switch between groups, can be configured by switch-group tag
+zinit light Aloxaf/fzf-tab
+# zinit light zsh-users/zsh-completions
+
+
+# Refresh Zsh completions instantly
 zinit cdreplay -q
 
 
@@ -58,18 +74,13 @@ zinit cdreplay -q
 # load plugin locally
 zinit snippet "$ZSH/plugins/git/git.plugin.zsh"
 zinit snippet "$ZSH/plugins/rsync/rsync.plugin.zsh"
-zinit snippet "$ZSH/plugins/fzf/fzf.plugin.zsh"
+# prefer shell integration by the binary
+# zinit snippet "$ZSH/plugins/fzf/fzf.plugin.zsh"
+# zinit snippet "$ZSH/plugins/starship/starship.plugin.zsh"
 zinit snippet "$ZSH/plugins/kubectl/kubectl.plugin.zsh"
 zinit snippet "$ZSH/plugins/uv/uv.plugin.zsh"
-zinit snippet "$ZSH/plugins/starship/starship.plugin.zsh"
 zinit snippet "$ZSH/plugins/nvm/nvm.plugin.zsh"
 
-
-# load plugin manullay
-#
-# plugin fzf
-#   load fzf (no need, by above zsh plugin)
-# [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 
 # plugin kubectl
@@ -78,10 +89,10 @@ zinit snippet "$ZSH/plugins/nvm/nvm.plugin.zsh"
 # fi
 
 # --- start ship (loaded by zsh plugin above)
-# eval "$(starship init zsh)"
+eval "$(starship init zsh)"
 
 # --- fzf configuration
-export FZF_DEFAULT_COMMAND='fd --type f'
+export FZF_DEFAULT_COMMAND='fd --type f --strip-cwd-prefix --hidden --follow --exclude .git'
 export FZF_DEFAULT_OPTS='--height 40% --layout=reverse --border'
 # Use ~~ as the trigger sequence instead of the default **
 export FZF_COMPLETION_TRIGGER='~~'
@@ -90,13 +101,15 @@ export FZF_COMPLETION_TRIGGER='~~'
 # - The first argument to the function ($1) is the base path to start traversal
 # - See the source code (completion.{bash,zsh}) for the details.
 _fzf_compgen_path() {
-  fd --hidden --follow --exclude ".git" . "$1"
+    fd --hidden --follow --exclude ".git" . "$1"
 }
 
 # Use fd to generate the list for directory completion
 _fzf_compgen_dir() {
-  fd --type d --hidden --follow --exclude ".git" . "$1"
+    fd --type d --hidden --follow --exclude ".git" . "$1"
 }
+
+source <(fzf --zsh)
 # --- end:fzf
 
 
@@ -172,9 +185,17 @@ update_zinit() {
     zinit delete --clean
     zinit cdreplay
 
-    echo -e "\n✅ Zinit 更新完成！"
+    echo -e "\n ✅ Zinit update done"
 }
 
+
+zsh_rebuild() {
+    rm -f ~/.zcompdump*
+    rm -rf ~/.local/share/zinit/completions 
+    mkdir -p ~/.local/share/zinit/completions
+    compinit -u
+    echo "✅ Zsh plugins + completion rebuilt"
+}
 
 clean_zsh_history() {
     local hist_file="${HISTFILE:-$HOME/.zsh_history}"
@@ -258,7 +279,6 @@ if [[ $(uname) == "Darwin" ]]; then
     # homebrew
     # disable homebrew auto update
     export HOMEBREW_NO_AUTO_UPDATE=0
-    export PATH=/opt/homebrew/bin:$PATH
 
     # editor
     export EDITOR=nvim
