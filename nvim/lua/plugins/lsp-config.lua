@@ -1,8 +1,12 @@
 -- Diagnostic keymaps
-vim.keymap.set('n', '[e', vim.diagnostic.goto_prev, { desc = 'Go to previous diagnostic message' })
-vim.keymap.set('n', ']e', vim.diagnostic.goto_next, { desc = 'Go to next diagnostic message' })
-vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
-vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
+vim.keymap.set('n', '[e', function()
+    vim.diagnostic.jump { count = -1, float = true }
+end, { desc = 'Go to previous diagnostic message' })
+vim.keymap.set('n', ']e', function()
+    vim.diagnostic.jump { count = 1, float = true }
+end, { desc = 'Go to next diagnostic message' })
+-- vim.keymap.set('n', '<space>e', vim.diagnostic.open_float, { desc = 'Open floating diagnostic message' })
+-- vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, { desc = 'Open diagnostics list' })
 
 vim.api.nvim_create_user_command('LspToggleInlayHints', function(opts)
     vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
