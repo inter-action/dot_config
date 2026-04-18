@@ -18,7 +18,7 @@ return {
             mode = { 'n' },
             function()
                 require('flash').jump {
-                    search = { wrap = false, multi_window = true },
+                    -- search = { wrap = false, multi_window = true },
                 }
             end,
             desc = 'Flash',

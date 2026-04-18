@@ -208,6 +208,9 @@ kset('i', '<C-e>', '<End>', { desc = 'Move to End in Insert Mode' })
 kset('i', '<C-a>', '<Home>', { desc = 'Move to Start in Insert Mode' })
 kset('i', '<C-j>', '<Down>', { desc = 'Move cursor down in Insert Mode' })
 kset('i', '<C-k>', '<Up>', { desc = 'Move cursor up in Insert Mode' })
+-- switch to normal mode then delete by a word
+-- use C-w, to do backward
+kset('i', '<C-d>', '<C-o>dw', { desc = 'Delete a word forward' })
 
 -- Window navigation mappings
 kset('n', 's-', '<C-w>s', { desc = 'Split window horizontally' })
