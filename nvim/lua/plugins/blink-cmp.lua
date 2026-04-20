@@ -57,11 +57,11 @@ return {
             },
         },
 
-        appearance = {
-            -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
-            -- Adjusts spacing to ensure icons are aligned
-            nerd_font_variant = 'mono',
-        },
+        -- appearance = {
+        --     -- 'mono' (default) for 'Nerd Font Mono' or 'normal' for 'Nerd Font'
+        --     -- Adjusts spacing to ensure icons are aligned
+        --     nerd_font_variant = 'mono',
+        -- },
 
         -- (Default) Only show the documentation popup when manually triggered
         completion = {
@@ -69,6 +69,8 @@ return {
                 auto_show = true,
                 auto_show_delay_ms = 500,
             },
+            -- upon accept, adding brackets automatically
+            accept = { auto_brackets = { enabled = true } },
         },
 
         -- Default list of enabled providers defined so that you can extend it
@@ -85,8 +87,6 @@ return {
         fuzzy = { implementation = 'prefer_rust_with_warning' },
 
         signature = { enabled = true },
-
-        autopairs = { enabled = true },
     },
     opts_extend = { 'sources.default' },
 }

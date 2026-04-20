@@ -44,13 +44,18 @@ return {
         -- Prefix-exact: Precede with ^ (e.g., ^src).
         -- Suffix-exact: Append $ (e.g., .lua$).
         -- Inverse match: Precede with ! (e.g., !node_modules).
-        kmap('n', ';p', function()
+
+        local function open_files()
             fzflua.files(utils.extends(no_preview_theme, {
                 header = "::match syntax, ::exact '<word> "
                     .. '::prefix ^<word>  ::suffix <word>$ ::inverse !<word> \n' -- break line
                     .. '::toggle hidden <A-h>',
             }))
-        end, { desc = 'Fzf: Find files' })
+        end
+
+        kmap('n', ';p', open_files, { desc = 'Fzf: Find files' })
+        -- for some reason <M-p> not working
+        -- kmap('n', '<M-p>', open_files, { desc = 'Fzf: Find files' })
 
         kmap('n', ';o', function()
             fzflua.oldfiles(no_preview_theme)

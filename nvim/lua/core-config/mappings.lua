@@ -93,6 +93,8 @@ function M.navigate_or_tmux(direction)
     local winid = vim.api.nvim_get_current_win()
     local prev_winid = winid
 
+    -- trigger Esc first
+    -- vim.api.nvim_input("<Esc>")
     -- try switch neovim window first
     if direction == 'h' then
         vim.cmd.wincmd('h')
