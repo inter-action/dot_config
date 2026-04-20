@@ -14,7 +14,7 @@ return {
         { ',', mode = { 'n' }, '', desc = 'ignore this key' },
 
         {
-            'S',
+            's',
             mode = { 'n' },
             function()
                 require('flash').jump {

@@ -254,8 +254,15 @@ kset('n', ':g/', ':g/\\v', { desc = 'Very magic global search' })
 kset('n', ':g//', ':g//', { desc = 'Repeat last global search' })
 
 -- Line navigation mappings
-kset('n', 'j', 'gj', { desc = 'Move down visually' })
-kset('n', 'k', 'gk', { desc = 'Move up visually' })
+-- so only move down wrapped lines when simple `j` key is pressed
+kset({ 'n', 'v' }, 'j', function()
+    -- vim.v.count == 0 if not type 3j
+    -- vim.v.count == vim expression `v:count`
+    return vim.v.count == 0 and 'gj' or 'j'
+end, { expr = true, silent = true, desc = 'Move down visually' })
+kset({ 'n', 'v' }, 'k', function()
+    return vim.v.count == 0 and 'gk' or 'k'
+end, { expr = true, silent = true, desc = 'Move up visually' })
 
 -- ctrl + Left Button to open link
 kset('n', '<C-LeftMouse>', M.open_url_under_cursor, { silent = true, desc = 'Open URL under mouse with Command+Click' })

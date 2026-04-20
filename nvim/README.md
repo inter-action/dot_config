@@ -1,5 +1,13 @@
 ## TODO
 
+## the ESC key
+
+- <C-[>
+    - Ctrl + [: 这是最正统的 Esc 替代方案。在计算机底层，Esc 和 Ctrl + [ 发送的是相同的扫描码。
+- <C-c>
+    - Ctrl + c: 也可以退出插入模式进入普通模式，但它与 Esc 有微小区别：它不会触发 InsertLeave 自动命令（Autocommands），且不会检查缩写（Abbreviations）
+
+
 ## Insert mode
 
 ```
@@ -18,6 +26,25 @@
 <M-j>
 <M-k>
 ```
+
+## navigation
+### jump cursor back to previous position
+
+- 1. The Jump List (Global/Cross-file)
+Neovim maintains a "jump list" of locations you have visited via major motions (like searches, G, or gd).
+    - Jump Back: Press <C-o> (Ctrl + O).
+    - Jump Forward: Press <C-i> (Ctrl + I) or <Tab>.
+    - View List: Type :jumps to see your history. 
+- 2. The Change List (Edit Locations) 
+If you want to return specifically to where you last modified text:
+    - Jump to Previous Change: Press g;.
+    - Jump to Newer Change: Press g,.
+    - Last Insert Position: Press gi to go to the last insertion point and enter Insert Mode immediately. 
+- 3. Immediate Jump (Swap)
+    - To toggle quickly between your current position and the one you just jumped from:
+    - To exact character: Press `` (double backtick).
+    - To start of the line: Press '' (two single quotes)
+
 
 ## Setup
 
