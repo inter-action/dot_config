@@ -1,3 +1,3 @@
 
 fmt:
-	stylua lua
+	stylua --glob lua/**/*.lua

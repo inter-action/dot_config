@@ -1,5 +1,38 @@
+--
+local function open_snippet_file()
+    -- 1. Configuration: Change this to your actual snippet folder path
+    local snippet_dir = vim.fn.stdpath('config') .. '/lua/snippets/'
+
+    -- 2. Get current filetype (e.g., "lua", "rust", "python")
+    local ft = vim.bo.filetype
+    if ft == '' then
+        vim.notify('No filetype detected for current buffer.')
+        return
+    end
+
+    -- 3. Construct paths
+    local target_file = snippet_dir .. ft .. '.lua'
+    local fallback_file = snippet_dir .. 'all.lua'
+
+    -- 4. Check if the specific snippet file exists
+    if vim.fn.filereadable(target_file) == 1 then
+        vim.cmd('edit ' .. target_file)
+    elseif vim.fn.filereadable(fallback_file) == 1 then
+        vim.notify("Snippet for '" .. ft .. "' not found. Opening all.lua instead.")
+        vim.cmd('edit ' .. fallback_file)
+    else
+        vim.notify('Neither ' .. ft .. '.lua nor all.lua found in ' .. snippet_dir .. '\nPls create that file first.')
+    end
+end
+
+-- Create the user command
+vim.api.nvim_create_user_command('SnippetEdit', open_snippet_file, {
+    desc = 'Open the LuaSnip file for the current filetype',
+})
+
 -- https://tui.ninja/neovim/customizing/user_commands/creating/
 -- change tabwidth with one command
+
 vim.api.nvim_create_user_command('ChangeTabWidth', function(opts)
     if not opts.args then
         return
@@ -42,5 +75,10 @@ local cmd = vim.api.nvim_create_user_command
 
 -- Reload Neovim config
 cmd('ReloadConfig', 'source $MYVIMRC', {})
+
+-- Create the user command
+vim.api.nvim_create_user_command('SnippetEdit', open_snippet_file, {
+    desc = 'Open the LuaSnip file for the current filetype',
+})
 
 return true
