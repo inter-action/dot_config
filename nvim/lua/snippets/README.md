@@ -1,4 +1,6 @@
 
+see [examples](https://github.com/L3MON4D3/LuaSnip/blob/master/Examples/snippets.lua#L190) for more examples about config snippets
+
 ## debug
 
 ```
