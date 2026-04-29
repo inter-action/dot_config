@@ -53,13 +53,20 @@ vim.api.nvim_create_user_command('AlignTextByChar', function(opts)
 
     local char = opts.args
 
-    if opts.range == 0 then
+    if #char == 0 then
         return
     end
 
-    local cmd = ":'<,'>!column -t -s " .. char .. ' -o ' .. "'" .. char .. "'"
-    vim.api.nvim_command(cmd)
-end, { nargs = 1, range = true })
+    -- Escape the character so '#' or '%' don't trigger Vim expansions
+    local escaped_char = vim.fn.fnameescape(char)
+
+    -- local cmd = string.format("column -t -s '%s' -o '%s'", char, char)
+    -- -o option isn't supported by macos
+    local cmd = string.format("column -t -s '%s'", escaped_char, escaped_char)
+
+    -- Apply it to the current visual range
+    vim.cmd(string.format("'<,'>!%s", cmd))
+end, { range = true, nargs = 1 })
 
 -- Moved from init.vim
 -- Add any additional commands here

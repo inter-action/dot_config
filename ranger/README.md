@@ -1,0 +1,3 @@
+- installation
+    - `brew install ranger`
+- see `:Man ranger` or `<F1>`
