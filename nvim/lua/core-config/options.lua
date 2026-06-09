@@ -2,6 +2,7 @@
 -- Use sensible defaults and avoid global side-effects where possible
 local o = vim.opt
 
+o.autocomplete = false -- builtin autocomplete, conflicts with blink.cmp, so explicitly disabled here
 o.hidden = true -- allow background buffers
 o.mouse = 'a' -- enable mouse
 o.timeoutlen = 300 -- short the wait time for same keybinding eg. `;rr` and `;r`, `;r` will wait the timeout before triggering
