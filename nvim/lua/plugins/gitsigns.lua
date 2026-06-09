@@ -64,11 +64,12 @@ local function FzfIntegration()
 
     -- Create the Neovim user command
     vim.api.nvim_create_user_command('GitsignsFzfCommands', fzf_gitsigns_commands, {})
+    -- prefer commands in fzf ?
+    fzf.register_extension('gitsigns_commands', fzf_gitsigns_commands)
 
     -- Keymap to trigger the picker (e.g., <leader>gc for "Git Commands")
     vim.keymap.set('n', ';g', ':GitsignsFzfCommands<CR>', { desc = 'Fuzzy find Gitsigns actions' })
 
-    fzf.register_extension('gitsigns_commands', fzf_gitsigns_commands)
 end
 
 return {
