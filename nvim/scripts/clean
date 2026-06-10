@@ -1,0 +1,15 @@
+#!/bin/bash
+
+# Remove config
+# rm -rf ~/.config/nvim
+
+# Remove plugin/data
+rm -rf ~/.local/share/nvim
+
+# Remove cache
+rm -rf ~/.cache/nvim
+
+# Optional: Remove state files
+rm -rf ~/.local/state/nvim
+
+echo "clean done"
