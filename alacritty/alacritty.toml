@@ -71,7 +71,9 @@ bindings = [
     { key = "-", mods = "Control", action="DecreaseFontSize" },
     { key = "0", mods = "Control", action="ResetFontSize" },
 # new window
-    { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" }
+    { key = "N", mods = "Control|Shift", action = "SpawnNewInstance" },
+# fix Shift-Enter. for neovim to distinguish Shift-Enter from Enter
+    { key = "Enter", mods = "Shift", chars="\u001b[13;2u"}
     ## { key = "i", mods = "Control | Shift", action="ToggleViMode" },
 # not working
 #{ key = "t", mods = "Super", action="CreateNewTab" },

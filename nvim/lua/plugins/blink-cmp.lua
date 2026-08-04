@@ -31,18 +31,18 @@ return {
         opts = {
             -- see h: blink
             keymap = {
-                ['<C-u>'] = {
-                    function(cmp)
-                        return cmp.scroll_documentation_up(4)
-                    end,
-                    'fallback',
-                },
-                ['<C-d>'] = {
-                    function(cmp)
-                        return cmp.scroll_documentation_down(4)
-                    end,
-                    'fallback',
-                },
+                -- ['<C-u>'] = {
+                --     function(cmp)
+                --         return cmp.scroll_documentation_up(4)
+                --     end,
+                --     'fallback',
+                -- },
+                -- ['<C-d>'] = {
+                --     function(cmp)
+                --         return cmp.scroll_documentation_down(4)
+                --     end,
+                --     'fallback',
+                -- },
                 ['<Tab>'] = {
                     'snippet_forward',
                     function(cmp)
@@ -56,7 +56,7 @@ return {
                 },
                 ['<CR>'] = {
                     function(cmp)
-                        return cmp.select_and_accept()
+                        return cmp.accept()
                     end,
                     'fallback',
                 },
@@ -85,6 +85,13 @@ return {
                 },
                 -- upon accept, adding brackets automatically
                 accept = { auto_brackets = { enabled = true } },
+                -- control auto select behavior on auto-completion dropdown list
+                list = {
+                    selection = {
+                        preselect = false,
+                        auto_insert = false
+                    }
+                }
             },
 
             snippets = { preset = 'luasnip' },
