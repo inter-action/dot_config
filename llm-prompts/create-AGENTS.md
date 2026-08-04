@@ -1,7 +1,7 @@
 
 ## descriptions
 
-this file is used to create global rules for coding agents. pls follow instructions under the actions section.
+this file is used to create global rules for a coding agents. pls follow instructions under the actions section.
 
 
 ## actions
