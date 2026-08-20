@@ -216,21 +216,37 @@ kset('i', '<C-d>', '<C-o>dw', { desc = 'Delete a word forward' })
 -- Shift-Enter - new line below at anywhere
 kset('i', '<S-CR>', '<C-o>o', { desc = 'Adding New line' })
 
--- Window navigation mappings
-kset('n', 's-', '<C-w>s', { desc = 'Split window horizontally' })
-kset('n', 's\\', '<C-w>v', { desc = 'Split window vertically' })
+-- Window mappings
 kset('n', '<C-w>-', '<C-w>s', { desc = 'Split window horizontally (alternative)' })
 kset('n', '<C-w>\\', '<C-w>v', { desc = 'Split window vertically (alternative)' })
-kset('n', 'sc', '<C-w>c', { desc = 'Close window' })
-kset('n', 'ss', '<C-w>w', { desc = 'Switch window' })
-kset('n', 'sh', '<C-w>h', { desc = 'Move to left window' })
-kset('n', 'sl', '<C-w>l', { desc = 'Move to right window' })
-kset('n', 'sj', '<C-w>j', { desc = 'Move to bottom window' })
-kset('n', 'sk', '<C-w>k', { desc = 'Move to top window' })
 kset('n', '<C-w><Left>', '<C-w>5<', { desc = 'Resize window left' })
 kset('n', '<C-w><Right>', '<C-w>5>', { desc = 'Resize window right' })
 kset('n', '<C-w><Up>', '<C-w>5+', { desc = 'Resize window up' })
 kset('n', '<C-w><Down>', '<C-w>5-', { desc = 'Resize window down' })
+
+-- window mappings / navigation: with tmux integration, using ALT+h/j/k/l to switch pane/window
+kset('n', '<A-h>', function()
+    M.navigate_or_tmux('h')
+end, { silent = true })
+kset('n', '<A-j>', function()
+    M.navigate_or_tmux('j')
+end, { silent = true })
+kset('n', '<A-k>', function()
+    M.navigate_or_tmux('k')
+end, { silent = true })
+kset('n', '<A-l>', function()
+    M.navigate_or_tmux('l')
+end, { silent = true })
+
+-- use Alt-<hijk> to navigate
+-- kset('n', 's-', '<C-w>s', { desc = 'Split window horizontally' })
+-- kset('n', 's\\', '<C-w>v', { desc = 'Split window vertically' })
+-- kset('n', 'sc', '<C-w>c', { desc = 'Close window' })
+-- kset('n', 'ss', '<C-w>w', { desc = 'Switch window' })
+-- kset('n', 'sh', '<C-w>h', { desc = 'Move to left window' })
+-- kset('n', 'sl', '<C-w>l', { desc = 'Move to right window' })
+-- kset('n', 'sj', '<C-w>j', { desc = 'Move to bottom window' })
+-- kset('n', 'sk', '<C-w>k', { desc = 'Move to top window' })
 
 -- Clipboard yank mapping
 kset('v', '<leader>y', '"+y', { silent = true, desc = 'Yank to system clipboard' })
@@ -274,18 +290,6 @@ kset('n', '<C-LeftMouse>', M.open_url_under_cursor, { silent = true, desc = 'Ope
 -- reload lua config
 kset('n', '<leader>R', M.reload_current_file, { desc = 'reload current lua file', silent = true })
 
--- tmux integration, using ALT+h/j/k/l to switch pane
-kset('n', '<A-h>', function()
-    M.navigate_or_tmux('h')
-end, { silent = true })
-kset('n', '<A-j>', function()
-    M.navigate_or_tmux('j')
-end, { silent = true })
-kset('n', '<A-k>', function()
-    M.navigate_or_tmux('k')
-end, { silent = true })
-kset('n', '<A-l>', function()
-    M.navigate_or_tmux('l')
-end, { silent = true })
+
 -- Return true for tests/require checks
 return M
