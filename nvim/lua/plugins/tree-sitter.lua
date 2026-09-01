@@ -9,27 +9,39 @@ return {
         },
         config = function()
             local ts = require('nvim-treesitter')
-            ts.setup({
+            ts.setup {
                 -- Automatically install and maintain these language parsers
                 ensure_installed = {
-                    'c', 'cpp', 'rust', 'vim', 'lua', 'python', 'go',
-                    'typescript', 'javascript', 'tsx', 'toml', 'json',
-                    'html', 'markdown', 'markdown_inline'
+                    'c',
+                    'cpp',
+                    'rust',
+                    'vim',
+                    'lua',
+                    'python',
+                    'go',
+                    'typescript',
+                    'javascript',
+                    'tsx',
+                    'toml',
+                    'json',
+                    'html',
+                    'markdown',
+                    'markdown_inline',
                 },
                 -- Disable plugin-built highlight & indent (Neovim 0.12 uses native Treesitter)
                 highlight = { enable = false },
                 indent = { enable = false },
-            })
+            }
 
             -- Incremental Treesitter selection keymaps (native Neovim 0.12 features)
             vim.keymap.set('n', '<c-space>', 'v', { desc = 'Start visual selection' })
-            -- remap = true, 
-            --  Enables recursive mapping resolution. Neovim interprets `an` as 
+            -- remap = true,
+            --  Enables recursive mapping resolution. Neovim interprets `an` as
             --  an existing defined mapping (Neovim 0.12 native treesitter text-object),
             --  executes its actual behavior (expand syntax node).
-            vim.keymap.set('v', '<c-space>', 'an', { desc = 'Expand syntax node', remap = true, })
+            vim.keymap.set('v', '<c-space>', 'an', { desc = 'Expand syntax node', remap = true })
             -- vim.keymap.set('v', '<c-s>', 'as', { desc = 'Expand syntax scope', remap = true, })
-            vim.keymap.set('v', '<bs>', 'in', { desc = 'Shrink syntax node', remap = true, })
+            vim.keymap.set('v', '<bs>', 'in', { desc = 'Shrink syntax node', remap = true })
 
             -- Disable Treesitter for vimdoc and large JavaScript files
             vim.api.nvim_create_autocmd('FileType', {
@@ -59,10 +71,10 @@ return {
         'nvim-treesitter/nvim-treesitter-context',
         dependencies = { 'nvim-treesitter/nvim-treesitter' },
         config = function()
-            require('treesitter-context').setup({
+            require('treesitter-context').setup {
                 enable = true,
                 max_lines = 3,
-            })
+            }
         end,
     },
 }

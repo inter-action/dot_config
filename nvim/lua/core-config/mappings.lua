@@ -287,9 +287,16 @@ end, { expr = true, silent = true, desc = 'Move up visually' })
 -- ctrl + Left Button to open link
 kset('n', '<C-LeftMouse>', M.open_url_under_cursor, { silent = true, desc = 'Open URL under mouse with Command+Click' })
 
+-- double click to toggle fold
+kset({ 'n', 'v' }, '<2-LeftMouse>', function()
+    -- Toggle fold if the line is part of a foldable block
+    if vim.fn.foldlevel('.') > 0 then
+        vim.cmd('normal! za')
+    end
+end, { desc = 'Toggle fold on double click without selection', silent = true })
+
 -- reload lua config
 kset('n', '<leader>R', M.reload_current_file, { desc = 'reload current lua file', silent = true })
-
 
 -- Return true for tests/require checks
 return M

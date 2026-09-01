@@ -69,7 +69,6 @@ local function FzfIntegration()
 
     -- Keymap to trigger the picker (e.g., <leader>gc for "Git Commands")
     vim.keymap.set('n', ';g', ':GitsignsFzfCommands<CR>', { desc = 'Fuzzy find Gitsigns actions' })
-
 end
 
 return {
