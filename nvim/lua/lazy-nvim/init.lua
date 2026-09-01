@@ -25,7 +25,7 @@ lazy.setup {
         { import = 'plugins' },
     },
     change_detection = { enabled = false },
-    install = { colorscheme = { 'habamax' } },
+    -- install = { colorscheme = { 'habamax' } },
     checker = { enabled = false },
     rocks = { enabled = false },
 }

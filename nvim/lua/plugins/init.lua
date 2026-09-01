@@ -49,6 +49,7 @@ return {
     ---- theme
     {
         'EdenEast/nightfox.nvim',
+        lazy = false,
         config = function()
             require('nightfox').setup {
                 groups = {

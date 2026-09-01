@@ -300,6 +300,9 @@ if [[ $(uname) == "Darwin" ]]; then
     export GEM_HOME=$HOME/.gem/ruby/3.3.0
     export PATH=$GEM_HOME/bin:$PATH
 
+    # uv tool requires this
+    export PATH="$HOME/.local/bin:$PATH"
+
     # homebrew
     # disable homebrew auto update
     export HOMEBREW_NO_AUTO_UPDATE=0
